@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,6 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $activated;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="user")
+     */
+    private $commentary;
+
+    public function __construct()
+    {
+        $this->commentary = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -171,6 +183,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActivated(bool $activated): self
     {
         $this->activated = $activated;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentary[]
+     */
+    public function getCommentary(): Collection
+    {
+        return $this->commentary;
+    }
+
+    public function addCommentary(Commentary $commentary): self
+    {
+        if (!$this->commentary->contains($commentary)) {
+            $this->commentary[] = $commentary;
+            $commentary->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentary $commentary): self
+    {
+        if ($this->commentary->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getUser() === $this) {
+                $commentary->setUser(null);
+            }
+        }
 
         return $this;
     }
