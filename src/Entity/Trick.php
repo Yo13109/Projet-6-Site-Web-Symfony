@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FiguresRepository;
+use App\Repository\TrickRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=FiguresRepository::class)
+ * @ORM\Entity(repositoryClass=TrickRepository::class)
  */
-class Figures
+class Trick
 {
     /**
      * @ORM\Id
@@ -18,14 +18,9 @@ class Figures
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $content;
+    private $name;
 
     /**
      * @ORM\Column(type="datetime")
@@ -40,7 +35,18 @@ class Figures
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $content;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -55,18 +61,6 @@ class Figures
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
 
         return $this;
     }
@@ -95,6 +89,18 @@ class Figures
         return $this;
     }
 
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -103,6 +109,18 @@ class Figures
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
