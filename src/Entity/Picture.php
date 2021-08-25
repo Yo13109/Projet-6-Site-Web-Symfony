@@ -28,9 +28,11 @@ class Picture
     private $main;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="picture")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
      */
-    private $trick;
+    private $tricks;
+
+    
 
     public function getId(): ?int
     {
@@ -61,15 +63,17 @@ class Picture
         return $this;
     }
 
-    public function getTrick(): ?Trick
+    public function getTricks(): ?Trick
     {
-        return $this->trick;
+        return $this->tricks;
     }
 
-    public function setTrick(?Trick $trick): self
+    public function setTricks(?Trick $tricks): self
     {
-        $this->trick = $trick;
+        $this->tricks = $tricks;
 
         return $this;
     }
+
+    
 }

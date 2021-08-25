@@ -57,9 +57,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentary;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="users")
+     */
+    private $tricks;
+
     public function __construct()
     {
         $this->commentary = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +217,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commentary->getUser() === $this) {
                 $commentary->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->removeElement($trick)) {
+            // set the owning side to null (unless already changed)
+            if ($trick->getUsers() === $this) {
+                $trick->setUsers(null);
             }
         }
 

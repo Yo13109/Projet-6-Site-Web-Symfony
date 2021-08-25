@@ -28,14 +28,14 @@ class Commentary
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="commentary")
-     */
-    private $trick;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentary")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
+     */
+    private $trick;
 
     public function getId(): ?int
     {
@@ -66,18 +66,6 @@ class Commentary
         return $this;
     }
 
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
-
-    public function setTrick(?Trick $trick): self
-    {
-        $this->trick = $trick;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -86,6 +74,18 @@ class Commentary
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): self
+    {
+        $this->trick = $trick;
 
         return $this;
     }
