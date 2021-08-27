@@ -21,7 +21,8 @@ class BlogFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
 
         //Creer 3 catégories fakées
-        for ($i = 1, $i <= 3, $i++ ) {
+
+        for ($i = 1; $i <= 3;$i++){
 
              $category = new Category();
              $category -> setName($faker->sentence());
@@ -30,7 +31,7 @@ class BlogFixtures extends Fixture
 
    //Creer 3 users fakées
 
-   for($k = 1, $k <= 3, $k++ ) {
+   for($k = 1; $k <= 3; $k++ ) {
        $user = new User();
        $user->setEmail($faker->freeEmail())
             ->setAvatar($faker->imageUrl())
@@ -46,7 +47,7 @@ class BlogFixtures extends Fixture
 
 //Creer des figures
 
-for ($j = 1, $j <= 10, $j++ ) {
+for ($j = 1; $j <= 10; $j++ ) {
 
         $trick = new Trick();
         $content = '<p>'. join($faker->paragraphs(5),'</p><p>') . '</p>';
@@ -62,7 +63,7 @@ for ($j = 1, $j <= 10, $j++ ) {
 
         }
         // Creer des commentaires aux figures
-        for ($l = 1, $l = mt_rand(2,5), $l++ ) {
+        for ($l = 1; $l = mt_rand(2,5); $l++ ) {
             
             $commentary = new Commentary();
             $content = '<p>'. join($faker->paragraphs(1),'</p><p>') . '</p>';
