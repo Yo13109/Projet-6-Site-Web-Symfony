@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Trick;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BlogController extends AbstractController
 {
@@ -33,6 +35,32 @@ class BlogController extends AbstractController
             ['tricks' => $tricks]
 
         );
+    }
+    /**
+     * @Route("/blog/new", name="create_figure")
+     */
+
+    public function create()
+    {
+        $trick = new Trick;
+        $form = $this->createFormBuilder($trick)
+            ->add('name', TextType::class,[
+                'attr'=>[
+                    'placeholder'=>'Nom de la figure'
+                ]
+            ])
+            ->add('content',TextareaType::class,[
+                'attr'=>[
+                    'placeholder'=>'Contenu de la figure',
+
+                ]
+            ])
+            ->add('category')
+            ->getForm();
+
+        return $this->render('blog/create.html.twig',[
+            'formTrick'=>$form->createView()
+        ]);
     }
     /**
      * @Route("/blog/id
