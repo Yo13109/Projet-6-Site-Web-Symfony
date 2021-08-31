@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Trick;
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Persistence\ObjectManager;
+
 
 
 
@@ -55,12 +55,11 @@ class BlogController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $trick->setCreateDate(new DateTime());           
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setCreateDate(new DateTime());
         }
-        return $this->render('blog/create.html.twig',[
-            'formTrick'=>$form->createView()
+        return $this->render('blog/create.html.twig', [
+            'formTrick' => $form->createView()
         ]);
     }
     /**
@@ -75,8 +74,28 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/update", name="update_figure")
      */
-    public function update()
+    public function update(Request $request)
     {
-        return $this->render('blog/update.html.twig');
+        $trick = new Trick;
+        $trick ->setName('Yoann est arrivé')
+               ->setContent('Yoann est arrivé ce matin');
+              
+
+
+        $form = $this->createFormBuilder($trick)
+            ->add('name')
+            ->add('content')
+            ->add('category')
+            ->add('video')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setCreateDate(new DateTime());
+        }
+        return $this->render('blog/update.html.twig',['formUpdateTrick'=>$form->createView()
+
+        ]);
     }
 }
