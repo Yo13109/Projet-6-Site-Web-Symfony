@@ -10,9 +10,8 @@ use App\Entity\Trick;
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Commentary;
-
-
-
+use App\Form\CommentType;
+use App\Form\TrickType;
 
 class BlogController extends AbstractController
 {
@@ -47,13 +46,8 @@ class BlogController extends AbstractController
     public function create(Request  $request)
     {
         $trick = new Trick;
-        $form = $this->createFormBuilder($trick)
-            ->add('name')
-            ->add('content')
-            ->add('category')
-            ->add('video')
-            ->add('pictures')
-            ->getForm();
+        $form = $this->createForm(TrickType::class,$trick);
+           
 
         $form->handleRequest($request);
 
@@ -72,10 +66,8 @@ class BlogController extends AbstractController
     
     {
         $comment = new Commentary;
-        $form = $this->createFormBuilder($comment)
-            ->add('user')
-            ->add('content')
-            ->getForm();
+        $form = $this->createForm(CommentType::class,$comment);
+           
 
         $form->handleRequest($request);
 
@@ -98,12 +90,8 @@ class BlogController extends AbstractController
               
 
 
-        $form = $this->createFormBuilder($trick)
-            ->add('name')
-            ->add('content')
-            ->add('category')
-            ->add('video')
-            ->getForm();
+        $form = $this->createForm(TrickType::class,$trick);
+           
 
         $form->handleRequest($request);
 

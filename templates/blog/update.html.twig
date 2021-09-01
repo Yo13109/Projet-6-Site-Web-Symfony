@@ -1,19 +1,25 @@
 {% extends "base.html.twig"  %}
 {% form_theme formUpdateTrick 'bootstrap_4_layout.html.twig' %}
 {% block body %}
+	<div class="col-lg-8 offset-lg-1 col-md-12">
+		<div class="card  mt-5">
+			<div class="card-header">
+				<h3>Modifier un article</h3>
+			</div>
+			<div class="card-content mb-5">
+				{{ form_start(formUpdateTrick) }}
 
-	<h1>Modifier un article</h1>
+				{{ form_row(formUpdateTrick.name)}}
+				{{ form_row(formUpdateTrick.content) }}
+				{{ form_row(formUpdateTrick.category) }}
+				{{ form_row(formUpdateTrick.video) }}
+				{{ form_row(formUpdateTrick.pictures) }}
+			</div>
 
-    {{ form_start(formUpdateTrick) }}
+			<button type="submit" class="btn btn-success">
+				Enregistrer</button>
+			{{ form_end(formUpdateTrick) }}
 
-	{{ form_row(formUpdateTrick.name, {'attr':{'placeholder':"Nom de la figure"}}) }}
-    {{ form_row(formUpdateTrick.content,{'attr':{'placeholder':"Contenu de la figure"}}) }}
-    {{ form_row(formUpdateTrick.category) }}
-    {{ form_row(formUpdateTrick.video) }}
-    
-
-    <button type="submit" class="btn btn-success"> Enregistrer</button>
-    {{ form_end(formUpdateTrick) }}
-
-
+		</div>
+	</div>
 {% endblock %}
