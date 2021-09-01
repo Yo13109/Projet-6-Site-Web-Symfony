@@ -3,18 +3,25 @@
 namespace App\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use DateTime;
+use App\Entity\Trick;
+use App\Form\TrickType;
+use App\Form\CommentType;
+use App\Entity\Commentary;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Trick;
-use DateTime;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Commentary;
-use App\Form\CommentType;
-use App\Form\TrickType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class BlogController extends AbstractController
 {
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        
+    }
     /**
      * @Route("/blog", name="blog")
      */
@@ -29,7 +36,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home($repo)
     {
         $repo = $this->getDoctrine()->getRepository(Trick::class);
         $tricks = $repo->findAll();
