@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+{% form_theme formComment 'bootstrap_4_layout.html.twig' %}
 {% block body %}
 	<div class="card  mb-3 mt-5 ">
 		<section class="Figure">
@@ -24,42 +25,30 @@
 
 		</section>
 	</div>
-
-
 	<div class="col-lg-6 offset-lg-3 col-md-12">
-		<div class="card mt-4 mb-4">
-
+		<div class="card  mt-5">
 			<div class="card-header">
 
-				<h2>
-					Ajouter un commentaire</h2>
+
+				<h3>
+					Ajout d'un commentaire
+				</h3>
+
 			</div>
-			<form method="post" action="">
-				<div class="card-content">
+			<div class="card-content mb-5">
+				{{ form_start(formComment) }}
 
-					<div class="col-12">
+				{{ form_row(formComment.user, {'attr':{'placeholder':"Votre pseudo.."}}) }}
+				{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
 
+			</div>
 
-						<fieldset>
-							<legend></legend>
-							<input type="hidden" name="id" value="<?= $post->id ?>">
+			<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
+			{{ form_end(formComment) }}
 
-
-							<label for="nom">Commentaire</label>
-							<textarea rows="5" class="form-control" name="comment" id="comment"></textarea>
-						</fieldset>
-					</div>
-
-
-				</div>
-
-
-				<div class="card-footer col-12">
-					<input type="submit" class="btn btn-primary col-12" value="Envoyer">
-				</div>
-			</form>
 		</div>
 	</div>
+
 	<div class="col-lg-6 offset-lg-3 col-md-12">
 		<div class="card  mt-5">
 			<div class="card-header">

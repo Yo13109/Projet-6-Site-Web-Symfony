@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Trick;
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Commentary;
 
 
 
@@ -51,6 +52,7 @@ class BlogController extends AbstractController
             ->add('content')
             ->add('category')
             ->add('video')
+            ->add('pictures')
             ->getForm();
 
         $form->handleRequest($request);
@@ -66,9 +68,23 @@ class BlogController extends AbstractController
      * @Route("/blog/id
      * ", name="show_figure")
      */
-    public function show()
+    public function show(Request $request)
+    
     {
-        return $this->render('blog/show.html.twig');
+        $comment = new Commentary;
+        $form = $this->createFormBuilder($comment)
+            ->add('user')
+            ->add('content')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setDate(new DateTime());
+        }
+        return $this->render('blog/show.html.twig', [
+            'formComment'=>$form->createView()
+        ]);
     }
 
     /**
