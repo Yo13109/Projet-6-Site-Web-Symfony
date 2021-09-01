@@ -21,4 +21,5 @@ return $this->render('security/registration.html.twig', [
             'formUser' => $form->createView()
         ]);
    }
+    
 }
