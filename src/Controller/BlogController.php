@@ -23,28 +23,34 @@ class BlogController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/", name="home")
      */
     public function index(): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Trick::class);
-        $tricks = $repo->findAll();
-        return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController', 'tricks' => $tricks
-        ]);
+        $tricks = $this->getDoctrine()
+        ->getRepository(Trick::class)
+        ->findAll();
+
+return $this->render(
+'blog/home.html.twig',['controller_name' => 'BlogController',
+  'tricks'=>$tricks
+
+]);
     }
     /**
      * @Route("/", name="home")
      */
-    public function home($repo)
+    public function home()
     {
-        $repo = $this->getDoctrine()->getRepository(Trick::class);
-        $tricks = $repo->findAll();
+        $tricks = $this->getDoctrine()
+                      ->getRepository(Trick::class)
+                      ->findAll();
+        
         return $this->render(
-            'blog/home.html.twig',
-            ['tricks' => $tricks]
+            'blog/home.html.twig',['controller_name' => 'BlogController',
+                'tricks'=>$tricks
 
-        );
+]);
     }
     /**
      * @Route("/blog/new", name="create_figure")
@@ -69,6 +75,7 @@ class BlogController extends AbstractController
      * @Route("/blog/id
      * ", name="show_figure")
      */
+
     public function show(Request $request)
     
     {

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Trick;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,8 +16,7 @@ class TrickType extends AbstractType
             ->add('name')
             ->add('content')
             ->add('video')
-            ->add('category')
-            ->add('pictures')
+        
         ;
     }
 
