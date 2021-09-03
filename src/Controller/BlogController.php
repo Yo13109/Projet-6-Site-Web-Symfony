@@ -20,7 +20,7 @@ class BlogController extends AbstractController
 
     public function __construct(EntityManagerInterface $em)
     {
-        
+        $this->em = $em;
     }
     /**
      * @Route("/blog", name="blog")
