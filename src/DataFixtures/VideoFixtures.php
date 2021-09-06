@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Video;
 use App\Entity\Picture;
+use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TrickFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -33,6 +35,7 @@ class VideoFixtures extends Fixture
     {
         return [
             TrickFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

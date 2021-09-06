@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Picture;
+use App\DataFixtures\UserFixtures;
+use App\DataFixtures\TrickFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -32,6 +34,7 @@ class PictureFixtures extends Fixture
     {
         return [
             TrickFixtures::class,
+            UserFixtures::class,
         ];
     }
 }
