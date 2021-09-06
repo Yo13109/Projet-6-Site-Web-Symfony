@@ -12,8 +12,10 @@ class VideoFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $video = new Video();
+        $trick = $this->getReference('trick1');
         $video
             ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setTrick($trick);
             
             
         ;
@@ -26,5 +28,11 @@ class VideoFixtures extends Fixture
         $manager->flush();
             
         
+    }
+    public function getDependencies()
+    {
+        return [
+            TrickFixtures::class,
+        ];
     }
 }

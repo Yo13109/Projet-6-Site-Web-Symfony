@@ -34,7 +34,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
         //getDependancies()
 
-        $manager->persist($user);
+        $manager->persist($trick);
         $manager->flush();
             
         

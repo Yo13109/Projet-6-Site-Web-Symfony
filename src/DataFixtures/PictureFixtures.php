@@ -11,9 +11,11 @@ class PictureFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $picture = new Picture();
+        $trick = $this->getReference('trick1');
         $picture
             ->setFilename('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
             ->setMain('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setTricks($trick);
             
         ;
         $this->addReference('picture1',$picture);
@@ -25,5 +27,11 @@ class PictureFixtures extends Fixture
         $manager->flush();
             
         
+    }
+    public function getDependencies()
+    {
+        return [
+            TrickFixtures::class,
+        ];
     }
 }
