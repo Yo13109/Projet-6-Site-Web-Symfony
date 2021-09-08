@@ -21,7 +21,6 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
         $category = $this->getReference('category1');
         $trick
             ->setName('Photo')
-            ->setSlug('Photo')
             ->setContent('la photo date de 5 ans')
             ->setCreateDate($date)
             ->setUpdateDate($date)

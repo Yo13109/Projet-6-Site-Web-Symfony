@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +57,7 @@ return $this->render(
      * @Route("/blog/new", name="create_figure")
      */
 
-    public function create(Request  $request)
+    public function create(Request  $request, EntityManager $em)
     {
         $trick = new Trick;
         $form = $this->createForm(TrickType::class,$trick);
@@ -66,6 +67,9 @@ return $this->render(
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setCreateDate(new DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();           
         }
         return $this->render('blog/create.html.twig', [
             'formTrick' => $form->createView()
@@ -76,7 +80,7 @@ return $this->render(
      * ", name="show_figure")
      */
 
-    public function show(Request $request)
+    public function show(Request $request, EntityManager $em)
     
     {
         $comment = new Commentary;
@@ -87,6 +91,10 @@ return $this->render(
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setDate(new DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
         }
         return $this->render('blog/show.html.twig', [
             'formComment'=>$form->createView()
@@ -96,11 +104,12 @@ return $this->render(
     /**
      * @Route("/blog/update", name="update_figure")
      */
-    public function update(Request $request)
+    public function update(Request $request, EntityManager $em)
     {
         $trick = new Trick;
         $trick ->setName('Yoann est arrivé')
                ->setContent('Yoann est arrivé ce matin');
+               
               
 
 
@@ -111,6 +120,9 @@ return $this->render(
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setCreateDate(new DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
         }
         return $this->render('blog/update.html.twig',['formUpdateTrick'=>$form->createView()
 
