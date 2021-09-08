@@ -34,8 +34,9 @@ class VideoFixtures extends Fixture
     public function getDependencies()
     {
         return [
-            TrickFixtures::class,
             UserFixtures::class,
+            TrickFixtures::class,
+           
         ];
     }
 }

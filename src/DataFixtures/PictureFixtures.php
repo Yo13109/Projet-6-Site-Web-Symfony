@@ -6,6 +6,7 @@ use App\Entity\Picture;
 use App\DataFixtures\UserFixtures;
 use App\DataFixtures\TrickFixtures;
 use Doctrine\Persistence\ObjectManager;
+use App\DataFixtures\CommentaryFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class PictureFixtures extends Fixture
@@ -33,8 +34,10 @@ class PictureFixtures extends Fixture
     public function getDependencies()
     {
         return [
-            TrickFixtures::class,
             UserFixtures::class,
+            TrickFixtures::class,
+            CommentaryFixtures::class,
+            
         ];
     }
 }
