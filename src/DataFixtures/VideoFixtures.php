@@ -8,8 +8,9 @@ use App\DataFixtures\UserFixtures;
 use App\DataFixtures\TrickFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class VideoFixtures extends Fixture
+class VideoFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -34,7 +35,6 @@ class VideoFixtures extends Fixture
     public function getDependencies()
     {
         return [
-            UserFixtures::class,
             TrickFixtures::class,
            
         ];

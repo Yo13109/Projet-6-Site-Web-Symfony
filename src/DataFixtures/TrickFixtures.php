@@ -24,6 +24,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             ->setContent('la photo date de 5 ans')
             ->setCreateDate($date)
             ->setUpdateDate($date)
+            ->setSlug('fgfdgdg')
             ->setUsers($user)
             ->setCategory($category);
             

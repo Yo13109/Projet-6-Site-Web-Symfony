@@ -8,8 +8,9 @@ use App\DataFixtures\TrickFixtures;
 use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\CommentaryFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class PictureFixtures extends Fixture
+class PictureFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -21,7 +22,7 @@ class PictureFixtures extends Fixture
             ->setTricks($trick);
             
         ;
-        $this->addReference('picture1',$picture);
+        
         //$this->getReference('picture1')
 
         //getDependancies()
@@ -34,10 +35,7 @@ class PictureFixtures extends Fixture
     public function getDependencies()
     {
         return [
-            UserFixtures::class,
-            TrickFixtures::class,
-            CommentaryFixtures::class,
-            
+            TrickFixtures::class,  
         ];
     }
 }
