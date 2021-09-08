@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Trick;
 
 use App\Entity\Category;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,7 +29,7 @@ class TrickType extends AbstractType
             ])
         
         ;
-    }
+                   }
 
     public function configureOptions(OptionsResolver $resolver)
     {
