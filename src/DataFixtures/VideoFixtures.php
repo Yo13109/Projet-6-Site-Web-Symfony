@@ -17,7 +17,8 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video = new Video();
         $trick = $this->getReference('trick1');
         $video
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=_hxLS2ErMiY
+            ')
             ->setTrick($trick);
             
             
@@ -33,7 +34,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video2 = new Video();
         $trick2 = $this->getReference('trick2');
         $video2
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=y2MHu0mbzQw')
             ->setTrick($trick2);
             
             
@@ -49,7 +50,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video3 = new Video();
         $trick3 = $this->getReference('trick3');
         $video3
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=wkQWksgCkYI')
             ->setTrick($trick3);
             
             
@@ -65,7 +66,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video4 = new Video();
         $trick4 = $this->getReference('trick4');
         $video4
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=X_WhGuIY9Ak')
             ->setTrick($trick4);
             
             
@@ -81,7 +82,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video5 = new Video();
         $trick5 = $this->getReference('trick5');
         $video5
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=hUddT6FGCws')
             ->setTrick($trick5);
             
             
@@ -97,7 +98,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video6 = new Video();
         $trick6 = $this->getReference('trick6');
         $video6
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=_CN_yyEn78M')
             ->setTrick($trick6);
             
             
@@ -113,7 +114,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video7 = new Video();
         $trick7 = $this->getReference('trick7');
         $video7
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=WRjNFodnOHk')
             ->setTrick($trick7);
             
             
@@ -129,7 +130,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video8 = new Video();
         $trick8 = $this->getReference('trick8');
         $video8
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=e-7NgSu9SXg')
             ->setTrick($trick8);
             
             
@@ -145,7 +146,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video9 = new Video();
         $trick9 = $this->getReference('trick9');
         $video9
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=qyXO40y4fAE')
             ->setTrick($trick9);
             
             
@@ -162,7 +163,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $video10 = new Video();
         $trick10 = $this->getReference('trick10');
         $video10
-            ->setUrl('https://snowtricks.jeandescorps.fr/images/stalefish.jpg')
+            ->setUrl('https://www.youtube.com/watch?v=id8VKl9RVQw')
             ->setTrick($trick10);
             
             
