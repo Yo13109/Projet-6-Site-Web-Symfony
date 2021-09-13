@@ -9,6 +9,7 @@ use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
 use Doctrine\ORM\EntityManager;
+use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,8 @@ return $this->render(
 ]);
     }
     /**
+     * 
+     * @param TrickRepository $trick
      * @Route("/", name="home")
      */
     public function home()

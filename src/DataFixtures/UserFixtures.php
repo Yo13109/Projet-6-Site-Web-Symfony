@@ -18,7 +18,7 @@ class UserFixtures extends Fixture
        
 
         $user
-            ->setAvatar('Photo')
+            ->setAvatar('Yoann')
             ->setEmail('yoann.corsi@gmail.com')
             ->setPassword('Yoann13109') //hash  du  mot de passe
             ->setToken('fksdofkpfk')
