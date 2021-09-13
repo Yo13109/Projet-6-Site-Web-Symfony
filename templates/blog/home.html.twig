@@ -3,66 +3,45 @@
 
 {% block body %}
 
-	<div class="col-lg-12  col-md-12">
 
-		<div class="card-content mt-5 mb-
-																																    5">
-<img src="Image/home.jpg">
-			<p>Vous êtes amateur de snowboard et de freestyle?</p>
-			<p>N'hésitez plus , inscrivez vous et venez partager vos envies en étant un acteur important de ce site.</p>
-			<p>Vous pourez en effet ajouter , modifier ou supprimer des figures. De plus vous pourrez également laisser vos commentaires sur chaque figure.</p>
-			
-		</div>
+<img src="https://snowtricks.jeandescorps.fr/images/backflip.jpg" width="1519" height="800" alt="">
 
+{% for trick in tricks %}
+	<div class="container">
+		<div class="row">
+			<div class="  col-lg-3 col-md-12">
+
+				<div class="card  mt-4 mb-4">
+
+
+					<div class="card-header">
+						<h4>{{trick.name}}</h4>
+						{{trick.createdate | date('d/m/y')}}</h6>
+				</div>
+
+
+				<div class="card-content">{{trick.content}}</div>
+
+
+				<div class="card-footer">
+					<p>Catégorie:
+						{{trick.category.name}}
+						Fait part
+						{{trick.users.avatar}}</p>
+
+					<a href="{{path('show_figure')}}" class="btn btn-secondary">
+						Détail de la figure</a>
+					<a href="{{path('update_figure')}}">
+						<i class="far fa-edit  right"></i>
+					</a>
+					<a href="">
+						<i class="far fa-trash-alt right"></i>
+					</a>
+					<p>
+					User:
+					{{trick.users.avatar}}</p>
+			</div>
 	</div>
 
 
-	
-
-	
-
-
-	<div class="col-lg-3 col-md-12">
-		<div class="card   mt-4 mb-4">
-			<section class="figure">
-			
-				
-
-				<pre>
-				
-				</pre>
-					<article>
-
-						<div class="card-header">
-							<h4></h4>
-						</div>
-
-						<div class="metadata">
-							Ecrit le 06/08/21 à 19h00 dans la catégorie Politique
-						</div>
-
-						<div class="card-content">
-							<p>						</p>
-
-						</div>
-
-
-						<div class="card-footer">
-							<a href="{{path('show_figure')}}" class="btn btn-secondary">
-								Détail de la figure</a>
-							<a href="{{path('update_figure')}}">
-								<i class="far fa-edit  right"></i>
-							</a>
-							<a href="">
-								<i class="far fa-trash-alt right"></i>
-							</div>
-						</div>
-					</article>
-				
-			</section>
-		</div>
-	</div>
-
-
-
-{% endblock %}
+</div></div></div></div>{% endfor %}{% endblock %}
