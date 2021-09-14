@@ -1,89 +1,81 @@
 {% extends "base.html.twig" %}
-{% form_theme formComment 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
+
+
 	<div class="card  mb-3 mt-5 ">
 		<section class="Figure">
 			<div class="card-header">
-				<h2>Titre de la figure</h2>{}
+				<h2>{{trick.name}}</h2>
 				<div class="metadata">
-					Ecrit le 06/08/21 à 19h00 dans la catégorie Politique
+					Ecrit le
+					{{trick.createdate | date('d/m/y')}}
+					à {{trick.createdate| date('H:i')}}
+					dans la catégorie
+					{{trick.category.name}}
 				</div>
 			</div>
 			<div class="card-content">
-				<img src="http://placeholdit/350*150" alt="">
-				<p>fnjozeifze,of,ezopjkezpeofkezopfezpfkekoerptokerpgokerogoer,gerfpk,gveropgjeropv,dpvkeovjerv,sdcopsdkvàeijdo;csd^;cdo$jvfdfldsczp</p>
-				<p>jkfoezijfezfnzeofinzefe,dfoiefiofzejfopzef</p>
-				<p>fnjozeifze,of,ezopjkezpeofkezopfezpfkekoerptokerpgokerogoer,gerfpk,gveropgjeropv,dpvkeovjerv,sdcopsdkvàeijdo;csd^;cdo$jvfdfldsczp</p>
-				<p>jkfoezijfezfnzeofinzefe,dfoiefiofzejfopzef</p>
-				<p>fnjozeifze,of,ezopjkezpeofkezopfezpfkekoerptokerpgokerogoer,gerfpk,gveropgjeropv,dpvkeovjerv,sdcopsdkvàeijdo;csd^;cdo$jvfdfldsczp</p>
-				<p>jkfoezijfezfnzeofinzefe,dfoiefiofzejfopzef</p>
-				<p>fnjozeifze,of,ezopjkezpeofkezopfezpfkekoerptokerpgokerogoer,gerfpk,gveropgjeropv,dpvkeovjerv,sdcopsdkvàeijdo;csd^;cdo$jvfdfldsczp</p>
-
+				<img src="" alt="">
+				{{trick.content}}
 
 			</div>
-
-
 		</section>
-	</div>
-	<div class="col-lg-6 offset-lg-3 col-md-12">
-		<div class="card  mt-5">
-			<div class="card-header">
+		<div class="card-header"></div>
+		<div class="col-lg-6 offset-lg-3 col-md-12">
+			<div class="card  mt-5">
+				<div class="card-header">
 
 
-				<h3>
-					Ajout d'un commentaire
-				</h3>
+					<h3>
+						Ajout d'un commentaire
+					</h3>
 
-			</div>
-			<div class="card-content mb-5">
-				{{ form_start(formComment) }}
+				</div>
+				<div class="card-content mb-5"></div>
 
-				{{ form_row(formComment.user, {'attr':{'placeholder':"Votre pseudo.."}}) }}
-				{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
+				<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
 
 			</div>
-
-			<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
-			{{ form_end(formComment) }}
-
 		</div>
-	</div>
 
-	<div class="col-lg-6 offset-lg-3 col-md-12">
-		<div class="card  mt-5">
-			<div class="card-header">
-
-
-				<h3>
-					Commentaire
-				</h3>
-
-			</div>
-			<div class="card-content">
+		<div class="col-lg-6 offset-lg-3 col-md-12">
+			<div class="card  mt-5">
+				<div class="card-header">
 
 
-				<div class="comment mb-4">
-					<div class="col-lg-12 col-12">
+					<h3>
+						Commentaire
+					</h3>
+
+				</div>
+				<div class="card-content">
 
 
-						<div class="auteur">
-							Yoann
+					<div class="comment mb-4">
+						<div class="col-lg-12 col-12">
+
+
+							<div class="auteur">
+								Yoann
+
+							</div>
+							<div class="date">14/08/2021</div>
+
+
+							<div class="content col-12 mt-4">Contenu de commentaire
+							</div>
+							<div class="button col-2 offset-lg-10"></div>
+
 
 						</div>
-						<div class="date">14/08/2021</div>
-
-
-						<div class="content col-12 mt-4">Contenu de commentaire
-						</div>
-						<div class="button col-2 offset-lg-10"></div>
-
 
 					</div>
 
+
 				</div>
-
-
 			</div>
 		</div>
 	</div>
+
 {% endblock %}

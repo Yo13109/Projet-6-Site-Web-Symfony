@@ -30,14 +30,17 @@ class BlogController extends AbstractController
     public function index(): Response
     {
         $tricks = $this->getDoctrine()
-        ->getRepository(Trick::class)
-        ->findAll();
+            ->getRepository(Trick::class)
+            ->findAll();
 
-return $this->render(
-'blog/home.html.twig',['controller_name' => 'BlogController',
-  'tricks'=>$tricks
+        return $this->render(
+            'blog/home.html.twig',
+            [
+                'controller_name' => 'BlogController',
+                'tricks' => $tricks
 
-]);
+            ]
+        );
     }
     /**
      * 
@@ -47,24 +50,27 @@ return $this->render(
     public function home()
     {
         $tricks = $this->getDoctrine()
-                      ->getRepository(Trick::class)
-                      ->findAll();
-        
-        return $this->render(
-            'blog/home.html.twig',['controller_name' => 'BlogController',
-                'tricks'=>$tricks
+            ->getRepository(Trick::class)
+            ->findAll();
 
-]);
+        return $this->render(
+            'blog/home.html.twig',
+            [
+                'controller_name' => 'BlogController',
+                'tricks' => $tricks
+
+            ]
+        );
     }
     /**
      * @Route("/blog/new", name="create_figure")
      */
 
-    public function create(Request  $request, EntityManager $em)
+    public function create(Request  $request, EntityManagerInterface $em)
     {
         $trick = new Trick;
-        $form = $this->createForm(TrickType::class,$trick);
-           
+        $form = $this->createForm(TrickType::class, $trick);
+
 
         $form->handleRequest($request);
 
@@ -72,52 +78,51 @@ return $this->render(
             $trick->setCreateDate(new DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
-            $em->flush();           
+            $em->flush();
         }
         return $this->render('blog/create.html.twig', [
             'formTrick' => $form->createView()
         ]);
     }
     /**
-     * @Route("/blog/id
-     * ", name="show_figure")
+     * @param TrickRepository $trick
+     * @Route("/blog/{id}", name="show_figure")
      */
 
-    public function show(Request $request, EntityManager $em)
-    
+    public function show($id)
+
     {
-        $comment = new Commentary;
-        $form = $this->createForm(CommentType::class,$comment);
-           
+        $repo = $this->getDoctrine()
+            ->getRepository(Trick::class);
 
-        $form->handleRequest($request);
+            $trick = $repo->find($id);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setDate(new DateTime());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-
-        }
+        
         return $this->render('blog/show.html.twig', [
-            'formComment'=>$form->createView()
+             'trick' => $trick
+           
         ]);
     }
 
     /**
-     * @Route("/blog/update", name="update_figure")
+     * @Route("/blog/update/{id}", name="update_figure")
      */
-    public function update(Request $request, EntityManager $em)
+    public function update(Request $request, EntityManagerInterface $em,$id)
     {
+        $repo = $this->getDoctrine()
+            ->getRepository(Trick::class);
+
+            $trick = $repo->find($id);
+
         $trick = new Trick;
-        $trick ->setName('Yoann est arrivé')
-               ->setContent('Yoann est arrivé ce matin');
-               
-              
+        $trick->setName('Yoann est arrivé')
+            ->setContent('Yoann est arrivé ce matin');
 
 
-        $form = $this->createForm(TrickType::class,$trick);
-           
+
+
+        $form = $this->createForm(TrickType::class, $trick);
+
 
         $form->handleRequest($request);
 
@@ -127,8 +132,9 @@ return $this->render(
             $em->persist($trick);
             $em->flush();
         }
-        return $this->render('blog/update.html.twig',['formUpdateTrick'=>$form->createView()
-
+        return $this->render('blog/update.html.twig', [
+            'formUpdateTrick' => $form->createView(),
+            'trick' => $trick
         ]);
     }
 }
