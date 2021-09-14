@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Trick;
 
 use App\Entity\Category;
-
+use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,18 +18,16 @@ class TrickType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
-            ->add('video')
+            
             ->add('category', EntityType::class, [
                 'class'=> Category::class,
                 'choice_label'=>'name'
-            ])
-            ->add('user', EntityType::class, [
-                'class'=> User::class,
+            ]);
+
                 
-            ])
-        
-        ;
-                   }
+
+                   
+            }
 
     public function configureOptions(OptionsResolver $resolver)
     {

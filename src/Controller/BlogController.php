@@ -10,6 +10,7 @@ use App\Form\CommentType;
 use App\Entity\Commentary;
 use Doctrine\ORM\EntityManager;
 use App\Repository\TrickRepository;
+use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +44,7 @@ class BlogController extends AbstractController
         );
     }
     /**
-     * 
+     * @param CommentaryRepository $comment
      * @param TrickRepository $trick
      * @Route("/", name="home")
      */
@@ -52,12 +53,16 @@ class BlogController extends AbstractController
         $tricks = $this->getDoctrine()
             ->getRepository(Trick::class)
             ->findAll();
+        $comment = $this->getDoctrine()
+            ->getRepository(Commentary::class)
+            ->findAll();    
 
         return $this->render(
             'blog/home.html.twig',
             [
                 'controller_name' => 'BlogController',
-                'tricks' => $tricks
+                'tricks' => $tricks,
+                'comment'=>$comment
 
             ]
         );
@@ -85,21 +90,33 @@ class BlogController extends AbstractController
         ]);
     }
     /**
+     * @param CommentaryRepository $comments
      * @param TrickRepository $trick
      * @Route("/blog/{id}", name="show_figure")
      */
 
-    public function show($id)
+    public function show($id, Request $request)
 
     {
+        $comments=$this->getDoctrine()
+                        ->getRepository(Commentary::class)
+                        ->find($id);
         $repo = $this->getDoctrine()
             ->getRepository(Trick::class);
 
             $trick = $repo->find($id);
-
+            $comment = new Commentary;
+            $form = $this->createForm(CommentType::class, $comment);
+    
+    
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment->setDate(new DateTime());
+            }
         
         return $this->render('blog/show.html.twig', [
-             'trick' => $trick
+             'trick' => $trick,'formComment' => $form->createView(),'comment' => $comments
            
         ]);
     }

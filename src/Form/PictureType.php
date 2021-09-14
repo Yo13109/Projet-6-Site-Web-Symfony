@@ -2,28 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Commentary;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommentType extends AbstractType
+class PictureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
-            ->add('content')
-
-            
+            ->add('filename')
+            ->add('main')
+            ->add('tricks')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Commentary::class,
+            'data_class' => Picture::class,
         ]);
     }
 }
