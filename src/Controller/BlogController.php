@@ -147,10 +147,13 @@ class BlogController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
+
+            return $this->redirectToRoute('show_figure', ['id'=> $trick->getId()]);
         }
         return $this->render('blog/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
             'trick' => $trick
         ]);
+                  
     }
 }

@@ -6,9 +6,11 @@
 
 	<img src="https://snowtricks.jeandescorps.fr/images/backflip.jpg" width="1519" height="575" alt="">
 		<div class='icon col-1 offset-lg-11'>
-		<a href = "#tricks">	<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
-				<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-			</svg></a>
+			<a href="#tricks">
+				<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
+					<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+				</svg>
+			</a>
 		</div>
 	</img>
 
@@ -23,22 +25,27 @@
 					<div class="card mb-4">
 
 
-						<div class="card-content"><img src="" class="card-img-top" alt=""></div>
+						<div class="card-content"><img src="https://lh3.googleusercontent.com/proxy/8GqA85uqT1cY4OTkmap6xLxfrEogt9RezeVxEFjdkc8voFwHB-4BA81T-mwvI7llb4MEF-jcIwP0ghfXSAJbzCEp5DOKTVj0nByezS_BubaxAlvxq1KVH2XILvLPFc69IzkPumImc2BObPCYVtmUvFv18_do5wORSeuEhrGKa7lRkzdA71N0LdjuEHyX8TmvkrNZG0IoUa6FRd6mJGceRNFC89nm-2acValifA3E22rmH_ttJEJvCQg-jyzQ2sV5aaXjLDhu2sQc7gd74xfXP_Gy04XABcQ" class="card-img-top" alt=""></div>
 
 
 						<div class="card-footer">
-
-							<a href="{{path('show_figure', {'id': trick.id})}}" class="btn btn-primary">
-								<h6>{{trick.name}}</h6>
-							</a>
-							<div class="name text-right">
-								<a href="{{path('update_figure', {'id':trick.id})}}">
-									<i class="far fa-edit right"></i>
-								</a>
-								<a href="">
-									<i class="far fa-trash-alt right"></i>
-								</a>
-								<a name="tricks"></a>
+							<div class="row">
+								<div class="col-8">
+									<a href="{{path('show_figure', {'id': trick.id})}}" class="btn btn-primary">
+										<h6>{{trick.name}}</h6>
+									</a>
+								</div>
+								<div class="col">
+									<div class="name text-right">
+										<a href="{{path('update_figure', {'id':trick.id})}}">
+											<i class="far fa-edit right"></i>
+										</a>
+										<a href="">
+											<i class="far fa-trash-alt right"></i>
+										</a>
+										<a name="tricks"></a>
+									</div>
+								</div>
 							</div>
 						</div>
 
