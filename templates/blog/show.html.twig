@@ -57,30 +57,32 @@
 				</div>
 				<div class="card-content">
 
-					{% for comment in comment %}
+					{% for comment in trick.comments %}
 
 
 						<div class="comment">
 							<div class="container">
 
 								<div class="row">
+									<div class="col-3 mt-4">
+										{{comment.user.avatar}}
 
-									{{comment.user.avatar}}
 
-								<div class= 'date col-3 offset-lg-8'>
-									{{comment.date | date('d/m/y')}} à {{comment.date | date('H:i')}}
+										(<small>{{comment.date | date('d/m/y')}}
+											à
+											{{comment.date | date('H:i')}})</small>
+
+
+									</div>
+
+
+									<div class="col mt-4">{{comment.content}}
+									</div>
+
+
 								</div>
-
-								</div>
-
-
-								<div class="content col-12 mt-4">{{comment.content}}
-								</div>
-								<div class="button col-2 offset-lg-10"></div>
-
 
 							</div>
-
 						</div>
 					{% endfor %}
 
