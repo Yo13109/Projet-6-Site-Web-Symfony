@@ -8,7 +8,6 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
-use Doctrine\ORM\EntityManager;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
