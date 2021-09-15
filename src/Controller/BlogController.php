@@ -95,7 +95,7 @@ class BlogController extends AbstractController
      * @Route("/blog/{id}", name="show_figure")
      */
 
-    public function show($id, Request $request)
+    public function show($id, Request $request, EntityManagerInterface $em)
 
     {
         $comments=$this->getDoctrine()
@@ -113,6 +113,8 @@ class BlogController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $comment->setDate(new DateTime());
+                $em->persist($comment);
+                $em->flush();
             }
         
         return $this->render('blog/show.html.twig', [
@@ -124,16 +126,14 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/update/{id}", name="update_figure")
      */
-    public function update(Request $request, EntityManagerInterface $em,$id)
+    public function update(Trick $trick , Request $request, EntityManagerInterface $em,$id)
     {
         $repo = $this->getDoctrine()
             ->getRepository(Trick::class);
 
             $trick = $repo->find($id);
 
-        $trick = new Trick;
-        $trick->setName('Yoann est arrivé')
-            ->setContent('Yoann est arrivé ce matin');
+        
 
 
 
