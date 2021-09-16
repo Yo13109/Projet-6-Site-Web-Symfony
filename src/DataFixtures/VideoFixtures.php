@@ -14,6 +14,8 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+
+        
         $video = new Video();
         $trick = $this->getReference('trick1');
         $video

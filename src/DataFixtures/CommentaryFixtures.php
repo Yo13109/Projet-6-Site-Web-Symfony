@@ -14,24 +14,40 @@ class CommentaryFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $comment = new Commentary();
-        $user = $this->getReference('user1');
-        $trick = $this->getReference('trick1');
-        $date = new DateTime();
-        $comment
-            ->setContent('ok pas de soucis')
-            ->setDate($date)
-            ->setUser($user)
-            ->setTrick($trick);
-        $this->addReference('comment1', $comment);
-        //$this->getReference('comment1')
+        $datas = [
+            [
+                'content' => 'ok pas de soucis',
 
-        //getDependancies()
+            ],
+            [
+                'name' => 'je trouve la figure superbe',
 
-        $manager->persist($comment);
-        $manager->flush(); 
-        
-        $comment2 = new Commentary();
+            ],
+
+        ];
+
+        foreach ($datas as  $commentaryData) {
+            $comment = new Commentary();
+            $user = $this->getReference('user1');
+            $trick = $this->getReference('trick1');
+            $date = new DateTime();
+            $comment
+                ->setContent($commentaryData['content'])
+                ->setDate($date)
+                ->setUser($user)
+                ->setTrick($trick);
+            $this->addReference('comment1', $comment);
+            //$this->getReference('comment1')
+
+            //getDependancies()
+
+            $manager->persist($comment);
+        }
+        $manager->flush();
+
+
+
+      /*  $comment2 = new Commentary();
         $user = $this->getReference('user1');
         $trick = $this->getReference('trick1');
         $date = new DateTime();
@@ -46,7 +62,7 @@ class CommentaryFixtures extends Fixture implements DependentFixtureInterface
         //getDependancies()
 
         $manager->persist($comment2);
-        $manager->flush();  
+        $manager->flush();*/
     }
     public function getDependencies()
     {

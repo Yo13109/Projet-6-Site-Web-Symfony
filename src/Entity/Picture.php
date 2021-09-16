@@ -23,7 +23,7 @@ class Picture
     private $filename;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", length=255)
      */
     private $main;
 

@@ -62,6 +62,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tricks;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $userName;
+
     public function __construct()
     {
         $this->commentary = new ArrayCollection();
@@ -249,6 +254,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $trick->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setUserName(string $userName): self
+    {
+        $this->userName = $userName;
 
         return $this;
     }
