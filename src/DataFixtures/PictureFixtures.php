@@ -13,43 +13,43 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $datas = [
-            [
+        1=>    [
                 'filename' => 'MethodeAir.jpg',
 
             ],
-            [
+          2=>  [
                 'filename' => 'NoseGrab.jpg',
 
             ],
-            [
+          3=>  [
                 'filename' => 'doublebackflip.png',
 
             ],
-            [
+           4=> [
                 'filename' => 'japanAir.jpg',
 
             ],
-            [
+          5=>  [
                 'filename' => 'frontsite.jpg',
 
             ],
-            [
+           6=> [
                 'filename' => 'backsideAir.jpg',
 
             ],
-            [
+           7=> [
                 'filename' => 'Boardslide.jpeg',
 
             ],
-            [
+          8=>  [
                 'filename' => '50-50.png',
 
             ],
-            [
+          9=>  [
                 'filename' => 'FrontBluntslide.jpg',
 
             ],
-            [
+          10=>  [
                 'filename' => 'TailGrab.jpg',
 
             ],
@@ -57,7 +57,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($datas as  $pictureData) {
             $picture = new Picture();
-            $trick = $this->getReference('trick1');
+            $trick = $this->getReference('trick'.random_int(1,10));
             $picture
                 ->setFilename($pictureData['filename'])
                 ->setMain('0')

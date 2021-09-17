@@ -74,6 +74,7 @@ class BlogController extends AbstractController
     {
         $trick = new Trick;
         $form = $this->createForm(TrickType::class, $trick);
+        
 
 
         $form->handleRequest($request);

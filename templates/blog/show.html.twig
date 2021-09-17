@@ -3,93 +3,108 @@
 
 {% block body %}
 
-
-	<div class="card  mb-3 mt-5 ">
-		<section class="Figure">
-			<div class="card-header">
-				<h2>{{trick.name}}</h2>
-				<div class="metadata">
-					Ecrit le
-					{{trick.createdate | date('d/m/y')}}
-					à
-					{{trick.createdate| date('H:i')}}
-					dans la catégorie
-					{{trick.category.name}}
-				</div>
-			</div>
-			<div class="card-content">
-				<img src="https://lh3.googleusercontent.com/proxy/8GqA85uqT1cY4OTkmap6xLxfrEogt9RezeVxEFjdkc8voFwHB-4BA81T-mwvI7llb4MEF-jcIwP0ghfXSAJbzCEp5DOKTVj0nByezS_BubaxAlvxq1KVH2XILvLPFc69IzkPumImc2BObPCYVtmUvFv18_do5wORSeuEhrGKa7lRkzdA71N0LdjuEHyX8TmvkrNZG0IoUa6FRd6mJGceRNFC89nm-2acValifA3E22rmH_ttJEJvCQg-jyzQ2sV5aaXjLDhu2sQc7gd74xfXP_Gy04XABcQ" alt="">
-				{{trick.content| raw}}
-
-			</div>
-		</section>
-		<div class="card-header"></div>
-		<div class="col-lg-6 offset-lg-3 col-md-12">
-			<div class="card  mt-5">
+	<div class="container">
+		<div class="card  mb-3 mt-5 ">
+			<section class="Figure">
 				<div class="card-header">
-
-
-					<h3>
-						Ajout d'un commentaire
-					</h3>
-
-				</div>
-				<div class="card-content mb-5">
-					{{ form_start(formComment) }}
-					{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
-
-				</div>
-
-				<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
-				{{ form_end(formComment) }}
-			</div>
-		</div>
-
-		<div class="col-lg-6 offset-lg-3 col-md-12">
-			<div class="card  mt-5">
-				<div class="card-header mb-4">
-
-
-					<h3>
-						Commentaire
-					</h3>
-
+					<h2>{{trick.name}}</h2>
+					<div class="metadata">
+						Ecrit le
+						{{trick.createdate | date('d/m/y')}}
+						à
+						{{trick.createdate| date('H:i')}}
+						dans la catégorie
+						{{trick.category.name}}
+					</div>
 				</div>
 				<div class="card-content">
 
-					{% for comment in trick.comments %}
+					<div class='row'>
+						<div class='container'>
 
+							<img src={{asset('Image/MethodeAir.jpg')}} alt=""></img>
 
-						<div class="comment">
-							<div class="container">
-
-								<div class="row">
-									<div class="col-3 mt-4">
-										{{comment.user.avatar}}
-
-
-										(<small>{{comment.date | date('d/m/y')}}
-											à
-											{{comment.date | date('H:i')}})</small>
-
-
-									</div>
-
-
-									<div class="col mt-4">{{comment.content}}
-									</div>
-
-
-								</div>
-
-							</div>
-						</div>
-					{% endfor %}
-
+						{{trick.content| raw}}
+					</div>
 
 				</div>
 			</div>
+
+		</section>
+	</div>
+
+	<div class="row">
+		<img src={{asset('Image/MethodeAir.jpg')}} class="col-3" alt="" width="250" height="300">
+		<div class='col-6'>
+			<iframe width="250" height="300" src="https://www.youtube.com/embed/_hxLS2ErMiY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 		</div>
 	</div>
 
-{% endblock %}
+
+	<div class="card-header"></div>
+
+	<div class="col-lg-6 offset-lg-3 col-md-12">
+		<div class="card  mt-5">
+			<div class="card-header">
+
+
+				<h3>
+					Ajout d'un commentaire
+				</h3>
+
+			</div>
+			<div class="card-content mb-5">
+				{{ form_start(formComment) }}
+				{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
+
+			</div>
+
+			<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
+			{{ form_end(formComment) }}
+		</div>
+	</div>
+
+	<div class="col-lg-6 offset-lg-3 col-md-12">
+		<div class="card  mt-5">
+			<div class="card-header mb-4">
+
+
+				<h3>
+					Commentaire
+				</h3>
+
+			</div>
+			<div class="card-content">
+
+				{% for comment in trick.comments %}
+
+
+					<div class="comment">
+						<div class="container">
+
+							<div class="row">
+								<div class="col-3 mt-4">
+
+									{{comment.user.userName}}
+									<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
+
+
+								<div class="col mt-4">{{comment.content}}
+								</div>
+
+								<div class='col-3'><small>{{comment.date | date('d/m/y')}}
+										à
+										{{comment.date | date('H:i')}}</small>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			{% endfor %}
+
+
+		</div>
+	</div>
+</div></div>{% endblock %}

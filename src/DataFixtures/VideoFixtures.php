@@ -14,26 +14,69 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $datas = [
+           1=> [
+                'url' => 'https://youtu.be/_hxLS2ErMiY',
 
-        
+            ],
+          2=>  [
+                'url' => 'https://youtu.be/gZFWW4Vus-Q',
+
+            ],
+          3=>  [
+                'url' => 'https://youtu.be/vjVDW-q70ck',
+
+            ],
+           4=> [
+                'url' => 'https://youtu.be/X_WhGuIY9Ak',
+
+            ],
+          5=>  [
+                'url' => 'https://youtu.be/hUddT6FGCws',
+
+            ],
+           6=> [
+                'url' => 'https://youtu.be/_CN_yyEn78M',
+
+            ],
+           7=> [
+                'url' => 'https://youtu.be/R3OG9rNDIcs',
+
+            ],
+           8=> [
+                'url' => 'https://youtu.be/e-7NgSu9SXg',
+
+            ],
+           9=> [
+                'url' => 'https://youtu.be/qyXO40y4fAE',
+
+            ],
+           10=> [
+                'url' => 'https://youtu.be/_Qq-YoXwNQY',
+
+            ],
+        ];
+
+        foreach ($datas as  $videoData) {
+
         $video = new Video();
-        $trick = $this->getReference('trick1');
+        $trick = $this->getReference('trick'.random_int(1,10));
         $video
-            ->setUrl('https://www.youtube.com/watch?v=_hxLS2ErMiY
-            ')
+            ->setUrl($videoData['url'])
             ->setTrick($trick);
             
             
         ;
-        $this->addReference('video1',$video);
+        
         //$this->getReference('video1')
 
         //getDependancies()
 
         $manager->persist($video);
+        }
         $manager->flush();
 
-        $video2 = new Video();
+       /* $video2 = new Video();
         $trick2 = $this->getReference('trick2');
         $video2
             ->setUrl('https://www.youtube.com/watch?v=y2MHu0mbzQw')
@@ -176,7 +219,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         //getDependancies()
 
         $manager->persist($video10);
-        $manager->flush();
+        $manager->flush();*/
         
     }
     public function getDependencies()

@@ -14,29 +14,29 @@ class CategoryFixtures extends Fixture
     {
 
         $datas = [
-            [
+           1 => [
                 'name' => 'Grab',
 
             ],
-            [
+           2 => [
                 'name' => 'Flip',
 
             ],
-            [
+           3 => [
                 'name' => 'Rotation',
 
             ],
-            [
+            4 =>[
                 'name' => 'Slide',
 
             ],
         ];
-        foreach ($datas as  $categoryData) {
+        foreach ($datas as $key => $categoryData) {
             $category = new Category();
             $category
                 ->setName($categoryData['name']);
-            $random = random_int(1,4);            
-            $this->addReference(random_int(1,4), $category);
+                   
+            $this->addReference('category'. $key , $category);
 
 
 

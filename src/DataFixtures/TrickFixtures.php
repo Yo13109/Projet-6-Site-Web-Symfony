@@ -245,65 +245,65 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();*/
 
         $datas = [
-            [
+           1=> [
                 'name' => 'Methode Air',
                 'content' => 'Un backside ou un air droit où le patineur attrape la planche sur le bord du talon entre les pieds avec sa main avant et cambre le corps en ramenant la planche vers l_arrière.',
             ],
-            [
+           2 => [
                 'name' => 'Nose Grab',
                 'content' => 'Un Nosegrab est un trick de skateboard qui consiste à saisir la planche avec une main au niveau du nose le tout en l_air en faisant un ollie ... C_est sûrement un des grabs le plus facile.',
             ],
-            [
+           3 => [
                 'name' => 'Double Back Flip',
                 'content' => 'C_est un double retournement en arrière dans le plan qui est perpendiculaire à la pente.',
             ],
-            [
+           4 =>  [
                 'name' => 'Japan Air',
                 'content' => 'saisie de l_avant de la planche, avec la main avant, du côté de la carre frontside.',
             ],
-            [
+           5 =>  [
                 'name' => 'FrontSite 360',
                 'content' => '360, trois six pour un tour complet',
             ],
-            [
+           6 =>  [
                 'name' => 'Backside Air',
                 'content' => 'le trick qui marque le plus ta personnalité',
             ],
-            [
+           7 => [
                 'name' => 'Boardslide',
                 'content' => 'Un slide est dit «board slide » lorsque le rider slide littéralement sur la board.',
             ],
-            [
+           8 =>  [
                 'name' => '50-50',
                 'content' => 'Un 50-50 consiste simplement à glisser le long d_un élement, le contact entre la board et la cible s_effectuant en l_occurrence- au niveau des deux axes',
             ],
-            [
+           9 => [
                 'name' => 'Front Bluntslide',
                 'content' => 'Un slide où il faut faire passer le pied avant au-dessus du rail en arrivant, avec la board perpendiculaire au rail, et faire 3/4 d_un tour sur le rail.',
             ],
-            [
+           10 =>[
                 'name' => 'Tail Grab',
                 'content' => 'saisie de la partie arrière de la planche, avec la main arrière',
             ],
         ];
 
-        foreach ($datas as  $trickData) {
+        foreach ($datas as $key=> $trickData) {
 
             $trick = new Trick();
             $user = $this->getReference('user1');
             $date = new DateTime();
-            $category = $this->getReference(random_int(1,4));
+            $category = $this->getReference('category'. random_int(1,4));
             $trick
                 ->setName($trickData['name'])
                 ->setContent($trickData['content'])
                 ->setCreateDate($date)
-                // ->setUpdateDate($date)
+                ->setUpdateDate($date)
                 ->setSlug($this->slugger->slug($trick->getName()))
                 ->setUsers($user)
                 ->setCategory($category);
 
 
-            $this->addReference('?', $trick);
+            $this->addReference('trick'.$key , $trick);
             //$this->getReference('user1')
 
             //getDependancies()
