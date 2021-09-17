@@ -65,46 +65,33 @@
 		</div>
 	</div>
 
-	<div class="col-lg-6 offset-lg-3 col-md-12">
-		<div class="card  mt-5">
-			<div class="card-header mb-4">
+
+	<section id="commentaires" class='mt-5 mb-4'>
+
+		{% for comment in trick.comments %}
 
 
-				<h3>
-					Commentaire
-				</h3>
+			<div class="comment">
 
-			</div>
-			<div class="card-content">
+				<div class="row">
+					<div class="col-3 mt-5">
 
-				{% for comment in trick.comments %}
-
-
-					<div class="comment">
-						<div class="container">
-
-							<div class="row">
-								<div class="col-3 mt-4">
-
-									{{comment.user.userName}}
-									<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
+						{{comment.user.userName}}
+						<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
 
 
-								<div class="col mt-4">{{comment.content}}
-								</div>
+					<div class="col mt-5">{{comment.content}}
+					</div>
 
-								<div class='col-3'><small>{{comment.date | date('d/m/y')}}
-										à
-										{{comment.date | date('H:i')}}</small>
-								</div>
-							</div>
-						</div>
-
+					<div class='col-3 mt-5'>
+						<small>{{comment.date | date('d/m/y')}}
+							à
+							{{comment.date | date('H:i')}}</small>
 					</div>
 				</div>
-			{% endfor %}
+			</div>
 
 
-		</div>
-	</div>
+		{% endfor %}
+	</section>
 </div></div>{% endblock %}

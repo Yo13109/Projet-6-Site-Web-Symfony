@@ -10,8 +10,8 @@
 				</div>
 				<div class="card-content mb-5">
 					{{ form_start(formUser) }}
-
-					{{ form_row(formUser.avatar, {'attr':{'placeholder':"Votre pseudo.."}}) }}
+					{{ form_row(formUser.userName, {'attr':{'placeholder':"Votre pseudo"}}) }}
+					{{ form_row(formUser.avatar, {'attr':{'placeholder':"Url de votre photo"}}) }}
 					{{ form_row(formUser.email ,{'attr':{'placeholder':"Ecrire votre email"}}) }}
 					{{ form_row(formUser.password ,{'attr':{'placeholder':"Ecrire votre mot de passe"}}) }}
 

@@ -8,7 +8,11 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
+use App\Entity\Picture;
+use App\Entity\Video;
 use App\Repository\TrickRepository;
+use App\Repository\VideoRepository;
+use App\Repository\PictureRepository;
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +47,8 @@ class BlogController extends AbstractController
         );
     }
     /**
+     * @param VideoRepository $video
+     * @param PictureRepository $picture
      * @param CommentaryRepository $comment
      * @param TrickRepository $trick
      * @Route("/", name="home")
@@ -55,13 +61,21 @@ class BlogController extends AbstractController
         $comment = $this->getDoctrine()
             ->getRepository(Commentary::class)
             ->findAll();    
+        $video = $this->getDoctrine()
+            ->getRepository(Video::class)
+            ->findAll();     
+        $picture = $this->getDoctrine()
+            ->getRepository(Picture::class)
+            ->findAll();       
 
         return $this->render(
             'blog/home.html.twig',
             [
                 'controller_name' => 'BlogController',
                 'tricks' => $tricks,
-                'comment'=>$comment
+                'comment'=>$comment,
+                'video'=>$video,
+                'picture'=>$picture
 
             ]
         );

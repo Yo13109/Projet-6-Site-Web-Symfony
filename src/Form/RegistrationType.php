@@ -21,12 +21,23 @@ class RegistrationType extends AbstractType
                 ]
             ])
             ->add('password',TextType::class,[
-                'label'=> 'Votre mot de passe',
+                'label'=> 'Mot de passe',
                 'attr' => [
                     'class'=> 'form-control'
                 ]
             ])
-            ->add('avatar')
+            ->add('avatar',TextType::class,[
+                'label'=> 'Votre avatar',
+                'attr' => [
+                    'class'=> 'form-control'
+                ]
+            ])
+            ->add('userName',TextType::class,[
+                'label'=> 'Nom d\'utilisateur',
+                'attr' => [
+                    'class'=> 'form-control'
+                ]
+            ])
             
             
         ;

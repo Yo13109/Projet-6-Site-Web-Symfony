@@ -292,6 +292,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             $trick = new Trick();
             $user = $this->getReference('user1');
             $date = new DateTime();
+            $date2 = (new DateTime())->diff($trick->getCreateDate());
             $category = $this->getReference('category'. random_int(1,4));
             $trick
                 ->setName($trickData['name'])
