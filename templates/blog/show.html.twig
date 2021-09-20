@@ -42,8 +42,9 @@
 	</div>
 
 
-	<div class="card-header"></div>
-
+	
+	{% if app.user %}
+	
 	<div class="col-lg-6 offset-lg-3 col-md-12">
 		<div class="card  mt-5">
 			<div class="card-header">
@@ -56,6 +57,7 @@
 			</div>
 			<div class="card-content mb-5">
 				{{ form_start(formComment) }}
+				{{ form_row(formComment.user,{'attr':{'placeholder':"Votre nom"}}) }}
 				{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
 
 			</div>
@@ -64,11 +66,19 @@
 			{{ form_end(formComment) }}
 		</div>
 	</div>
+	{% else %}
+		<h5><i class="fas fa-exclamation-triangle"></i> Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i></h5>
+		<a class="btn btn-success" href="{{path('security_connexion')}}">Connexion</a>
 
 
+
+{% endif %}
 	<section id="commentaires" class='mt-5 mb-4'>
 
+			
 		{% for comment in trick.comments %}
+
+		
 
 
 			<div class="comment">

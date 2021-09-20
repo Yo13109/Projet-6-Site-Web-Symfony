@@ -43,21 +43,29 @@
 								<i class="fas fa-snowboarding"></i>Trick</a>
 						</li>
 
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('create_figure')}}">Créer une figure</a>
-						</li>
-
+						{% if not app.user %}
+						
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('security_registration')}}">
 								<i class="far fa-address-book"></i>
 								Inscription</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="">
+							<a class="nav-link" href="{{path('security_connexion')}}">
 								<i class="fas fa-sign-in-alt"></i>
 								Connexion</a>
 						</li>
-
+						{% else %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('create_figure')}}">Créer une figure</a>
+						</li>
+							
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('security_deconnexion')}}">
+								<i class="fas fa-sign-in-alt"></i>
+								Deconnexion</a>
+						</li>
+{% endif %}
 
 					</ul>
 

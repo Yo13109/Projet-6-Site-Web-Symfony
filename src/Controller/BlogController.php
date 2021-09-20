@@ -4,22 +4,19 @@ namespace App\Controller;
 
 
 use DateTime;
+use App\Entity\User;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
-use App\Entity\Picture;
-use App\Entity\Video;
 use App\Repository\TrickRepository;
-use App\Repository\VideoRepository;
-use App\Repository\PictureRepository;
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class BlogController extends AbstractController
 {
@@ -71,21 +68,19 @@ class BlogController extends AbstractController
         ]);
     }
     /**
+     * @param UserRepository $user
      * @param CommentaryRepository $comments
      * @param TrickRepository $trick
      * @Route("/blog/{id}", name="show_figure")
      */
 
-    public function show($id, Request $request, EntityManagerInterface $em)
+    public function show($id, Trick $trick,  Request $request, EntityManagerInterface $em)
 
     {
         $comments=$this->getDoctrine()
                         ->getRepository(Commentary::class)
                         ->find($id);
-        $repo = $this->getDoctrine()
-            ->getRepository(Trick::class);
 
-            $trick = $repo->find($id);
             $comment = new Commentary;
             $form = $this->createForm(CommentType::class, $comment);
     
@@ -93,9 +88,11 @@ class BlogController extends AbstractController
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
-                $comment->setDate(new DateTime());
+                $comment->setDate(new DateTime())
+                        ->setTrick($trick);
                 $em->persist($comment);
                 $em->flush();
+            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId()]);
             }
         
         return $this->render('blog/show.html.twig', [
@@ -137,5 +134,19 @@ class BlogController extends AbstractController
             'trick' => $trick
         ]);
                   
+    }
+    /**
+     * @return RedirectResponse
+     * @Route("/blog/{id}/delete", name="delete_figure")
+     * @param Trick $trick
+     */
+    public function delete(Trick $trick):RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($trick);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+
     }
 }

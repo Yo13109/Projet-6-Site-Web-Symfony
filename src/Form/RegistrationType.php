@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationType extends AbstractType
 {
@@ -20,7 +21,7 @@ class RegistrationType extends AbstractType
                     'class'=> 'form-control'
                 ]
             ])
-            ->add('password',TextType::class,[
+            ->add('password',PasswordType::class,[
                 'label'=> 'Mot de passe',
                 'attr' => [
                     'class'=> 'form-control'
