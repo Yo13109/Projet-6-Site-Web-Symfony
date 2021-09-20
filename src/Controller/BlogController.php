@@ -46,40 +46,7 @@ class BlogController extends AbstractController
             ]
         );
     }
-    /**
-     * @param VideoRepository $video
-     * @param PictureRepository $picture
-     * @param CommentaryRepository $comment
-     * @param TrickRepository $trick
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        $tricks = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->findAll();
-        $comment = $this->getDoctrine()
-            ->getRepository(Commentary::class)
-            ->findAll();    
-        $video = $this->getDoctrine()
-            ->getRepository(Video::class)
-            ->findAll();     
-        $picture = $this->getDoctrine()
-            ->getRepository(Picture::class)
-            ->findAll();       
-
-        return $this->render(
-            'blog/home.html.twig',
-            [
-                'controller_name' => 'BlogController',
-                'tricks' => $tricks,
-                'comment'=>$comment,
-                'video'=>$video,
-                'picture'=>$picture
-
-            ]
-        );
-    }
+   
     /**
      * @Route("/blog/new", name="create_figure")
      */
