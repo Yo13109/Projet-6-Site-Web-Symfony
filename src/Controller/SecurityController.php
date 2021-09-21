@@ -54,17 +54,6 @@ class SecurityController extends AbstractController
             'formUser' => $form->createView()
         ]);
     }
-/**
- * @Route("/confirmer_compte/{token}" name="confirm_compte")
- *@param string $token
- * @return \Symfony\Component\HttpFoundation\JsonResponse
- */
-        public function confirm_inscription( string $token){
-
-
-
-            return $this->json($token);
-        }
 
 
 
