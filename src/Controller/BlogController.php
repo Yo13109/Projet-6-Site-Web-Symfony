@@ -68,7 +68,8 @@ class BlogController extends AbstractController
         ]);
     }
     /**
-     * @param UserRepository $user
+     * @param UserRepository $users
+     * @param User $user
      * @param CommentaryRepository $comments
      * @param TrickRepository $trick
      * @Route("/blog/{id}", name="show_figure")
@@ -80,8 +81,11 @@ class BlogController extends AbstractController
         $comments=$this->getDoctrine()
                         ->getRepository(Commentary::class)
                         ->find($id);
+        
 
+            $user = $this->getDoctrine()->getRepository(User::class)->find($id);            
             $comment = new Commentary;
+
             $form = $this->createForm(CommentType::class, $comment);
     
     
@@ -89,10 +93,12 @@ class BlogController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $comment->setDate(new DateTime())
-                        ->setTrick($trick);
+                        ->setTrick($trick)
+                        ->setUser($user);
+                        
                 $em->persist($comment);
                 $em->flush();
-            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId()]);
+            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId(),'id'=>$user->getId()]);
             }
         
         return $this->render('blog/show.html.twig', [
