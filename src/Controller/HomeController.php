@@ -19,7 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
+/**
+ * @method Annonces[] findBy()
+ * 
+ */
 class HomeController extends AbstractController
 {
 
@@ -28,11 +31,15 @@ class HomeController extends AbstractController
         $this->em = $em;
     }
     /**
+     * @param TrickRepository $tricks
+     * @param PictureRepository $pictures
      * @Route("/", name="home")
      */
     public function index(TrickRepository $trickRepository, PictureRepository $pictureRepository ): Response
     {
-        $tricks = $trickRepository->findAll();
+        $tricks = $trickRepository->findBy([],['createDate'=> 'asc'],10);
+
+       
     
         $pictures = $pictureRepository->findAll();
             

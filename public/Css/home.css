@@ -30,3 +30,9 @@
     right: 0.5%;
     bottom: 0%;
 }
+
+.sun {
+position: inherit;
+right: 0%;
+bottom: 0%;
+}

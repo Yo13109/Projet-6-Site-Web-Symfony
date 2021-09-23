@@ -23,7 +23,7 @@
 
 
 			{% for trick in tricks %}
-			
+
 				<div class="  col-lg-3 col-md-12">
 					<div class="card mb-4">
 						<div class="card-content">
@@ -61,25 +61,23 @@
 								{% endif %}
 							</div>
 						</div>
-
 					</div>
-
 				</div>
-
-
 			{% endfor %}
-
-			{% for picture in tricks.pictures %}
-				
-			{% endfor %}
-
-
 		</div>
 	</div>
-	<div class='container'>
-		<button class='read-more-btn'>
+	
+	<div class='container col-3 offset-lg-5'>
+		<div class="row">
+			<div class='sun'>
+			<a href="#" id="loadMoreTrick">
 				<i class="fas fa-plus-circle fa-3x"></i>
-			</button>
+			</a>
+			<a href="#tricks" id="loadLessTrick">
+				<i class="fas fa-minus-circle fa-3x"></i>
+			</a>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}
