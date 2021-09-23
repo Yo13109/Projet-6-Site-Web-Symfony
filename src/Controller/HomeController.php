@@ -9,8 +9,10 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
+use App\Entity\Picture;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class BlogController extends AbstractController
+class HomeController extends AbstractController
 {
 
     public function __construct(EntityManagerInterface $em)
@@ -28,18 +30,16 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(TrickRepository $trickRepository ): Response
     {
-        $tricks = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->findAll();
+        $tricks = $trickRepository->findAll();
+       
+            
 
         return $this->render(
-            'blog/home.html.twig',
+            'home/home.html.twig',
             [
-                'controller_name' => 'BlogController',
-                'tricks' => $tricks
-
+                'tricks' => $tricks,
             ]
         );
     }
@@ -63,7 +63,7 @@ class BlogController extends AbstractController
             $em->persist($trick);
             $em->flush();
         }
-        return $this->render('blog/create.html.twig', [
+        return $this->render('home/create.html.twig', [
             'formTrick' => $form->createView()
         ]);
     }
@@ -72,7 +72,7 @@ class BlogController extends AbstractController
      * @param User $user
      * @param CommentaryRepository $comments
      * @param TrickRepository $trick
-     * @Route("/blog/{id}", name="show_figure")
+     * @Route("/blog/{slug}", name="show_figure")
      */
 
     public function show($id, Trick $trick,  Request $request, EntityManagerInterface $em)
@@ -83,7 +83,7 @@ class BlogController extends AbstractController
                         ->find($id);
         
 
-            $user = $this->getDoctrine()->getRepository(User::class)->find($id);            
+                      
             $comment = new Commentary;
 
             $form = $this->createForm(CommentType::class, $comment);
@@ -93,22 +93,22 @@ class BlogController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $comment->setDate(new DateTime())
-                        ->setTrick($trick)
-                        ->setUser($user);
+                        ->setTrick($trick);
+                        
                         
                 $em->persist($comment);
                 $em->flush();
-            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId(),'id'=>$user->getId()]);
+            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId()]);
             }
         
-        return $this->render('blog/show.html.twig', [
+        return $this->render('home/show.html.twig', [
              'trick' => $trick,'formComment' => $form->createView(),'comment' => $comments
            
         ]);
     }
 
     /**
-     * @Route("/blog/update/{id}", name="update_figure")
+     * @Route("/blog/update/{slug}", name="update_figure")
      */
     public function update(Trick $trick , Request $request, EntityManagerInterface $em,$id)
     {
@@ -116,11 +116,6 @@ class BlogController extends AbstractController
             ->getRepository(Trick::class);
 
             $trick = $repo->find($id);
-
-        
-
-
-
 
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -135,7 +130,7 @@ class BlogController extends AbstractController
 
             return $this->redirectToRoute('show_figure', ['id'=> $trick->getId()]);
         }
-        return $this->render('blog/update.html.twig', [
+        return $this->render('home/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
             'trick' => $trick
         ]);
@@ -143,7 +138,7 @@ class BlogController extends AbstractController
     }
     /**
      * @return RedirectResponse
-     * @Route("/blog/{id}/delete", name="delete_figure")
+     * @Route("/blog/{slug}/delete", name="delete_figure")
      * @param Trick $trick
      */
     public function delete(Trick $trick):RedirectResponse
