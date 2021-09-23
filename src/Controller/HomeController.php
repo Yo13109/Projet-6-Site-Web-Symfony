@@ -30,16 +30,18 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository ): Response
+    public function index(TrickRepository $trickRepository, PictureRepository $pictureRepository ): Response
     {
         $tricks = $trickRepository->findAll();
-       
+    
+        $pictures = $pictureRepository->findAll();
             
 
         return $this->render(
             'home/home.html.twig',
             [
                 'tricks' => $tricks,
+                'pictures'=>$pictures
             ]
         );
     }
@@ -75,15 +77,11 @@ class HomeController extends AbstractController
      * @Route("/blog/{slug}", name="show_figure")
      */
 
-    public function show($id, Trick $trick,  Request $request, EntityManagerInterface $em)
+    public function show(CommentaryRepository $commentaryRepository, Trick $trick,  Request $request, EntityManagerInterface $em)
 
     {
-        $comments=$this->getDoctrine()
-                        ->getRepository(Commentary::class)
-                        ->find($id);
-        
 
-                      
+          $comments = $commentaryRepository->findAll();
             $comment = new Commentary;
 
             $form = $this->createForm(CommentType::class, $comment);
@@ -98,7 +96,7 @@ class HomeController extends AbstractController
                         
                 $em->persist($comment);
                 $em->flush();
-            return $this->redirectToRoute('show_figure', ['id'=>$trick->getId()]);
+            return $this->redirectToRoute('show_figure', ['slug'=>$trick->getSlug()]);
             }
         
         return $this->render('home/show.html.twig', [
