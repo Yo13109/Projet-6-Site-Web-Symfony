@@ -27,7 +27,9 @@
 				<div class="  col-lg-3 col-md-12">
 					<div class="card mb-4">
 						<div class="card-content">
-							<img src={{asset('Image/')}} class="card-img-top" alt="">
+						{% for picture in trick.pictures %}
+							<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+							{% endfor %}
 						</div>
 						<div class="card-footer">
 							<div class="row">

@@ -3,7 +3,7 @@
 
 {% block body %}
 
-	<div class="container">
+	<div class="container mt-5">
 		<div class="card  mb-3 mt-5 ">
 			<section class="Figure">
 				<div class="card-header">
@@ -21,8 +21,11 @@
 
 					<div class='row'>
 						<div class='container'>
+							{% for picture in trick.pictures %}
 
-							<img src={{asset('Image/MethodeAir.jpg')}} alt=""></img>
+
+								<img src={{asset('Image/' ~ picture.filename)}} alt=""></img>
+						{% endfor %}
 
 						{{trick.content| raw}}
 					</div>
@@ -34,51 +37,57 @@
 	</div>
 
 	<div class="row">
-		<img src={{asset('Image/MethodeAir.jpg')}} class="col-3" alt="" width="250" height="300">
+		{% for picture in trick.pictures %}
+
+			<img src={{asset('Image/'~ picture.filename)}} class="col-3" alt="" width="250" height="300">
+
+		{% endfor %}
 		<div class='col-6'>
-			<iframe width="250" height="300" src="https://www.youtube.com/embed/_hxLS2ErMiY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			{% for video in trick.video %}
 
+
+				<iframe width="250" height="300" src={{video.url("path")}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			{% endfor %}
 		</div>
 	</div>
 
 
-	
 	{% if app.user %}
-	
-	<div class="col-lg-6 offset-lg-3 col-md-12">
-		<div class="card  mt-5">
-			<div class="card-header">
+
+		<div class="col-lg-6 offset-lg-3 col-md-12">
+			<div class="card  mt-5">
+				<div class="card-header">
 
 
-				<h3>
-					Ajout d'un commentaire
-				</h3>
+					<h3>
+						Ajout d'un commentaire
+					</h3>
 
+				</div>
+				<div class="card-content mb-5">
+					{{ form_start(formComment) }}
+
+					{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
+
+				</div>
+
+				<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
+				{{ form_end(formComment) }}
 			</div>
-			<div class="card-content mb-5">
-				{{ form_start(formComment) }}
-				
-				{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
-
-			</div>
-
-			<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
-			{{ form_end(formComment) }}
 		</div>
-	</div>
 	{% else %}
-		<h5><i class="fas fa-exclamation-triangle"></i> Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i></h5>
+		<h5>
+			<i class="fas fa-exclamation-triangle"></i>
+			Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i>
+		</h5>
 		<a class="btn btn-success" href="{{path('security_connexion')}}">Connexion</a>
 
 
-
-{% endif %}
+	{% endif %}
 	<section id="commentaires" class='mt-5 mb-4'>
 
-			
-		{% for comment in trick.comments %}
 
-		
+		{% for comment in trick.comments %}
 
 
 			<div class="comment">

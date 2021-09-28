@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * @method Annonces[] findBy()
  * 
@@ -35,24 +36,24 @@ class HomeController extends AbstractController
      * @param PictureRepository $pictures
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository, PictureRepository $pictureRepository ): Response
+    public function index(TrickRepository $trickRepository): Response
     {
-        $tricks = $trickRepository->findBy([],['createDate'=> 'asc'],10);
+        $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], 10);
 
-       
-    
-        $pictures = $pictureRepository->findAll();
-            
+
+
+        
+
 
         return $this->render(
             'home/home.html.twig',
             [
                 'tricks' => $tricks,
-                'pictures'=>$pictures
+               
             ]
         );
     }
-   
+
     /**
      * @Route("/blog/new", name="create_figure")
      */
@@ -61,7 +62,7 @@ class HomeController extends AbstractController
     {
         $trick = new Trick;
         $form = $this->createForm(TrickType::class, $trick);
-        
+
 
 
         $form->handleRequest($request);
@@ -84,43 +85,47 @@ class HomeController extends AbstractController
      * @Route("/blog/{slug}", name="show_figure")
      */
 
-    public function show(CommentaryRepository $commentaryRepository, Trick $trick,  Request $request, EntityManagerInterface $em)
-
+   
+    public function show(Trick $trick,  Request $request, EntityManagerInterface $em)
     {
-
-          $comments = $commentaryRepository->findAll();
-            $comment = new Commentary;
-
-            $form = $this->createForm(CommentType::class, $comment);
-    
-    
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-                $comment->setDate(new DateTime())
-                        ->setTrick($trick);
-                        
-                        
-                $em->persist($comment);
-                $em->flush();
-            return $this->redirectToRoute('show_figure', ['slug'=>$trick->getSlug()]);
-            }
         
+
+        $comment = new Commentary;
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment
+                ->setDate(new DateTime())
+                ->setTrick($trick)
+            ;
+
+
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('show_figure', ['slug' => $trick->getSlug()]);
+        }
+
         return $this->render('home/show.html.twig', [
-             'trick' => $trick,'formComment' => $form->createView(),'comment' => $comments
            
+            'trick' => $trick, 'formComment' => $form->createView(),
+
+
         ]);
     }
 
     /**
      * @Route("/blog/update/{slug}", name="update_figure")
      */
-    public function update(Trick $trick , Request $request, EntityManagerInterface $em,$id)
+    public function update(Trick $trick, Request $request, EntityManagerInterface $em, $id)
     {
         $repo = $this->getDoctrine()
             ->getRepository(Trick::class);
 
-            $trick = $repo->find($id);
+        $trick = $repo->find($id);
 
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -133,26 +138,24 @@ class HomeController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('show_figure', ['id'=> $trick->getId()]);
+            return $this->redirectToRoute('show_figure', ['id' => $trick->getId()]);
         }
         return $this->render('home/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
             'trick' => $trick
         ]);
-                  
     }
     /**
      * @return RedirectResponse
      * @Route("/blog/{slug}/delete", name="delete_figure")
      * @param Trick $trick
      */
-    public function delete(Trick $trick):RedirectResponse
+    public function delete(Trick $trick): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($trick);
         $em->flush();
 
         return $this->redirectToRoute('home');
-
     }
 }
