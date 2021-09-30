@@ -26,19 +26,9 @@
 
 				<div class="  col-lg-3 col-md-12">
 					<div class="card mb-4">
-						<div class="card-content ">
-
-
+						<div class="card-content">
 							{% for picture in trick.pictures %}
-
-								{% if trick.pictures is null  %}
-									<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
-								{% else %}
-									<div class='d-block'>
-										<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-
-									</div>
-								{% endif %}
+								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
 							{% endfor %}
 						</div>
 						<div class="card-footer">
@@ -78,31 +68,19 @@
 			{% endfor %}
 		</div>
 	</div>
-
 	{% if previous >= 0 %}
-
+		
 		<a href="{{ path('home') }}">
-			<i class="fas fa-moins-circle fa-3x"></i>
+			<i class="fas fa-minus-circle"></i>
 		</a>
-
+		
 	{% endif %}
-	+
+	
 	{% if next < tricks|length %}
-
-		<a href="{{ path('home2') }}">
+		
+		<a href="{{ path('home') }}">
 			<i class="fas fa-plus-circle fa-3x"></i>
 		</a>
-
+		
 	{% endif %}
-	<div class='container col-3 offset-lg-5'>
-		<div class="row">
-			<div class='sun'>
-				<a href="{{ path('home2') }}">
-					<i class="fas fa-plus-circle fa-3x"></i>
-				</a>
-			</div>
-		</div>
-	</div>
-
-
 {% endblock %}

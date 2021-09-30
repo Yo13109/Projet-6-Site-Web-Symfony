@@ -47,14 +47,42 @@ class HomeController extends AbstractController
 
        );
     
-        
+       $offset = max(0, $request->query->getInt('offset', 0));
 
 
         return $this->render(
             'home/home.html.twig',
             [
                 'tricks' => $tricks,
-               
+                'previous'=> $offset - TrickRepository::PAGINATOR_PER_PAGE,
+                'next'=>10+$offset + TrickRepository::PAGINATOR_PER_PAGE,
+            ]
+        );
+    }
+    /**
+     * @var \App\Entity\Trick $tricks
+     * @Route("/tricks20", name="home2")
+     */
+    public function index2(TrickRepository $trickRepository,PaginatorInterface $paginator, Request $request): Response
+    {
+        $data = $trickRepository->findBy([], ['createDate' => 'asc']);
+
+       $tricks = $paginator->paginate(
+        $data,
+        $request->query->getInt('page',1),
+        20,
+
+       );
+    
+       $offset = max(0, $request->query->getInt('offset', 0));
+
+
+        return $this->render(
+            'home/home#20.html.twig',
+            [
+                'tricks' => $tricks,
+                'previous'=> $offset - TrickRepository::PAGINATOR_PER_PAGE,
+                'next'=> 20+$offset + TrickRepository::PAGINATOR_PER_PAGE
             ]
         );
     }
@@ -125,12 +153,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/blog/update/{slug}", name="update_figure")
      */
-    public function update(Trick $trick, Request $request, EntityManagerInterface $em, $id)
+    public function update(Trick $trick, Request $request, EntityManagerInterface $em, $slug)
     {
         $repo = $this->getDoctrine()
             ->getRepository(Trick::class);
 
-        $trick = $repo->find($id);
+        $trick = $repo->find($slug);
 
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -143,7 +171,7 @@ class HomeController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('show_figure', ['id' => $trick->getId()]);
+            return $this->redirectToRoute('show_figure', ['slug' => $trick->getSlug()]);
         }
         return $this->render('home/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
