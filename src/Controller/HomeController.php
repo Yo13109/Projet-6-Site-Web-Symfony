@@ -9,16 +9,17 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
-use App\Entity\Picture;
 use App\Repository\TrickRepository;
-use App\Repository\CommentaryRepository;
 use App\Repository\PictureRepository;
+use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @method Annonces[] findBy()
@@ -32,16 +33,20 @@ class HomeController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @param TrickRepository $tricks
-     * @param PictureRepository $pictures
+     * @var \App\Entity\Trick $tricks
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository,PaginatorInterface $paginator, Request $request): Response
     {
-        $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], 10);
+        $data = $trickRepository->findBy([], ['createDate' => 'asc']);
 
+       $tricks = $paginator->paginate(
+        $data,
+        $request->query->getInt('page',1),
+        10,
 
-
+       );
+    
         
 
 

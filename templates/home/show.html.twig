@@ -3,7 +3,7 @@
 
 {% block body %}
 
-	<div class="container mt-5">
+	<div class="container">
 		<div class="card  mb-3 mt-5 ">
 			<section class="Figure">
 				<div class="card-header">
@@ -24,7 +24,9 @@
 							{% for picture in trick.pictures %}
 
 
-								<img src={{asset('Image/' ~ picture.filename)}} alt=""></img>
+
+								<img src={{asset('Image/' ~ picture.filename | imagine_filter('thumb'))}} alt="" width="200" height="200
+								"></img>
 						{% endfor %}
 
 						{{trick.content| raw}}
@@ -39,14 +41,14 @@
 	<div class="row">
 		{% for picture in trick.pictures %}
 
-			<img src={{asset('Image/'~ picture.filename)}} class="col-3" alt="" width="250" height="300">
+			<img src={{asset('Image/'~ picture.filename)}} class="col-3" alt="" width="100" height="100">
 
 		{% endfor %}
 		<div class='col-6'>
 			{% for video in trick.video %}
 
 
-				<iframe width="250" height="300" src={{video.url("path")}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe width="250" height="300" src="{{video.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			{% endfor %}
 		</div>
 	</div>

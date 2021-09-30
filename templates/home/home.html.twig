@@ -27,8 +27,8 @@
 				<div class="  col-lg-3 col-md-12">
 					<div class="card mb-4">
 						<div class="card-content">
-						{% for picture in trick.pictures %}
-							<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+							{% for picture in trick.pictures %}
+								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
 							{% endfor %}
 						</div>
 						<div class="card-footer">
@@ -66,19 +66,6 @@
 					</div>
 				</div>
 			{% endfor %}
-		</div>
-	</div>
-	
-	<div class='container col-3 offset-lg-5'>
-		<div class="row">
-			<div class='sun'>
-			<a href="#" id="loadMoreTrick">
-				<i class="fas fa-plus-circle fa-3x"></i>
-			</a>
-			<a href="#tricks" id="loadLessTrick">
-				<i class="fas fa-minus-circle fa-3x"></i>
-			</a>
-			</div>
 		</div>
 	</div>
 
