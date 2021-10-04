@@ -9,13 +9,22 @@
 			<div class="col-md-10 col-md-offset-1 mt-5 mb-4">
 
 				<div class="card mt-5">
-					{% for picture in trick.pictures %}
+				{% if trick.pictures | length <= 0 %}
+								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
 
 
-						<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-					{% endfor %}
+							{% else %}
+							
+								{% for picture in trick.pictures %}
+
+
+									<img src={{asset('Image/' ~ picture.filename )}} class="card-img-top" alt="">
+
+								{% endfor %}
+							{% endif %}
 					<div class="card-body">
 						<ul class="list-inline trick-data">
+						
 							<li class="list-inline-item">
 								{% for comment in trick.comments %}
 									Par :

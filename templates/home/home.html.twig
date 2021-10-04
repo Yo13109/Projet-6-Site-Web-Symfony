@@ -28,18 +28,20 @@
 					<div class="card mb-4">
 						<div class="card-content ">
 
+							{% if trick.pictures | length <= 0 %}
+								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
 
-							{% for picture in trick.pictures %}
 
-								{% if trick.pictures is null  %}
-									<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
-								{% else %}
-									<div class='d-block'>
-										<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+							{% else %}
+							
+								{% for picture in trick.pictures %}
 
-									</div>
-								{% endif %}
-							{% endfor %}
+
+									<img src={{asset('Image/' ~ picture.filename )}} class="card-img-top" alt="">
+
+								{% endfor %}
+							{% endif %}
+
 						</div>
 						<div class="card-footer">
 							<div class="row">
