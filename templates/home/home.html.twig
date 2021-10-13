@@ -28,25 +28,45 @@
 					<div class="card mb-4">
 						<div class="card-content ">
 
-						
+							{% if trick.pictures | length > 1 %}
 
-							{% if trick.pictures | length == 0 %}
-								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
-
-
-							{% else %}
-							
-
+							il y a deux photos
 								{% for picture in trick.pictures %}
-									
-										<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+									{% if picture.main == 1 %}
+
+											main = 1
+
+										{% else %}
+	
+											main = 0
+
+											{% endif %}
 
 
 									
 								{% endfor %}
+								
+								
 
 
 							{% endif %}
+
+							{% if trick.pictures | length == 1 %}
+								{% for picture in trick.pictures %}
+
+								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+
+								{% endfor %}
+
+							{% else %}
+
+								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
+
+
+								
+
+							{% endif %}
+
 
 						</div>
 						<div class="card-footer">
@@ -87,7 +107,7 @@
 		</div>
 	</div>
 
-	
+
 	<div class='container col-3 offset-lg-5'>
 		<div class="row">
 			<div class='sun'>
