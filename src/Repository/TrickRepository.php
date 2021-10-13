@@ -21,46 +21,26 @@ class TrickRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Trick::class);
     }
-     public function getTrickPaginator(Trick $trick, int $offset): Paginator
-        {
-            $query = $this->createQueryBuilder('t')
-            ->andWhere('t.name = :trick')
-                ->setParameter('trick', $trick)
-                ->orderBy('t.createDate', 'DESC')
-            ->setMaxResults(self::PAGINATOR_PER_PAGE)
-                ->setFirstResult($offset)
-                ->getQuery()
-            ;
-    
-            return new Paginator($query);
-   }
+    /**
+ * Get the paginated list of published articles
+ *
+ * @param int $page
+ * @param int $maxperpage
+ * @param string $sortby
+ * @return Paginator
+ */
+public function getList($page=1, $maxperpage=10)
+{
+    $q = $this->_em->createQueryBuilder()
+        ->select('trick')
+        ->from('SimaDemoBundle:Trick','trick')
+    ;
+ 
+    $q->setFirstResult(($page-1) * $maxperpage)
+        ->setMaxResults($maxperpage);
+ 
+    return new Paginator($q);
+}
 
-    // /**
-    //  * @return Trick[] Returns an array of Trick objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Trick
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+   
 }

@@ -10,11 +10,11 @@ use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
 use App\Repository\TrickRepository;
-use App\Repository\PictureRepository;
+
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,57 +36,32 @@ class HomeController extends AbstractController
      * @var \App\Entity\Trick $tricks
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository,PaginatorInterface $paginator, Request $request): Response
+    public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        $data = $trickRepository->findBy([], ['createDate' => 'asc']);
+         $tricks = $trickRepository->findBy([], ['createDate' => 'asc']);
+        /*$page = $request->query->getInt('page', 1);
+        $offset = 2*$page;
+        $tricks = $paginator->paginate(
+            $data,
+            $page,
+            $offset,
 
-       $tricks = $paginator->paginate(
-        $data,
-        $request->query->getInt('page',1),
-        10,
 
-       );
-    
-       $offset = max(0, $request->query->getInt('offset', 0));
+        );
+        dd($request->query->getInt('page', 1), $tricks);*/
+
+
+
 
 
         return $this->render(
             'home/home.html.twig',
             [
                 'tricks' => $tricks,
-                'previous'=> $offset - TrickRepository::PAGINATOR_PER_PAGE,
-                'next'=>10+$offset + TrickRepository::PAGINATOR_PER_PAGE,
+              
             ]
         );
     }
-    /**
-     * @var \App\Entity\Trick $tricks
-     * @Route("/tricks20", name="home2")
-     */
-    public function index2(TrickRepository $trickRepository,PaginatorInterface $paginator, Request $request): Response
-    {
-        $data = $trickRepository->findBy([], ['createDate' => 'asc']);
-
-       $tricks = $paginator->paginate(
-        $data,
-        $request->query->getInt('page',1),
-        20,
-
-       );
-    
-       $offset = max(0, $request->query->getInt('offset', 0));
-
-
-        return $this->render(
-            'home/home#20.html.twig',
-            [
-                'tricks' => $tricks,
-                'previous'=> $offset - TrickRepository::PAGINATOR_PER_PAGE,
-                'next'=> 20+$offset + TrickRepository::PAGINATOR_PER_PAGE
-            ]
-        );
-    }
-
     /**
      * @Route("/blog/new", name="create_figure")
      */
@@ -118,10 +93,10 @@ class HomeController extends AbstractController
      * @Route("/blog/{slug}", name="show_figure")
      */
 
-   
+
     public function show(Trick $trick,  Request $request, EntityManagerInterface $em)
     {
-        
+
 
         $comment = new Commentary;
 
@@ -133,8 +108,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment
                 ->setDate(new DateTime())
-                ->setTrick($trick)
-            ;
+                ->setTrick($trick);
 
 
             $em->persist($comment);
@@ -143,7 +117,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/show.html.twig', [
-           
+
             'trick' => $trick, 'formComment' => $form->createView(),
 
 
