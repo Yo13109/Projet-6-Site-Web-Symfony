@@ -38,27 +38,22 @@ class HomeController extends AbstractController
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
-         $tricks = $trickRepository->findBy([], ['createDate' => 'asc']);
-        /*$page = $request->query->getInt('page', 1);
-        $offset = 2*$page;
-        $tricks = $paginator->paginate(
-            $data,
-            $page,
-            $offset,
 
 
-        );
-        dd($request->query->getInt('page', 1), $tricks);*/
-
-
-
-
-
+        $page = $request->query->getInt('page', 1);
+        if ($page <= 0) {
+            $page = 1;
+        }
+        $nbperpage = 2;
+        $limit = $nbperpage * $page;
+        $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], $limit, 0);
+        
         return $this->render(
             'home/home.html.twig',
             [
                 'tricks' => $tricks,
-              
+                'pagesuivante'=>$page+1,
+                'limit'=>$limit,
             ]
         );
     }
