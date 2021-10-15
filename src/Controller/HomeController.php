@@ -44,9 +44,10 @@ class HomeController extends AbstractController
         if ($page <= 0) {
             $page = 1;
         }
-        $nbperpage = 2;
+        $nbperpage = 5;
         $limit = $nbperpage * $page;
         $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], $limit, 0);
+        $tricksCount = $trickRepository->findAll();
         
         return $this->render(
             'home/home.html.twig',
@@ -54,6 +55,7 @@ class HomeController extends AbstractController
                 'tricks' => $tricks,
                 'pagesuivante'=>$page+1,
                 'limit'=>$limit,
+                'totaltricks'=>$tricksCount,
             ]
         );
     }

@@ -107,15 +107,11 @@
 		</div>
 	</div>
 
-{% if tricks | length >=
+{% if totaltricks | length >
  limit %}
-$limit est plus petit que la quantité des figures.
 
-{% else %}
-	la quantité des figures est infèrieur à la 
-{% endif %}
 
-	<div class='container col-3 offset-lg-5'>
+<div class='container col-3 offset-lg-5'>
 		<div class="row">
 			<div class='sun'>
 
@@ -125,6 +121,12 @@ $limit est plus petit que la quantité des figures.
 			</div>
 		</div>
 	</div>
+
+{% else %}
+	
+{% endif %}
+
+	
 
 
 
