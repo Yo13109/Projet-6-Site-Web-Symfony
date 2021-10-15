@@ -107,16 +107,25 @@
 		</div>
 	</div>
 
+{% if tricks | length >=
+ limit %}
+$limit est plus petit que la quantité des figures.
+
+{% else %}
+	la quantité des figures est infèrieur à la 
+{% endif %}
 
 	<div class='container col-3 offset-lg-5'>
 		<div class="row">
 			<div class='sun'>
-				<a href=>
-					<i class="fas fa-plus-circle fa-3x"></i>
-				</a>
+
+				
+					<a href="{{path('home', {'page':pagesuivante})}}" class="btn btn-primary"><i class="fas fa-plus-circle fa-3x"> </i></a>
+				
 			</div>
 		</div>
 	</div>
+
 
 
 {% endblock %}

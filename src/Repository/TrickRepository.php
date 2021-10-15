@@ -21,26 +21,7 @@ class TrickRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Trick::class);
     }
-    /**
- * Get the paginated list of published articles
- *
- * @param int $page
- * @param int $maxperpage
- * @param string $sortby
- * @return Paginator
- */
-public function getList($page=1, $maxperpage=10)
-{
-    $q = $this->_em->createQueryBuilder()
-        ->select('trick')
-        ->from('SimaDemoBundle:Trick','trick')
-    ;
- 
-    $q->setFirstResult(($page-1) * $maxperpage)
-        ->setMaxResults($maxperpage);
- 
-    return new Paginator($q);
-}
+    
 
    
 }
