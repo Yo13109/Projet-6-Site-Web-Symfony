@@ -49,6 +49,7 @@ class HomeController extends AbstractController
         $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], $limit, 0);
         $tricksCount = $trickRepository->findAll();
         
+        
         return $this->render(
             'home/home.html.twig',
             [
@@ -63,7 +64,7 @@ class HomeController extends AbstractController
      * @Route("/blog/new", name="create_figure")
      */
 
-    public function create(Request  $request, EntityManagerInterface $em)
+    public function create(Request  $request,Trick $trick, EntityManagerInterface $em)
     {
         $trick = new Trick;
         $form = $this->createForm(TrickType::class, $trick);
@@ -130,6 +131,7 @@ class HomeController extends AbstractController
             ->getRepository(Trick::class);
 
         $trick = $repo->find($slug);
+        
 
         $form = $this->createForm(TrickType::class, $trick);
 

@@ -28,44 +28,33 @@
 					<div class="card mb-4">
 						<div class="card-content ">
 
-							{% if trick.pictures | length > 1 %}
-
-							il y a deux photos
+							{% if trick.pictures | length >= 1 %}
+							
 								{% for picture in trick.pictures %}
 									{% if picture.main == 1 %}
-
-											main = 1
-
-										{% else %}
-	
-											main = 0
-
-											{% endif %}
-
-
+									main=1
 									
-								{% endfor %}
-								
-								
 
+									{% else %}
+										main=0
 
-							{% endif %}
+										{% endif %}
 
-							{% if trick.pictures | length == 1 %}
-								{% for picture in trick.pictures %}
+										
+									
 
 								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-
+								
 								{% endfor %}
-
+							
 							{% else %}
 
 								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
 
+								{% endif %}
 
-								
 
-							{% endif %}
+							
 
 
 						</div>
@@ -107,27 +96,26 @@
 		</div>
 	</div>
 
-{% if totaltricks | length >
+	{% if totaltricks | length >
  limit %}
 
 
-<div class='container col-3 offset-lg-5'>
-		<div class="row">
-			<div class='sun'>
+		<div class='container col-3 offset-lg-5'>
+			<div class="row">
+				<div class='sun'>
 
-				
-					<a href="{{path('home', {'page':pagesuivante})}}" class="btn btn-primary"><i class="fas fa-plus-circle fa-3x"> </i></a>
-				
+
+					<a href="{{path('home', {'page':pagesuivante})}}" class="btn btn-primary">
+						<i class="fas fa-plus-circle fa-3x"></i>
+					</a>
+
+				</div>
 			</div>
 		</div>
-	</div>
 
-{% else %}
-	
-{% endif %}
+		{% else %}
 
-	
-
+	{% endif %}
 
 
 {% endblock %}
