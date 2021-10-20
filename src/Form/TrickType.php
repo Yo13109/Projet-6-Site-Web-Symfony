@@ -18,25 +18,16 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name')
+
             ->add('content')
-            
+
+
             ->add('category', EntityType::class, [
-                'class'=> Category::class,
-                'choice_label'=>'name'
-            ])
-            ->add('user', EntityType::class,
-        [
-'class'=>User::class,
-'choice_label'=>'username'
-        ])
-        ;
-            
-           
-
-                
-
-                   
-            }
+                'class' => Category::class,
+                'choice_label' => 'name'
+            ]);
+          
+    }
 
     public function configureOptions(OptionsResolver $resolver)
     {

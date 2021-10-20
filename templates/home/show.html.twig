@@ -142,56 +142,7 @@
 		</div>
 
 
-		<!--	<div class="container">
-						<div class="card  mb-3 mt-5 ">
-							
-									
-								
-								<div class="card-content">
-									<div class='container'>
-										<div class='row'>
-				
-											{% for picture in trick.pictures %}
-				
-												<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-				
-				
-											{% endfor %}
-				
-											<h2>{{trick.name}}</h2>
-									<div class="metadata">
-										Ecrit le
-										{{trick.createdate | date('d/m/y')}}
-										à
-										{{trick.createdate| date('H:i')}}
-										dans la catégorie
-										{{trick.category.name}}
-				
-											{{trick.content| raw}}
-										</div>
-				
-									</div>
-								</div>
-				
-							</section>
-						</div>
-				
-						<div class="row">
-							{% for picture in trick.pictures %}
-				
-								<img src={{asset('Image/'~ picture.filename)}} class="col-3" alt="" width="100" height="100">
-				
-							{% endfor %}
-							<div class='col-6'>
-								{% for video in trick.video %}
-				
-				
-									<iframe width="250" height="300" src="https://youtu.be/_hxLS2ErMiY" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-								{% endfor %}
-							</div>
-						</div>-->
-
-
+		
 		{% if app.user %}
 
 			<div class="col-lg-6 offset-lg-3 col-md-12">
