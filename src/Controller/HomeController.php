@@ -44,10 +44,10 @@ class HomeController extends AbstractController
         if ($page <= 0) {
             $page = 1;
         }
-        $nbperpage = 5;
+        $nbperpage = $this->getParameter('app.nbperpage');
         $limit = $nbperpage * $page;
         $tricks = $trickRepository->findBy([], ['createDate' => 'asc'], $limit, 0);
-        $tricksCount = $trickRepository->findAll();
+        $tricksCount = count($trickRepository->findAll());
         
         
         return $this->render(
@@ -61,6 +61,7 @@ class HomeController extends AbstractController
         );
     }
     /**
+     * @param TrickRepository $tricks
      * @Route("/blog/new", name="create_figure")
      */
 

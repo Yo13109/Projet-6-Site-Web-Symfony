@@ -45,6 +45,32 @@
 								Catégorie :
 								{{trick.category.name}}
 							</li>
+
+							|
+							<li class="list-inline-item">
+								{% if app.user %}
+
+									<div class="col">
+										<div class="name text-right">
+											<a href="{{path('update_figure', {'slug':trick.slug})}}">
+												<i class="far fa-edit right"></i>
+											</a>
+											<a href="{{path('delete_figure', {'slug':trick.slug})}}">
+												<i class="far fa-trash-alt right"></i>
+											</a>
+											<a name="tricks"></a>
+										</div>
+									</div>
+								{% else %}
+									<div class="col">
+										<div class="name text-right">
+
+											<a name="tricks"></a>
+										</div>
+									</div>
+								{% endif %}
+
+							</li>
 							|
 
 						</ul>
@@ -113,11 +139,13 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- End Carousel -->
 						<hr>
 						<h5 class="card-title">Description</h5>
-						<p class="card-text text-justify">{{trick.content}}</p>
+						<p class="card-text text-justify">{{trick.content}}
+						<button class='read-more-btn'> lire la suite </button></p>
+						
 					</div>
 					<!--  End Trick -->
 
@@ -142,7 +170,6 @@
 		</div>
 
 
-		
 		{% if app.user %}
 
 			<div class="col-lg-6 offset-lg-3 col-md-12">

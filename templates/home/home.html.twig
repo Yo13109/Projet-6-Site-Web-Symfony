@@ -25,38 +25,28 @@
 			{% for trick in tricks %}
 
 				<div class="  col-lg-3 col-md-12">
-					<div class="card mb-4">
+					<div class="card mb-4" width ='1500' height='1500' >
 						<div class="card-content ">
 
-							{% if trick.pictures | length >= 1 %}
-							
+							{% if trick.pictures | length == 0 %}
+								<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
+
+							{% elseif trick.pictures | length == 1 %}
+								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+
+							{% elseif trick.pictures | length > 1 %}
+
+
 								{% for picture in trick.pictures %}
 									{% if picture.main == 1 %}
-									main=1
-									
+										<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
 
 									{% else %}
-										main=0
+										<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+									{% endif %}
 
-										{% endif %}
-
-										
-									
-
-								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-								
 								{% endfor %}
-							
-							{% else %}
-
-								<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
-
-								{% endif %}
-
-
-							
-
-
+							{% endif %}
 						</div>
 						<div class="card-footer">
 							<div class="row">
@@ -96,8 +86,7 @@
 		</div>
 	</div>
 
-	{% if totaltricks | length >
- limit %}
+	{% if totaltricks > limit %}
 
 
 		<div class='container col-3 offset-lg-5'>
