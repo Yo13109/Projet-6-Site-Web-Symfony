@@ -10,11 +10,8 @@ use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
 use App\Repository\TrickRepository;
-
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,25 +58,35 @@ class HomeController extends AbstractController
         );
     }
     /**
-     * @param TrickRepository $tricks
+     * 
      * @Route("/blog/new", name="create_figure")
      */
 
-    public function create(Request  $request,Trick $trick, EntityManagerInterface $em)
+    public function create(Request  $request,Trick $trick, EntityManagerInterface $em,$slug)
     {
-        $trick = new Trick;
-        $form = $this->createForm(TrickType::class, $trick);
+
+        $repo = $this->getDoctrine()
+        ->getRepository(Trick::class);
+
+    $trick = $repo->find($slug);
+    
+
+    $form = $this->createForm(TrickType::class, $trick);
+
+    
 
 
+    $form->handleRequest($request);
 
-        $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $trick->setCreateDate(new DateTime());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($trick);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setCreateDate(new DateTime());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($trick);
-            $em->flush();
-        }
+        return $this->redirectToRoute('show_figure', ['slug' => $trick->getSlug()]);
+    }
+                
         return $this->render('home/create.html.twig', [
             'formTrick' => $form->createView()
         ]);
@@ -132,9 +139,14 @@ class HomeController extends AbstractController
             ->getRepository(Trick::class);
 
         $trick = $repo->find($slug);
+
+
         
 
         $form = $this->createForm(TrickType::class, $trick);
+
+        
+        dd($trick);
 
 
         $form->handleRequest($request);
