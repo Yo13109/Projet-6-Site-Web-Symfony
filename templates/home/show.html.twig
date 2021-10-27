@@ -9,17 +9,19 @@
 			<div class="col-md-10 col-md-offset-1 mt-5 mb-4">
 
 				<div class="card mt-5">
-					{% if trick.pictures | length <= 0 %}
-						<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
+					{% if trick.pictures | length == 0 %}
+						<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
+					{% elseif trick.pictures | length == 1 %}
+						<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 
-					{% else %}
-
+					{% elseif trick.pictures | length > 1 %}
 						{% for picture in trick.pictures %}
-
-
-							<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-
+							{% if picture.main == 1 %}
+								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+							{% else %}
+								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+							{% endif %}
 						{% endfor %}
 					{% endif %}
 					<div class="card-body">
@@ -79,157 +81,106 @@
 							<strong>{{trick.name}}</strong>
 						</h4>
 						<hr>
-						<!-- Start Carousel -->
-						<div class="row d-none d-lg-flex load-media">
-							<div class="col-lg-6 col-md-12">
-								<div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
-									<ol class="carousel-indicators">
-										<li data-target=".carousel" data-slide-to="0" class=""></li>
-										<li data-target=".carousel" data-slide-to="1" class="active"></li>
-									</ol>
-									<div class="carousel-inner enlarge">
-										<div class="carousel-item">
-											{% if trick.pictures | length <= 0 %}
-												<img src={{asset('Image/MethodeAir.jpg')}} class="card-img-top" alt="">
+						<div class="container">
+							<div class="row mt-4 mb-4">
+								<div class="  col-lg-3 col-md-12">
+									<div class="card mb-4" width='250' height='250'>
+										<div class="card-content ">
 
+											{% if trick.pictures | length == 0 %}
+												<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
-											{% else %}
+											{% elseif trick.pictures | length == 1 %}
+												<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+
+											{% elseif trick.pictures | length > 1 %}
 												{% for picture in trick.pictures %}
-
-
 													<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-
-												</div>
-												<div class="carousel-item active">
-													<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-												</div>
+												{% endfor %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								<div class="  col-lg-3 col-md-12">
+									<div class="card mb-4" width='300' height='250'>
+										<div class="card-content ">
+										{% for video in trick.video %}
+											<iframe src={{""~ video.url}} allowfullscreen=""></iframe>
 											{% endfor %}
-										{% endif %}
-
-									</div>
-									<a class="carousel-control-prev" href="#carousel" data-slide="prev">
-										<span class="carousel-control-prev-icon"></span>
-									</a>
-									<a class="carousel-control-next" href="#carousel" data-slide="next">
-										<span class="carousel-control-next-icon"></span>
-									</a>
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-12">
-								<div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
-									<ol class="carousel-indicators">
-										<li data-target="#carousel-v" data-slide-to="0" class=""></li>
-										<li data-target="#carousel-v" data-slide-to="1" class="active"></li>
-									</ol>
-									<div class="carousel-inner">
-										<div class="carousel-item">
-											<iframe src="https://www.youtube.com/embed/SlhGVnFPTDE" allowfullscreen=""></iframe>
 										</div>
-										<div class="carousel-item active">
-											<iframe src="https://www.youtube.com/embed/arzLq-47QFA" allowfullscreen=""></iframe>
-										</div>
-
 									</div>
-									<a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
-										<span class="carousel-control-prev-icon"></span>
-									</a>
-									<a class="carousel-control-next" href="#carousel-v" data-slide="next">
-										<span class="carousel-control-next-icon"></span>
-									</a>
 								</div>
 							</div>
 						</div>
 
-						<!-- End Carousel -->
-						<hr>
-						<h5 class="card-title">Description</h5>
-						<p class="card-text text-justify">{{trick.content}}
-						<button class='read-more-btn'> lire la suite </button></p>
 						
-					</div>
-					<!--  End Trick -->
+		<hr>
+		<h5 class="card-title">Description</h5>
+		<p class="card-text text-justify">{{trick.content}}
+			<button class='read-more-btn'>
+				lire la suite
+			</button>
+		</p>
 
-					<!-- Start Comment Add Form -->
-					<div class="col-md-12 px-0 mb-30">
-						<div class="comments text-center p-3"></div>
-					</div>
-					<!-- Start Comment Add Form -->
+	</div>
+	<!--  End Trick -->
 
-					<!-- Start Comments -->
-					<span class="comments-anchor" id="comments-block"></span>
-					<div class="col-md-12 pl-0 pr-0">
-						<div class="comments text-left padDiv mb-30">
-							<div class="entry-comments">
-								<ul class="entry-comments-list list-unstyled"></ul>
-							</div>
-						</div>
-					</div>
-					<!-- End Comments -->
-				</div>
+	<!-- Start Comment Add Form -->
+	<div class="col-md-12 px-0 mb-30">
+		<div class="comments text-center p-3"></div>
+	</div>
+	<!-- Start Comment Add Form -->
+
+	<!-- Start Comments -->
+	<span class="comments-anchor" id="comments-block"></span>
+	<div class="col-md-12 pl-0 pr-0">
+		<div class="comments text-left padDiv mb-30">
+			<div class="entry-comments">
+				<ul class="entry-comments-list list-unstyled"></ul>
 			</div>
 		</div>
-
-
-		{% if app.user %}
-
-			<div class="col-lg-6 offset-lg-3 col-md-12">
-				<div class="card  mt-5">
-					<div class="card-header">
-
-
-						<h3>
-							Ajout d'un commentaire
-						</h3>
-
-					</div>
-					<div class="card-content mb-5">
-						{{ form_start(formComment) }}
-
-						{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
-						{{ form_row(formComment.user) }}
-					</div>
-
-					<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
-					{{ form_end(formComment) }}
-				</div>
-			</div>
-		{% else %}
-			<h5>
-				<i class="fas fa-exclamation-triangle"></i>
-				Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i>
-			</h5>
-			<a class="btn btn-success" href="{{path('security_connexion')}}">Connexion</a>
-
-
-		{% endif %}
-		<section id="commentaires" class='mt-5 mb-4'>
-
-
-			{% for comment in trick.comments %}
-
-
-				<div class="comment">
-
-					<div class="row">
-						<div class="col-3 mt-5">
-
-							{{comment.user.userName}}
-							<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
-
-
-						<div class="col mt-5">{{comment.content}}
-						</div>
-
-						<div class='col-3 mt-5'>
-							<small>{{comment.date | date('d/m/y')}}
-								à
-								{{comment.date | date('H:i')}}</small>
-						</div>
-					</div>
-				</div>
-
-
-			{% endfor %}
-		</section>
 	</div>
-</div>{% endblock %}
+	<!-- End Comments -->
+</div></div></div>{% if app.user %}<div class="col-lg-6 offset-lg-3 col-md-12">
+<div class="card  mt-5">
+	<div class="card-header">
+
+
+		<h3>
+			Ajout d'un commentaire
+		</h3>
+
+	</div>
+	<div class="card-content mb-5">
+		{{ form_start(formComment) }}
+
+		{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
+		{{ form_row(formComment.user) }}
+	</div>
+
+	<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
+	{{ form_end(formComment) }}
+</div></div>{% else %}<h5>
+<i class="fas fa-exclamation-triangle"></i>
+Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i></h5><a class="btn btn-success" href="{{path('security_connexion')}}">Connexion</a>{% endif %}<section id="commentaires" class='mt-5 mb-4'>{% for comment in trick.comments %}
+
+
+<div class="comment">
+
+	<div class="row">
+		<div class="col-3 mt-5">
+
+			{{comment.user.userName}}
+			<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
+
+
+		<div class="col mt-5">{{comment.content}}
+		</div>
+
+		<div class='col-3 mt-5'>
+			<small>{{comment.date | date('d/m/y')}}
+				à
+				{{comment.date | date('H:i')}}</small>
+		</div>
+	</div>
+</div>{% endfor %}</section></div></div>{% endblock %}
