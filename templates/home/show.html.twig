@@ -10,20 +10,25 @@
 
 				<div class="card mt-5">
 					{% if trick.pictures | length == 0 %}
-						<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
+									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
-					{% elseif trick.pictures | length == 1 %}
-						<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+								{% elseif trick.pictures | length == 1 %}
+									<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 
-					{% elseif trick.pictures | length > 1 %}
-						{% for picture in trick.pictures %}
-							{% if picture.main == 1 %}
-								<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-							{% else %}
-								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
-							{% endif %}
-						{% endfor %}
-					{% endif %}
+								{% elseif trick.pictures | length > 1 %}
+									{% set isMain = false %}
+									{% for picture in trick.pictures %}
+										{% if picture.main == 1 %}
+											<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+											{% set isMain = true %}
+										{% endif %}
+									{% endfor %}
+
+									{% if isMain == false  %}
+										<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+									{% endif %}
+
+								{% endif %}
 					<div class="card-body">
 						<ul class="list-inline trick-data">
 

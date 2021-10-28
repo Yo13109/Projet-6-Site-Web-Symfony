@@ -18,32 +18,40 @@
 			</div>
 		</div>
 	</div>
+	<a name="haut"></a>
 	<div class="container">
 		<div class="row mt-4 mb-4">
-
-
 			{% for trick in tricks %}
 
 				<div class="  col-lg-3 col-md-12">
-					<div class="card mb-4" width='1500' height='1500'>
+					<div class="card mb-4">
+
 						<div class="card-content ">
+							<a href="{{path('show_figure', {'slug': trick.slug})}}" class="btn btn">
+								{% if trick.pictures | length == 0 %}
+									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
-							{% if trick.pictures | length == 0 %}
-								<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
+								{% elseif trick.pictures | length == 1 %}
+									<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 
-							{% elseif trick.pictures | length == 1 %}
-								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+								{% elseif trick.pictures | length > 1 %}
+									{% set isMain = false %}
+									{% for picture in trick.pictures %}
+										{% if picture.main == 1 %}
+											<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+											{% set isMain = true %}
+										{% endif %}
+									{% endfor %}
 
-							{% elseif trick.pictures | length > 1 %}
-								{% for picture in trick.pictures %}
-									{% if picture.main == 1 %}
-										<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-									{% else %}
+									{% if isMain == false  %}
 										<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 									{% endif %}
-								{% endfor %}
-							{% endif %}
+
+								{% endif %}
+							</a>
 						</div>
+
+
 						<div class="card-footer">
 							<div class="row">
 								<div class="col-8">
@@ -51,6 +59,7 @@
 										<h6>{{trick.name}}</h6>
 									</a>
 								</div>
+
 
 								{% if app.user %}
 
@@ -78,6 +87,7 @@
 						</div>
 					</div>
 				</div>
+
 			{% endfor %}
 		</div>
 	</div>
@@ -96,9 +106,21 @@
 
 				</div>
 			</div>
+			
+		</div>
+		<div class='container col-3 offset-lg-11'>
+			<a href="#haut" class="btn btn-primary">
+				<i class="fas fa-arrow-up"></i>
+			</a>
 		</div>
 
-		{% else %}
+
+	{% else %}
+		<div class='container col-3 offset-lg-11'>
+			<a href="#haut" class="btn btn-primary">
+				<i class="fas fa-arrow-up"></i>
+			</a>
+		</div>
 
 	{% endif %}
 
