@@ -24,9 +24,9 @@
 			{% for trick in tricks %}
 
 				<div class="  col-lg-3 col-md-12">
-					<div class="card mb-4">
+					<div class="card mb-4" width= "200" height = "200">
 
-						<div class="card-content ">
+						<div class="card-content" width= "200" height = "200">
 							<a href="{{path('show_figure', {'slug': trick.slug})}}" class="btn btn">
 								{% if trick.pictures | length == 0 %}
 									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">

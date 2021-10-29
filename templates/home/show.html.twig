@@ -7,8 +7,6 @@
 	<div class="container mt-5">
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-10 col-md-offset-1 mt-5 mb-4">
-
-				<div class="card mt-5">
 					{% if trick.pictures | length == 0 %}
 									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
@@ -110,7 +108,7 @@
 									<div class="card mb-4" width='300' height='250'>
 										<div class="card-content ">
 										{% for video in trick.video %}
-											<iframe src={{""~ video.url}} allowfullscreen=""></iframe>
+											 <iframe width="250" height="225" src={{""~ video.url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 											{% endfor %}
 										</div>
 									</div>
