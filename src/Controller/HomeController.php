@@ -12,6 +12,7 @@ use App\Entity\Commentary;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -100,9 +101,19 @@ class HomeController extends AbstractController
      */
 
 
-    public function show(Trick $trick,  Request $request, EntityManagerInterface $em)
+    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em)
     {
 
+        $page = $request->query->getInt('page', 1);
+        if ($page <= 0) {
+            $page = 1;
+        }
+        $nbperpage = $this->getParameter('app.nbperpage');
+        $limit = $nbperpage * $page;
+        $comments = $commentaryRepository->findBy([], ['date' => 'asc'], $limit, 0);
+        $commentCount = count($commentaryRepository->findAll());
+
+        dd($comments);
 
         $comment = new Commentary;
 
@@ -125,6 +136,10 @@ class HomeController extends AbstractController
         return $this->render('home/show.html.twig', [
 
             'trick' => $trick, 'formComment' => $form->createView(),
+            'pagesuivante'=>$page+1,
+                'limit'=>$limit,
+                'totalComment'=>$commentCount,
+
 
 
         ]);

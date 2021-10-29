@@ -3,7 +3,6 @@
 
 {% block body %}
 
-
 	<div class="container mt-5">
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-10 col-md-offset-1 mt-5 mb-4">
@@ -25,19 +24,15 @@
 									{% if isMain == false  %}
 										<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 									{% endif %}
-
 								{% endif %}
 					<div class="card-body">
 						<ul class="list-inline trick-data">
-
 							<li class="list-inline-item">
 								{% for comment in trick.comments %}
 									Par :
 									{{comment.user.userName}}
 								{% endfor %}
 							</li>
-							|
-
 							<li class="list-inline-item">
 								Ajouté le
 								{{trick.createdate | date('d/m/y') }}
@@ -49,9 +44,7 @@
 							<li class="list-inline-item">
 								Catégorie :
 								{{trick.category.name}}
-							</li>
-
-							|
+							</li>							|
 							<li class="list-inline-item">
 								{% if app.user %}
 
@@ -74,10 +67,7 @@
 										</div>
 									</div>
 								{% endif %}
-
 							</li>
-							|
-
 						</ul>
 						<hr>
 						<h4 class="card-title">
@@ -114,9 +104,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-
-						
+						</div>	
 		<hr>
 		<h5 class="card-title">Description</h5>
 		<p class="card-text text-justify">{{trick.content}}
@@ -147,12 +135,9 @@
 </div></div></div>{% if app.user %}<div class="col-lg-6 offset-lg-3 col-md-12">
 <div class="card  mt-5">
 	<div class="card-header">
-
-
 		<h3>
 			Ajout d'un commentaire
 		</h3>
-
 	</div>
 	<div class="card-content mb-5">
 		{{ form_start(formComment) }}
@@ -169,13 +154,10 @@ Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-excl
 
 
 <div class="comment">
-
 	<div class="row">
 		<div class="col-3 mt-5">
-
 			{{comment.user.userName}}
 			<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
-
 
 		<div class="col mt-5">{{comment.content}}
 		</div>
