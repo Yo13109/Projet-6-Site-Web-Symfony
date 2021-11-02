@@ -12,7 +12,6 @@ use App\Entity\Commentary;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,11 +70,7 @@ class HomeController extends AbstractController
 
     $trick = $repo->find($slug);
     
-
     $form = $this->createForm(TrickType::class, $trick);
-
-    
-
 
     $form->handleRequest($request);
 
@@ -110,10 +105,10 @@ class HomeController extends AbstractController
         }
         $nbperpage = $this->getParameter('app.nbperpage');
         $limit = $nbperpage * $page;
-        $comments = $commentaryRepository->findBy([], ['date' => 'asc'], $limit, 0);
+        $comments = $commentaryRepository->findBy([], ['date' => 'desc'], $limit, 0);
         $commentCount = count($commentaryRepository->findAll());
 
-        dd($comments);
+        
 
         $comment = new Commentary;
 
@@ -139,6 +134,7 @@ class HomeController extends AbstractController
             'pagesuivante'=>$page+1,
                 'limit'=>$limit,
                 'totalComment'=>$commentCount,
+                'comments'=>$comments,
 
 
 
@@ -160,8 +156,6 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(TrickType::class, $trick);
 
-        
-        dd($trick);
 
 
         $form->handleRequest($request);
