@@ -106,7 +106,8 @@ class HomeController extends AbstractController
         $nbperpage = $this->getParameter('app.nbperpage');
         $limit = $nbperpage * $page;
         $comments = $commentaryRepository->findBy([], ['date' => 'desc'], $limit, 0);
-        $commentCount = count($commentaryRepository->findAll());
+        $commentCount = count($commentaryRepository->findAll($trick));
+        
 
         
 
