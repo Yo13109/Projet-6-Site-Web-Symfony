@@ -1,7 +1,9 @@
 {% extends "base.html.twig" %}
+	
 {% form_theme formComment 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<link rel="stylesheet" href="/Css/show.css"></link
 
 	<div class="container mt-5">
 		<div class="row justify-content-center mt-5">
@@ -29,9 +31,10 @@
 					<ul class="list-inline trick-data">
 						<li class="list-inline-item">
 							Par :
-							{% for comment in trick.comments %}
-								{{comment.user.getUserIdentifier}}
-							{% endfor %}
+							
+								{{trick.users.userName}}
+								
+							
 						</li>
 							|
 						<li class="list-inline-item">

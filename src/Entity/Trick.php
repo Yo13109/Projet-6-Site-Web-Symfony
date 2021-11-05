@@ -48,23 +48,23 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks", cascade = {"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", cascade = {"remove"})
      */
     private $video;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick", cascade = {"remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="tricks")
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="tricks", cascade = {"remove"})
      */
     private $pictures;
 

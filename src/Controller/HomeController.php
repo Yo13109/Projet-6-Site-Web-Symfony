@@ -99,11 +99,13 @@ class HomeController extends AbstractController
     public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em)
     {
 
+       
+
         $page = $request->query->getInt('page', 1);
         if ($page <= 0) {
             $page = 1;
         }
-        $nbperpage = $this->getParameter('app.nbperpage');
+        $nbperpage = $this->getParameter('app.cmtperpage');
         $limit = $nbperpage * $page;
         $comments = $commentaryRepository->findBy([], ['date' => 'desc'], $limit, 0);
         $commentCount = count($commentaryRepository->findAll($trick));
