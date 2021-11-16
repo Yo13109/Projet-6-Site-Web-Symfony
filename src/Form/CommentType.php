@@ -18,11 +18,7 @@ class CommentType extends AbstractType
         $builder
             
             ->add('content', TextareaType::class)
-            ->add('user', EntityType::class,
-            [
-    'class'=>User::class,
-    'choice_label'=>'username'
-            ])  
+            
         ;
     }
 

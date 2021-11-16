@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method Annonces[] findBy()
@@ -96,7 +97,7 @@ class HomeController extends AbstractController
      */
 
 
-    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em)
+    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em,TokenStorageInterface $token)
     {
 
        
@@ -107,7 +108,7 @@ class HomeController extends AbstractController
         }
         $nbperpage = $this->getParameter('app.cmtperpage');
         $limit = $nbperpage * $page;
-        $comments = $commentaryRepository->findBy([], ['date' => 'desc'], $limit, 0);
+        //$comments = $commentaryRepository->findBy([], ['date' => 'desc'], $limit, 0);
         $commentCount = count($commentaryRepository->findAll($trick));
         
 
@@ -121,9 +122,13 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $token->getToken();
+            $user= $user->getUser();
             $comment
                 ->setDate(new DateTime())
-                ->setTrick($trick);
+                ->setTrick($trick)
+                ->setUser($user);
+                
 
 
             $em->persist($comment);
@@ -137,7 +142,7 @@ class HomeController extends AbstractController
             'pagesuivante'=>$page+1,
                 'limit'=>$limit,
                 'totalComment'=>$commentCount,
-                'comments'=>$comments,
+                
 
 
 
