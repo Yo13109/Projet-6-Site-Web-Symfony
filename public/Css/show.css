@@ -1,5 +1,27 @@
-@media only screen and (max-width: 480px) {
-    body {
-      font-size: 12px;
-    }
+
+@media  screen  and (min-width: 400px) {
+    
+    .media {
+        /*visibility: hidden;*/
+        background-color: crimson;
+        display:none;
   }
+  .media1
+  {
+        display: block;
+  }
+  
+}
+
+  @media  screen  and (min-width: 1000px) {
+    
+    .media {
+        /*visibility: hidden;*/
+       background-color: blue;
+        display:block;
+  }
+  .media1
+  {
+        display: none;
+  }
+}
