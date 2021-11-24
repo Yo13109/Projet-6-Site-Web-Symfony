@@ -97,7 +97,7 @@ class HomeController extends AbstractController
      */
 
 
-    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em,TokenStorageInterface $token)
+    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em)
     {
 
        
@@ -108,11 +108,12 @@ class HomeController extends AbstractController
         }
         $nbperpage = $this->getParameter('app.cmtperpage');
         $limit = $nbperpage * $page;
-       // $repo = $this->getDoctrine()->getRepository($trick);
+       
 
-       // $comments = $repo->findBy([], ['date' => 'desc'], $limit, 0);
+       $comments = $commentaryRepository->findBy(['trick'=>$trick], ['date' => 'desc'], $limit, 0);
         $commentCount = count($trick->getComments());
-        dd($commentCount);
+        
+        
         
 
         
@@ -125,8 +126,7 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $token->getToken();
-            $user= $user->getUser();
+            $user = $this->getUser();
             $comment
                 ->setDate(new DateTime())
                 ->setTrick($trick)
@@ -145,6 +145,7 @@ class HomeController extends AbstractController
             'pagesuivante'=>$page+1,
                 'limit'=>$limit,
                 'totalComment'=>$commentCount,
+                'comments'=>$comments,
                 
 
 
@@ -155,23 +156,21 @@ class HomeController extends AbstractController
     /**
      * @Route("/blog/update/{slug}", name="update_figure")
      */
-    public function update(Trick $trick, Request $request, EntityManagerInterface $em, $slug)
+    public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
-        $repo = $this->getDoctrine()
-            ->getRepository(Trick::class);
-
-        $trick = $repo->find($slug);
-
-
-        
+      //  $repo = $this->getDoctrine()
+           // ->getRepository(Trick::class);
+     $repo = $em->getRepository(Trick::class);
+            
+        $trick = $repo->findOneBy(['slug'=>$slug]);  
+         
 
         $form = $this->createForm(TrickType::class, $trick);
-
-
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $trick->setCreateDate(new DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
