@@ -6,6 +6,7 @@
 parameters:
     app.nbperpage: 15
     app.cmtperpage: 2
+    app.image.directory: "%kernel.project_dir%/public/Image"
 services:
     # default configuration for services in *this* file
     _defaults:

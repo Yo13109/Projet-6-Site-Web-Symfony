@@ -29,7 +29,16 @@ class TrickType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name'
             ])
-            ->add('pictures', FileType::class);
+            ->add('pictures', FileType::class,[
+                'label' => 'Ajouter une photo',
+                'mapped' => false,
+                'required' => false,
+                'multiple'=> true,
+                
+                //'constraints' => [
+                  //  new Picture([
+                    //    'maxSize' => '1024k',
+                        ]);
           
     }
 

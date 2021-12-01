@@ -33,6 +33,6 @@ class Mailer {
             'token' => $token,
         ]);
 
-             $this->$mailer->send($email);
+             
     }
 }
