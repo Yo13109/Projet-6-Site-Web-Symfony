@@ -232,4 +232,19 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
+
+     /**
+     * @return RedirectResponse
+     * @Route("/blog/{slug}/deleteImage", name="delete_image")
+     * @param Trick $trick
+     */
+    public function deleteImage(Picture $picture): RedirectResponse
+    {
+        unlink($this->getParameter('app.image.directory'));
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($picture);
+        $em->flush();
+
+        return $this->redirectToRoute('update_figure');
+    }
 }
