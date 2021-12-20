@@ -10,6 +10,7 @@ use App\Entity\Picture;
 use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Entity\Commentary;
+use App\Form\PictureType;
 use App\Service\FileUploader;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
@@ -113,10 +114,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @param UserRepository $users
-     * @param User $user
-     * @param CommentaryRepository $comments
-     * @param TrickRepository $trick
+     * 
      * @Route("/blog/{slug}", name="show_figure")
      */
 
@@ -129,7 +127,7 @@ class HomeController extends AbstractController
         $page = $request->query->getInt('page', 1);
         if ($page <= 0) {
             $page = 1;
-        }
+         }
         $nbperpage = $this->getParameter('app.cmtperpage');
         $limit = $nbperpage * $page;
 
@@ -182,14 +180,14 @@ class HomeController extends AbstractController
      */
     public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
-        //  $repo = $this->getDoctrine()
-        // ->getRepository(Trick::class);
+       
         $repo = $em->getRepository(Trick::class);
 
         $trick = $repo->findOneBy(['slug' => $slug]);
 
 
         $form = $this->createForm(TrickType::class, $trick);
+        $form2 = $this->createForm(PictureType::class);
 
         $form->handleRequest($request);
 
@@ -208,7 +206,6 @@ class HomeController extends AbstractController
 
             $trick->setCreateDate(new DateTime())
                 ->setSlug($this->slugger->slug($trick->getName()));
-            $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
@@ -216,17 +213,18 @@ class HomeController extends AbstractController
         }
         return $this->render('home/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
+            'formMain'=> $form2->createView(),
             'trick' => $trick
         ]);
     }
     /**
-     * @return RedirectResponse
+     * 
      * @Route("/blog/{slug}/delete", name="delete_figure")
-     * @param Trick $trick
+     * 
      */
-    public function delete(Trick $trick): RedirectResponse
+    public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        
         $em->remove($trick);
         $em->flush();
 
@@ -234,17 +232,34 @@ class HomeController extends AbstractController
     }
 
      /**
-     * @return RedirectResponse
-     * @Route("/blog/{slug}/deleteImage", name="delete_image")
-     * @param Trick $trick
+     * @Route("/blog/{id}/deleteImage", name="delete_image")
+     * 
      */
-    public function deleteImage(Picture $picture): RedirectResponse
+    public function deleteImage(Picture $picture, EntityManagerInterface $em):RedirectResponse
     {
-        unlink($this->getParameter('app.image.directory'));
-        $em = $this->getDoctrine()->getManager();
+        
+        $nom = $picture->getFilename();
+        unlink($this->getParameter('app.image.directory').'/'.$nom);
+     
+         
+        $em->getRepository(Picture::class) ;
         $em->remove($picture);
         $em->flush();
 
-        return $this->redirectToRoute('update_figure');
+        return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
+    public function MainImage(Picture $picture, EntityManagerInterface $em):RedirectResponse
+    {
+        
+        
+       
+     
+         
+        
+        $em->persist($picture);
+        $em->flush();
+
+        return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
+    }
+ 
 }
