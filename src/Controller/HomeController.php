@@ -248,14 +248,14 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
+    /**
+     * @Route("/blog/{id}/MainImage", name="main_image")
+     * 
+     */
     public function MainImage(Picture $picture, EntityManagerInterface $em):RedirectResponse
     {
         
-        
-       
-     
-         
-        
+        $picture->setMain('1');
         $em->persist($picture);
         $em->flush();
 
@@ -263,3 +263,4 @@ class HomeController extends AbstractController
     }
  
 }
+
