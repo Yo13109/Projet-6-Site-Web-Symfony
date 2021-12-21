@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  * @UniqueEntity("name",
  * message ="Ce nom de figure existe déjà!")
+ * 
  */
 class Trick
 {
@@ -43,6 +44,11 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "La description de votre figure est trop courte!",
+     *      maxMessage = "La description de votre figure est trop longue !")
      */
     private $content;
 
