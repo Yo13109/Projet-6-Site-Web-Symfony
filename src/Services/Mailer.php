@@ -9,6 +9,7 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class Mailer {
 
+
     /**
      * @var MailerInterface
      */
@@ -23,6 +24,7 @@ class Mailer {
     {
         $email = (new TemplatedEmail())
         ->from('yoann.corsi@gmail.com')
+
         ->to($email)
         ->subject('Valider votre inscription')
     
@@ -31,6 +33,6 @@ class Mailer {
             'token' => $token,
         ]);
 
-             $this->$mailer->send($email);
+             
     }
 }

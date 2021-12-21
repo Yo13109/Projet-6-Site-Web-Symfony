@@ -1,0 +1,128 @@
+{% extends "base.html.twig"  %}
+
+
+{% block body %}
+
+	<div class='home'>
+
+		<div class='container'>
+			<span class='slogan'>
+				<p class='slogan-p'>Born to snowboard</p>
+			</span>
+			<div class='icon col-1 offset-lg-11'>
+				<a href="#tricks">
+					<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewbox="0 0 16 16">
+						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+	<a name="haut"></a>
+	<div class="container">
+		<div class="row mt-4 mb-4">
+			{% for trick in tricks %}
+
+				<div class="  col-lg-3 col-md-12">
+					<div class="card mb-4" width= "200" height = "200">
+
+						<div class="card-content" width= "200" height = "200">
+							<a href="{{path('show_figure', {'slug': trick.slug})}}" class="btn btn">
+								{% if trick.pictures | length == 0 %}
+									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
+
+								{% elseif trick.pictures | length == 1 %}
+									<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+
+								{% elseif trick.pictures | length > 1 %}
+									{% set isMain = false %}
+									{% for picture in trick.pictures %}
+										{% if picture.main == 1 %}
+											<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+											{% set isMain = true %}
+										{% endif %}
+									{% endfor %}
+
+									{% if isMain == false  %}
+										<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+									{% endif %}
+
+								{% endif %}
+							</a>
+						</div>
+
+
+						<div class="card-footer">
+							<div class="row">
+								<div class="col-8">
+									<a href="{{path('show_figure', {'slug': trick.slug})}}" class="btn btn-primary">
+										<h6>{{trick.name}}</h6>
+									</a>
+								</div>
+
+
+								{% if app.user %}
+
+									<div class="col">
+										<div class="name text-right">
+											<a href="{{path('update_figure', {'slug':trick.slug})}}">
+												<i class="far fa-edit right"></i>
+											</a>
+											<a href="{{path('delete_figure', {'slug':trick.slug})}}">
+												<i class="far fa-trash-alt right"></i>
+											</a>
+											<a name="tricks"></a>
+										</div>
+									</div>
+								{% else %}
+
+									<div class="col">
+										<div class="name text-right">
+
+											<a name="tricks"></a>
+										</div>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+	{% if totaltricks > limit %}
+
+
+		<div class='container col-3 offset-lg-5'>
+			<div class="row">
+				<div class='sun'>
+
+
+					<a href="{{path('home', {'page':pagesuivante})}}" class="btn btn-primary">
+						<i class="fas fa-plus-circle fa-3x"></i>
+					</a>
+
+				</div>
+			</div>
+			
+		</div>
+		<div class='container col-3 offset-lg-11'>
+			<a href="#haut" class="btn btn-primary">
+				<i class="fas fa-arrow-up"></i>
+			</a>
+		</div>
+
+
+	{% else %}
+		<div class='container col-3 offset-lg-11'>
+			<a href="#haut" class="btn btn-primary">
+				<i class="fas fa-arrow-up"></i>
+			</a>
+		</div>
+
+	{% endif %}
+
+
+{% endblock %}

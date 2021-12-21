@@ -28,7 +28,8 @@ class Picture
     private $main;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures", cascade = {"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      * @ORM\JoinColumn(nullable=false)
      */
     private $tricks;

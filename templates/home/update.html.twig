@@ -1,0 +1,57 @@
+{% extends "base.html.twig"  %}
+{% form_theme formUpdateTrick 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+	<div class="col-lg-8 offset-lg-1 col-md-12">
+		<div class="card  mt-5">
+			<div class="card-header">
+				<h3>Modifier un article</h3>
+			</div>
+			<div class="card-content mb-5">
+				{{ form_start(formUpdateTrick) }}
+
+				{{ form_row(formUpdateTrick.name)}}
+
+				{{ form_row(formUpdateTrick.content) }}
+				{{ form_row(formUpdateTrick.category) }}
+				<div class='container'>
+					<div class='row'>
+						{% for picture in trick.pictures %}
+
+							<div class="">
+								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px>
+								<a href="{{path('delete_image', {'id':picture.id})}}">
+									
+									<button type="submit" class="btn btn-secondary"><i class="far fa-trash-alt right mb-4"></i>
+										Supprimer la photo</button>
+								</a>
+								{% set isMain = false %}
+								{% if picture.main == 1 %}
+									<i class="fas fa-star"></i>
+									{% set isMain = true %}
+								{% endif %}
+								{% if isMain == false  %}
+									<a href="{{path('main_image', {'id':picture.id})}}">
+										<button type="submit" class="btn btn-primary">
+											Devenir Main</button>
+
+									</a>
+								{% endif %}
+							</div>
+
+
+						{% endfor %}
+					</div>
+				</div>
+
+				{{ form_row(formUpdateTrick.pictures) }}
+
+
+			</div>
+
+			<button type="submit" class="btn btn-success">
+				Enregistrer</button>
+			{{ form_end(formUpdateTrick) }}
+
+		</div>
+	</div>
+{% endblock %}

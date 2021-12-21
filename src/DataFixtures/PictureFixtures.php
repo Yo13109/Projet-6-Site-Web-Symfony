@@ -15,52 +15,53 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
         $datas = [
         1=>    [
                 'filename' => 'MethodeAir.jpg',
-
+                'tricks'=> 1
             ],
           2=>  [
                 'filename' => 'NoseGrab.jpg',
-
+                'tricks'=> 2
             ],
           3=>  [
                 'filename' => 'doublebackflip.png',
-
+                'tricks'=> 3
             ],
            4=> [
                 'filename' => 'japanAir.jpg',
-
+                'tricks'=> 4
             ],
           5=>  [
                 'filename' => 'frontsite.jpg',
-
+                'tricks'=> 5
             ],
            6=> [
                 'filename' => 'backsideAir.jpg',
-
+                'tricks'=> 6
             ],
            7=> [
                 'filename' => 'Boardslide.jpeg',
-
+                'tricks'=> 7
             ],
           8=>  [
                 'filename' => '50-50.png',
-
+                'tricks'=> 8
             ],
           9=>  [
                 'filename' => 'FrontBluntslide.jpg',
-
+                'tricks'=> 9
             ],
           10=>  [
                 'filename' => 'TailGrab.jpg',
+                'tricks'=> 10
 
             ],
         ];
 
         foreach ($datas as  $pictureData) {
             $picture = new Picture();
-            $trick = $this->getReference('trick'.random_int(1,10));
+            $trick = $this->getReference('trick'. $pictureData['tricks']);
             $picture
                 ->setFilename($pictureData['filename'])
-                ->setMain('0')
+                ->setMain('1')
                 ->setTricks($trick);;
 
             //$this->getReference('picture1')

@@ -16,43 +16,43 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
     {
         $datas = [
            1=> [
-                'url' => 'https://youtu.be/_hxLS2ErMiY',
+                'url' => 'https://www.youtube.com/embed/_hxLS2ErMiY',
 
             ],
           2=>  [
-                'url' => 'https://youtu.be/gZFWW4Vus-Q',
+                'url' => 'https://www.youtube.com/embed/gZFWW4Vus-Q',
 
             ],
           3=>  [
-                'url' => 'https://youtu.be/vjVDW-q70ck',
+                'url' => 'https://www.youtube.com/embed/vjVDW-q70ck',
 
             ],
            4=> [
-                'url' => 'https://youtu.be/X_WhGuIY9Ak',
+                'url' => 'https://www.youtube.com/embed/X_WhGuIY9Ak',
 
             ],
           5=>  [
-                'url' => 'https://youtu.be/hUddT6FGCws',
+                'url' => 'https://www.youtube.com/embed/hUddT6FGCws',
 
             ],
            6=> [
-                'url' => 'https://youtu.be/_CN_yyEn78M',
+                'url' => 'https://www.youtube.com/embed/_CN_yyEn78M',
 
             ],
            7=> [
-                'url' => 'https://youtu.be/R3OG9rNDIcs',
+                'url' => 'https://www.youtube.com/embed/R3OG9rNDIcs',
 
             ],
            8=> [
-                'url' => 'https://youtu.be/e-7NgSu9SXg',
+                'url' => 'https://www.youtube.com/embed/e-7NgSu9SXg',
 
             ],
            9=> [
-                'url' => 'https://youtu.be/qyXO40y4fAE',
+                'url' => 'https://www.youtube.com/embed/qyXO40y4fAE',
 
             ],
            10=> [
-                'url' => 'https://youtu.be/_Qq-YoXwNQY',
+                'url' => 'https://www.youtube.com/embed/_Qq-YoXwNQY',
 
             ],
         ];

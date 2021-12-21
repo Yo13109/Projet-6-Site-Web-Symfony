@@ -6,11 +6,16 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity("name",
+ * message ="Ce nom de figure existe déjà!")
+ * 
  */
 class Trick
 {
@@ -23,6 +28,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * 
      */
     private $name;
 
@@ -38,6 +44,11 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "La description de votre figure est trop courte!",
+     *      maxMessage = "La description de votre figure est trop longue !")
      */
     private $content;
 
@@ -48,23 +59,23 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks", cascade = {"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", cascade = {"remove"})
      */
     private $video;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick", cascade = {"remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="tricks")
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="tricks", cascade = {"remove","persist"})
      */
     private $pictures;
 

@@ -23,7 +23,8 @@ class Video
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video", cascade = {"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

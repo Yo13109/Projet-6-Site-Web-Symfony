@@ -1,0 +1,25 @@
+
+@media  screen  and (min-width: 400px) {
+    
+    .media {
+        /*visibility: hidden;*/
+        display:none;
+  }
+  .media1
+  {
+        display: block;
+  }
+  
+}
+
+  @media  screen  and (min-width: 700px) {
+    
+    .media {
+        /*visibility: hidden;*/
+        display:block;
+  }
+  .media1
+  {
+        display: none;
+  }
+}
