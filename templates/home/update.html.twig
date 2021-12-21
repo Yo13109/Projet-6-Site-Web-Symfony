@@ -30,7 +30,7 @@
 									{% set isMain = true %}
 								{% endif %}
 								{% if isMain == false  %}
-									<a href="{{path('delete_image', {'id':picture.id})}}">
+									<a href="{{path('main_image', {'id':picture.id})}}">
 										<button type="submit" class="btn btn-primary">
 											Devenir Main</button>
 
