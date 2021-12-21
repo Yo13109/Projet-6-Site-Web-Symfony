@@ -61,7 +61,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             $trick = $this->getReference('trick'. $pictureData['tricks']);
             $picture
                 ->setFilename($pictureData['filename'])
-                ->setMain('0')
+                ->setMain('1')
                 ->setTricks($trick);;
 
             //$this->getReference('picture1')
