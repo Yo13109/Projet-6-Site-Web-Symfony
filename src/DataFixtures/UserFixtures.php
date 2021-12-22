@@ -39,10 +39,7 @@ class UserFixtures extends Fixture
         //getDependancies()
 
         $manager->persist($user);
-        $manager->flush();
-            
-        
+        $manager->flush();  
     }
-  
 }
 
