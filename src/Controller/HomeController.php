@@ -119,7 +119,7 @@ class HomeController extends AbstractController
      */
 
 
-    public function show(Trick $trick, CommentaryRepository $commentaryRepository,  Request $request, EntityManagerInterface $em)
+    public function show(Trick $trick, Request $request, EntityManagerInterface $em)
     {
 
 
@@ -132,7 +132,7 @@ class HomeController extends AbstractController
         $limit = $nbperpage * $page;
 
 
-        $comments = $commentaryRepository->findBy(['trick' => $trick], ['date' => 'desc'], $limit, 0);
+        $comments = $em->getRepository(Commentary::class)->findBy(['trick' => $trick], ['date' => 'desc'], $limit, 0);
         $commentCount = count($trick->getComments());
 
 
@@ -200,7 +200,7 @@ class HomeController extends AbstractController
                 $image->move($this->getParameter('app.image.directory'), $fileName);
                 $picture = new Picture();
                 $picture->setFilename($fileName)
-                        ->setMain('0');
+                        ->setMain(false);
                 $trick->addPicture($picture);
     }
 
@@ -235,7 +235,7 @@ class HomeController extends AbstractController
      * @Route("/blog/{id}/deleteImage", name="delete_image")
      * 
      */
-    public function deleteImage(Picture $picture, EntityManagerInterface $em):RedirectResponse
+    public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
         
         $nom = $picture->getFilename();
@@ -249,14 +249,14 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     /**
-     * @Route("/blog/{id}/MainImage", name="main_image")
+     * @Route("/toto/{id}", name="main_image")
      * 
      */
-    public function MainImage(Picture $picture, EntityManagerInterface $em):RedirectResponse
+    public function MainImage(Picture $picture, EntityManagerInterface $em)
     {
         
-        $picture->setMain('1');
-        $em->persist($picture);
+        $picture->setMain(true);
+
         $em->flush();
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
