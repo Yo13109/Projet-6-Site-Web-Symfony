@@ -15,30 +15,30 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add( 'email' , EmailType::class,[
+            ->add('email' , EmailType::class, [
                 'label' => 'Votre Email',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add( 'password' ,PasswordType::class,[
+            ->add('password' , PasswordType::class,[
                 'label' => 'Mot de passe',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add( 'avatar' ,TextType::class,[
+            ->add('avatar' , TextType::class,[
                 'label' => 'Votre avatar',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add( 'userName' ,TextType::class,[
+            ->add('userName' , TextType::class,[
                 'label' => 'Nom d\'utilisateur',
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ])       
+            ])    
         ;
     }
 

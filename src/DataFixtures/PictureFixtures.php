@@ -56,16 +56,16 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-        foreach ($datas as  $pictureData) {
+        foreach ($datas as $pictureData) {
             $picture = new Picture();
-            $trick = $this->getReference('trick'. $pictureData['tricks']);
+            $trick = $this->getReference('trick'. $pictureData[ 'tricks' ]);
             $picture
                 ->setFilename($pictureData['filename'])
-                ->setMain('1')
+                ->setMain(true)
                 ->setTricks($trick);;
             $manager->persist($picture);
         }
-        $manager->flush();  
+        $manager->flush();
     }
     public function getDependencies()
     {
@@ -73,4 +73,5 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             TrickFixtures::class,
         ];
     }
+    
 }

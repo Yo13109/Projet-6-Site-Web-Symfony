@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use DateTime;
 use App\Entity\User;
 use App\Entity\Trick;
@@ -68,7 +67,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/blog/new", name="create_figure")
      */
-    public function create(Request  $request, EntityManagerInterface $em)
+    public function create (Request $request, EntityManagerInterface $em)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
