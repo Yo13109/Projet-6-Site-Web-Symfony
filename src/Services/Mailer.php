@@ -20,7 +20,6 @@ class Mailer {
     }
 
     public function sendEmail($email , $token)
-    
     {
         $email = (new TemplatedEmail())
         ->from('yoann.corsi@gmail.com')
