@@ -72,8 +72,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            TrickFixtures::class,
-           
+            TrickFixtures::class,     
         ];
     }
 }

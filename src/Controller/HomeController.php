@@ -23,10 +23,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
 /**
  * @method Annonces[] findBy()
- * 
  */
 class HomeController extends AbstractController
 {
@@ -68,19 +66,13 @@ class HomeController extends AbstractController
         );
     }
     /**
-     * 
      * @Route("/blog/new", name="create_figure")
      */
-
     public function create(Request  $request, EntityManagerInterface $em)
     {
-
         $trick = new Trick();
-
         $form = $this->createForm(TrickType::class, $trick);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('pictures')->getData();
             foreach ($images as $image) {
@@ -91,17 +83,17 @@ class HomeController extends AbstractController
 
                 $picture = new Picture();
                 $picture->setFilename($fileName)
-                        ->setMain('0');
+                    ->setMain('0');
                 $trick->addPicture($picture);
             }
 
             $user =  $this->getUser();
             $trick->setCreateDate(new DateTime())
-                    ->setUpdateDate(new DateTime())
-                    ->setSlug($this->slugger->slug($trick->getName()))
-                    ->setUsers($user);
-                    
-                    
+                ->setUpdateDate(new DateTime())
+                ->setSlug($this->slugger->slug($trick->getName()))
+                ->setUsers($user);
+
+
 
             $em->persist($trick);
             $em->flush();
@@ -114,48 +106,29 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * 
      * @Route("/blog/{slug}", name="show_figure")
      */
 
 
     public function show(Trick $trick, Request $request, EntityManagerInterface $em)
     {
-
-
-
         $page = $request->query->getInt('page', 1);
         if ($page <= 0) {
-            $page = 1;
-         }
+            $page = 1 ;
+        }
         $nbperpage = $this->getParameter('app.cmtperpage');
         $limit = $nbperpage * $page;
-
-
         $comments = $em->getRepository(Commentary::class)->findBy(['trick' => $trick], ['date' => 'desc'], $limit, 0);
         $commentCount = count($trick->getComments());
-
-
-
-
-
-
-        $comment = new Commentary;
-
+        $comment = new Commentary();
         $form = $this->createForm(CommentType::class, $comment);
-
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $comment
                 ->setDate(new DateTime())
                 ->setTrick($trick)
                 ->setUser($user);
-
-
-
             $em->persist($comment);
             $em->flush();
             return $this->redirectToRoute('show_figure', ['slug' => $trick->getSlug()]);
@@ -168,10 +141,6 @@ class HomeController extends AbstractController
             'limit' => $limit,
             'totalComment' => $commentCount,
             'comments' => $comments,
-
-
-
-
         ]);
     }
 
@@ -180,15 +149,9 @@ class HomeController extends AbstractController
      */
     public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
-       
         $repo = $em->getRepository(Trick::class);
-
         $trick = $repo->findOneBy(['slug' => $slug]);
-
-
         $form = $this->createForm(TrickType::class, $trick);
-        $form2 = $this->createForm(PictureType::class);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -200,9 +163,9 @@ class HomeController extends AbstractController
                 $image->move($this->getParameter('app.image.directory'), $fileName);
                 $picture = new Picture();
                 $picture->setFilename($fileName)
-                        ->setMain(false);
+                    ->setMain(false);
                 $trick->addPicture($picture);
-    }
+            }
 
             $trick->setCreateDate(new DateTime())
                 ->setSlug($this->slugger->slug($trick->getName()));
@@ -213,36 +176,32 @@ class HomeController extends AbstractController
         }
         return $this->render('home/update.html.twig', [
             'formUpdateTrick' => $form->createView(),
-            'formMain'=> $form2->createView(),
             'trick' => $trick
         ]);
     }
     /**
-     * 
      * @Route("/blog/{slug}/delete", name="delete_figure")
-     * 
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-        
+
         $em->remove($trick);
         $em->flush();
 
         return $this->redirectToRoute('home');
     }
 
-     /**
+    /**
      * @Route("/blog/{id}/deleteImage", name="delete_image")
-     * 
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
-        
+
         $nom = $picture->getFilename();
-        unlink($this->getParameter('app.image.directory').'/'.$nom);
-     
-         
-        $em->getRepository(Picture::class) ;
+        unlink($this->getParameter('app.image.directory') . '/' . $nom);
+
+
+        $em->getRepository(Picture::class);
         $em->remove($picture);
         $em->flush();
 
@@ -250,17 +209,12 @@ class HomeController extends AbstractController
     }
     /**
      * @Route("/toto/{id}", name="main_image")
-     * 
      */
     public function MainImage(Picture $picture, EntityManagerInterface $em)
     {
-        
         $picture->setMain(true);
-
         $em->flush();
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
- 
 }
-

@@ -19,8 +19,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
     {
         $this->slugger = $slugger;
     }
-    public function load(ObjectManager $manager)
-    {  
+    public function load(ObjectManager $manager) {
         $datas = [
            1=> [
                 'name' => 'Methode Air',
@@ -64,7 +63,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
                 'category' => 4,
                 
             ],
-           8 =>  [
+           8 => [
                 'name' => '50-50',
                 'content' => 'Un 50-50 consiste simplement à glisser le long d_un élement, le contact entre la board et la cible s_effectuant en l_occurrence- au niveau des deux axes',
                 'category' => 4,
@@ -76,14 +75,14 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
                 'category' => 4,
                 
             ],
-           10 =>[
+           10 => [
                 'name' => 'Tail Grab',
                 'content' => 'saisie de la partie arrière de la planche, avec la main arrière',
                 'category' => 1,
             ],
         ];
 
-        foreach ($datas as $key=> $trickData) {
+        foreach ($datas as $key => $trickData) {
 
             $trick = new Trick();
             $user = $this->getReference('user1');

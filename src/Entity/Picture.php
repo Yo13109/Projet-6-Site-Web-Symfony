@@ -29,12 +29,10 @@ class Picture
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures", cascade = {"remove"})
-     * @ORM\JoinColumn(onDelete="CASCADE") 
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete = "CASCADE" ) 
+     * @ORM\JoinColumn(nullable = false)
      */
     private $tricks;
-
-    
 
     public function getId(): ?int
     {
@@ -75,7 +73,5 @@ class Picture
         $this->tricks = $tricks;
 
         return $this;
-    }
-
-    
+    }   
 }

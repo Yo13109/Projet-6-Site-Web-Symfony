@@ -34,12 +34,10 @@ class CategoryFixtures extends Fixture
         foreach ($datas as $key => $categoryData) {
             $category = new Category();
             $category
-                ->setName($categoryData['name']);              
-            $this->addReference('category'. $key , $category);
+                ->setName($categoryData[ 'name' ]);              
+            $this->addReference( 'category' . $key , $category);
             $manager->persist($category);
         }
         $manager->flush();
     }
-}
-
-       
+}  

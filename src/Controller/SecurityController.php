@@ -18,9 +18,7 @@ class SecurityController extends AbstractController
     public function __construct(UserPasswordHasherInterface $passwordHasher, Mailer $mailer)
      {
          $this->passwordHasher = $passwordHasher;
-         $this->mailer = $mailer;
-
-         
+         $this->mailer = $mailer;   
      }
 
     /**
@@ -41,8 +39,8 @@ class SecurityController extends AbstractController
             $user->setToken('ggtgltrp^prlf');
         $em->persist($user);
         $em->flush();
-            $this->mailer->sendEmail($user->getEmail(),$user->getToken());
-            return $this->redirectToRoute('security_connexion');
+            $this ->mailer->sendEmail($user->getEmail(),$user->getToken());
+            return $this->redirectToRoute( 'security_connexion' );
         }
         return $this->render('security/registration.html.twig', [
             'formUser' => $form->createView()
