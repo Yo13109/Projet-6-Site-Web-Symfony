@@ -8,7 +8,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class Mailer
 {
-
     /**
      * @var MailerInterface
      */
@@ -27,7 +26,6 @@ class Mailer
             ->htmlTemplate('security/email.html.twig')
             ->context([
                 'token' => $token,
-            ]);
+    ]);
     }
-    
-}
+ }

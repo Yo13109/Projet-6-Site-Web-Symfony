@@ -18,10 +18,10 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
            1 => [
                 'url' => 'https://www.youtube.com/embed/_hxLS2ErMiY',
             ],
-          2 =>  [
+          2 => [
                 'url' => 'https://www.youtube.com/embed/gZFWW4Vus-Q',
             ],
-          3 =>  [
+          3 => [
                 'url' => 'https://www.youtube.com/embed/vjVDW-q70ck',
             ],
            4 => [
@@ -47,22 +47,23 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-        foreach ($datas as $videoData)
+        foreach ($datas as $videoData) 
         {
-        $video = new Video();
-        $trick = $this->getReference( 'trick' . random_int( 1 , 10 ));
-        $video
-            ->setUrl($videoData[ 'url' ])
-            ->setTrick($trick);
-        ;
-        $manager ->persist($video);
+            $video = new Video();
+            $trick = $this->getReference('trick' . random_int( 1 , 10 ));
+            $video
+                ->setUrl($videoData[ 'url' ])
+                ->setTrick($trick);
+            ;
+            $manager ->persist($video);
         }
-        $manager ->flush();
+            $manager ->flush();
     }
+
     public function getDependencies()
     {
         return [
             TrickFixtures::class,
         ];
     }
-}
+ }

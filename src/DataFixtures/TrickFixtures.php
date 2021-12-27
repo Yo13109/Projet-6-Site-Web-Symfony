@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use DateTime;
 use App\Entity\Trick;
 use App\DataFixtures\UserFixtures;
@@ -11,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+
 class TrickFixtures extends Fixture implements DependentFixtureInterface
 {
     protected $slugger;
@@ -19,7 +19,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
     {
         $this->slugger = $slugger;
     }
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) 
+    {
         $datas = [
            1 => [
                 'name' => 'Methode Air',
@@ -34,7 +35,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
            3 => [
                 'name' => 'Double Back Flip',
                 'content' => 'C_est un double retournement en arrière dans le plan qui est perpendiculaire à la pente.',
-                'category' => 2,  
+                'category' => 2,
             ],
            4 =>  [
                 'name' => 'Japan Air',
@@ -74,23 +75,22 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-        foreach ($datas as $key => $trickData) 
+        foreach ($datas as $key => $trickData)
         {
-
             $trick = new Trick();
             $user = $this->getReference('user1');
             $date = new DateTime();
-            $category = $this->getReference('category'. $trickData['category']);
+            $category = $this->getReference('category'. $trickData[ 'category' ]);
             $trick
                 ->setName($trickData[ 'name' ])
                 ->setContent($trickData[ 'content' ])
-                ->setCreateDate($date)
+                ->setCreateDate($date) 
                 ->setUpdateDate($date)
                 ->setSlug($this->slugger->slug($trick->getName()))
                 ->setUsers($user)
                 ->setCategory($category)
                 ;
-            $this->addReference( 'trick' . $key, $trick);
+            $this->addReference('trick' . $key, $trick);
             $manager->persist($trick);
         }
         $manager->flush();
@@ -102,4 +102,4 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             CategoryFixtures::class,
         ];
     }
- }
+}

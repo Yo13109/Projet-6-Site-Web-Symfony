@@ -38,7 +38,7 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ])    
+            ])
         ;
     }
 
