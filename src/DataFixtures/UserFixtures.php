@@ -11,11 +11,11 @@ class UserFixtures extends Fixture
 {
     private $passwordHasher;
 
-        public function __construct (UserPasswordHasherInterface $passwordHasher)
-         {
-             $this ->passwordHasher = $passwordHasher;
-         }
-   
+        public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+    $this ->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager)
     {
         $user = new User();
@@ -26,11 +26,11 @@ class UserFixtures extends Fixture
             ->setPassword($this ->passwordHasher->hashPassword(
                 $user,
                 'Yoann13109'
-          )) 
+          ))
             ->setToken('fksdofkpfk')
             ->setActivated(1)
         ;
-        $this->addReference('user1',$user);
+        $this->addReference('user1' ,$user);
         //$this->getReference('user1')
 
         //getDependancies()
@@ -39,4 +39,3 @@ class UserFixtures extends Fixture
         $manager->flush();
     }
 }
-

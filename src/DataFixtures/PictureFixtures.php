@@ -73,5 +73,4 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             TrickFixtures::class,
         ];
     }
-    
-}
+ }
