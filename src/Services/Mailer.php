@@ -6,10 +6,8 @@ use DateTime;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
-
-class Mailer {
-
-
+class Mailer
+{
     /**
      * @var MailerInterface
      */
@@ -19,20 +17,15 @@ class Mailer {
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($email , $token)
-    
+    public function sendEmail($email, $token)
     {
         $email = (new TemplatedEmail())
-        ->from('yoann.corsi@gmail.com')
-
-        ->to($email)
-        ->subject('Valider votre inscription')
-    
-        ->htmlTemplate('security/email.html.twig')
-        ->context([
-            'token' => $token,
-        ]);
-
-             
+            ->from('yoann.corsi@gmail.com')
+            ->to($email)
+            ->subject('Valider votre inscription')
+            ->htmlTemplate('security/email.html.twig')
+            ->context([
+                'token' => $token,
+            ]);
     }
 }

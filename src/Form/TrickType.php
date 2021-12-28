@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Trick;
-
 use App\Entity\Category;
 use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
@@ -21,25 +20,17 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-
-            ->add('content',TextareaType::class)
-
-
+            ->add('content', TextareaType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name'
             ])
-            ->add('pictures', FileType::class,[
+            ->add('pictures', FileType::class, [
                 'label' => 'Ajouter une photo',
                 'mapped' => false,
                 'required' => false,
-                'multiple'=> true,
-                
-                //'constraints' => [
-                  //  new Picture([
-                    //    'maxSize' => '1024k',
-                        ]);
-          
+                'multiple' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

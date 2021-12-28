@@ -13,13 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CommentType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $option)
     {
         $builder
-            
-            ->add('content', TextareaType::class)
-            
-        ;
+            ->add('content', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
