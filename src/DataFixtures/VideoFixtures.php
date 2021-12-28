@@ -15,49 +15,47 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $datas = [
-           1 => [
+            1 => [
                 'url' => 'https://www.youtube.com/embed/_hxLS2ErMiY',
             ],
-          2 => [
+            2 => [
                 'url' => 'https://www.youtube.com/embed/gZFWW4Vus-Q',
             ],
-          3 => [
+            3 => [
                 'url' => 'https://www.youtube.com/embed/vjVDW-q70ck',
             ],
-           4 => [
+            4 => [
                 'url' => 'https://www.youtube.com/embed/X_WhGuIY9Ak',
             ],
-          5 => [
+            5 => [
                 'url' => 'https://www.youtube.com/embed/hUddT6FGCws',
             ],
-           6 => [
+            6 => [
                 'url' => 'https://www.youtube.com/embed/_CN_yyEn78M',
             ],
-           7 => [
+            7 => [
                 'url' => 'https://www.youtube.com/embed/R3OG9rNDIcs',
             ],
-           8 => [
+            8 => [
                 'url' => 'https://www.youtube.com/embed/e-7NgSu9SXg',
             ],
-           9 => [
+            9 => [
                 'url' => 'https://www.youtube.com/embed/qyXO40y4fAE',
             ],
-           10 => [
+            10 => [
                 'url' => 'https://www.youtube.com/embed/_Qq-YoXwNQY',
             ],
         ];
 
-        foreach ($datas as $videoData) 
-        {
+        foreach ($datas as $videoData) {
             $video = new Video();
-            $trick = $this->getReference('trick' . random_int( 1 , 10 ));
+            $trick = $this->getReference('trick' . random_int(1, 10));
             $video
-                ->setUrl($videoData[ 'url' ])
-                ->setTrick($trick);
-            ;
-            $manager ->persist($video);
+                ->setUrl($videoData['url'])
+                ->setTrick($trick);;
+            $manager->persist($video);
         }
-            $manager ->flush();
+        $manager->flush();
     }
 
     public function getDependencies()
@@ -66,4 +64,4 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
             TrickFixtures::class,
         ];
     }
- }
+}

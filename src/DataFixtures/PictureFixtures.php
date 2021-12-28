@@ -13,43 +13,43 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $datas = [
-        1 =>    [
+            1 =>    [
                 'filename' => 'MethodeAir.jpg',
                 'tricks' => 1
             ],
-          2 =>  [
+            2 =>  [
                 'filename' => 'NoseGrab.jpg',
                 'tricks' => 2
             ],
-          3 =>  [
+            3 =>  [
                 'filename' => 'doublebackflip.png',
                 'tricks' => 3
             ],
-           4 => [
+            4 => [
                 'filename' => 'japanAir.jpg',
                 'tricks' => 4
             ],
-          5 =>  [
+            5 =>  [
                 'filename' => 'frontsite.jpg',
                 'tricks' => 5
             ],
-           6 => [
+            6 => [
                 'filename' => 'backsideAir.jpg',
                 'tricks' => 6
             ],
-           7 => [
+            7 => [
                 'filename' => 'Boardslide.jpeg',
                 'tricks' => 7
             ],
-          8 =>  [
+            8 =>  [
                 'filename' => '50-50.png',
                 'tricks' => 8
             ],
-          9 =>  [
+            9 =>  [
                 'filename' => 'FrontBluntslide.jpg',
                 'tricks' => 9
             ],
-          10 =>  [
+            10 =>  [
                 'filename' => 'TailGrab.jpg',
                 'tricks' => 10
 
@@ -58,7 +58,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($datas as $pictureData) {
             $picture = new Picture();
-            $trick = $this->getReference('trick'. $pictureData[ 'tricks' ]);
+            $trick = $this->getReference('trick' . $pictureData[ 'tricks' ]);
             $picture
                 ->setFilename($pictureData['filename'])
                 ->setMain(true)
@@ -73,4 +73,4 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             TrickFixtures::class,
         ];
     }
- }
+}

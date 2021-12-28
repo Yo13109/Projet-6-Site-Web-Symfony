@@ -26,6 +26,6 @@ class Mailer
             ->htmlTemplate('security/email.html.twig')
             ->context([
                 'token' => $token,
-    ]);
+            ]);
     }
- }
+}

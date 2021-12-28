@@ -209,7 +209,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/toto/{id}", name="main_image")
      */
-    public function MainImage(Picture $picture, EntityManagerInterface $em)
+    public function mainImage(Picture $picture, EntityManagerInterface $em)
     {
         $picture->setMain(true);
         $em->flush();

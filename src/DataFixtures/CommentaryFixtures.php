@@ -28,11 +28,11 @@ class CommentaryFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($datas as $commentaryData) {
             $comment = new Commentary();
-            $user = $this->getReference('user1' );
-            $trick = $this->getReference('trick' . random_int( 1 , 10));
+            $user = $this->getReference('user1');
+            $trick = $this->getReference('trick' . random_int(1, 10));
             $date = new DateTime();
             $comment
-                ->setContent($commentaryData[ 'content' ])
+                ->setContent($commentaryData['content'])
                 ->setDate($date)
                 ->setUser($user)
                 ->setTrick($trick);
