@@ -48,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $token;
 

@@ -2,9 +2,17 @@
 
 
 {% block body %}
-
+{% for message in app.flashes('se connecter') %}
+		<div class="flash-notice alert alert-primary">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('message') %}
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
 	<div class='home'>
-
 		<div class='container'>
 			<span class='slogan'>
 				<p class='slogan-p'>Born to snowboard</p>
@@ -24,9 +32,9 @@
 			{% for trick in tricks %}
 
 				<div class="  col-lg-3 col-md-12">
-					<div class="card mb-4" width= "200" height = "200">
+					<div class="card mb-4" width="200" height="200">
 
-						<div class="card-content" width= "200" height = "200">
+						<div class="card-content" width="200" height="200">
 							<a href="{{path('show_figure', {'slug': trick.slug})}}" class="btn btn">
 								{% if trick.pictures | length == 0 %}
 									<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
@@ -106,7 +114,7 @@
 
 				</div>
 			</div>
-			
+
 		</div>
 		<div class='container col-3 offset-lg-11'>
 			<a href="#haut" class="btn btn-primary">
