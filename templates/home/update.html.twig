@@ -18,41 +18,37 @@
 						{% for picture in trick.pictures %}
 
 							<div class="">
-								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px>
-								<a href="{{path('delete_image', {'id':picture.id})}}">
-									
-									<button type="submit" class="btn btn-secondary"><i class="far fa-trash-alt right mb-4"></i>
-										Supprimer la photo</button>
-								</a>
-								{% set isMain = false %}
-								{% if picture.main == 1 %}
-									<i class="fas fa-star"></i>
-									{% set isMain = true %}
-								{% endif %}
-								{% if isMain == false  %}
+								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
+							<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">>
+
+
+								<i class="far fa-trash-alt right mb-4"></i>
+								Supprimer la photo
+							</a>
+							{% set isMain = false %}
+							{% if picture.main == 1 %}
+								<i class="fas fa-star"></i>
+								{% set isMain = true %}
+							{% endif %}
+							{% if isMain == false  %}
 								<a href="{{path('main_image', {'id':picture.id})}}">
-									
-										<button type="submit" class="btn btn-primary">
-											Devenir Main</button>
-
-									</a>
-								{% endif %}
-							</div>
+									Devenir Main</a>
+							{% endif %}
+						</div>
 
 
-						{% endfor %}
-					</div>
+					{% endfor %}
 				</div>
-
-				{{ form_row(formUpdateTrick.pictures) }}
-
-
 			</div>
 
-			<button type="submit" class="btn btn-success">
-				Enregistrer</button>
-			{{ form_end(formUpdateTrick) }}
+			{{ form_row(formUpdateTrick.pictures) }}
+
 
 		</div>
+
+		<button type="submit" class="btn btn-success">
+			Enregistrer</button>
+		{{ form_end(formUpdateTrick) }}
+
 	</div>
-{% endblock %}
+</div>{% endblock %}

@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
                 $user,
                 'Yoann13109'
             ))
-            ->setToken('fksdofkpfk')
+            ->setToken('hjihuhojo')
             ->setActivated(1);
         $this->addReference('user1', $user);
 

@@ -22,7 +22,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
                 'tricks' => 2
             ],
             3 =>  [
-                'filename' => 'doublebackflip.png',
+                'filename' => 'double.jpg',
                 'tricks' => 3
             ],
             4 => [

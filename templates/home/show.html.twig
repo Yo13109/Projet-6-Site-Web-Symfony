@@ -104,15 +104,15 @@
 								</div>
 							</div>
 							{#	<div class=" col-lg-3 col-md-12">
-																																				<div class="card mb-4" width='300' height='250'>
-																																					<div class="card-content ">
-																																						{% for video in trick.video %}
-																																							<iframe width="250" height="225" src={{""~ video.url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>>
-																																							{% endfor %}
-																																						</div>
-																																					</div>
-																																				</div>
-																																			</div>#}
+																																											<div class="card mb-4" width='300' height='250'>
+																																												<div class="card-content ">
+																																													{% for video in trick.video %}
+																																														<iframe width="250" height="225" src={{""~ video.url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>>
+																																														{% endfor %}
+																																													</div>
+																																												</div>
+																																											</div>
+																																										</div>#}
 						</div>
 					</div>
 				</div>
@@ -146,16 +146,16 @@
 										</div>
 									</div>
 									{#<div class=" col-lg-3 col-md-12">
-																																										<div class="card mb-4" width='300' height='250'>
-																																											<div class="card-content ">
-																																												{% for video in trick.video %}
-																																													<iframe width="250" height="225" src={{""~ video.url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>>
-																																													{% endfor %}
-																																												</div>
-																																											</div>
-																																										</div>
-																																									</div>
-																																		#}
+																																																			<div class="card mb-4" width='300' height='250'>
+																																																				<div class="card-content ">
+																																																					{% for video in trick.video %}
+																																																						<iframe width="250" height="225" src={{""~ video.url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>>
+																																																						{% endfor %}
+																																																					</div>
+																																																				</div>
+																																																			</div>
+																																																		</div>
+																																											#}
 								</div>
 							</div>
 
@@ -222,7 +222,7 @@
 								</div>
 
 								<div class='col-3 mt-5'>
-									<small>{{comment.date | date('d/m/y')}}
+									<small>{{comment.date | date('d/m/y', "Europe/Paris")}}
 										à
 										{{comment.date | date('H:i')}}</small>
 								</div>

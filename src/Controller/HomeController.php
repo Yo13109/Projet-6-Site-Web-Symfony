@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @method Annonces[] findBy()
@@ -97,7 +98,9 @@ class HomeController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('show_figure', ['slug' => $trick->getSlug()]);
+            $this->addFlash('message', "la figure  {$trick->getName()} a été créée avec succès! ");
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('home/create.html.twig', [
@@ -195,7 +198,7 @@ class HomeController extends AbstractController
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
-
+            dd('salut');
         $nom = $picture->getFilename();
         unlink($this->getParameter('app.image.directory') . '/' . $nom);
 
