@@ -186,7 +186,7 @@ class HomeController extends AbstractController
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-
+        
         $em->remove($trick);
         $em->flush();
 
@@ -205,7 +205,7 @@ class HomeController extends AbstractController
         $em->getRepository(Picture::class);
         $em->remove($picture);
         $em->flush();
-        
+
 
         return $this->redirectToRoute('home');
         //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
