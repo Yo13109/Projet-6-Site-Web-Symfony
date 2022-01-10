@@ -199,12 +199,13 @@ class HomeController extends AbstractController
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
         $nom = $picture->getFilename();
-        unlink($this->getParameter('app.image.directory') . '/' . $nom);
+       // unlink($this->getParameter('app.image.directory') . '/' . $nom);
 
 
         $em->getRepository(Picture::class);
         $em->remove($picture);
         $em->flush();
+        
 
         return $this->redirectToRoute('home');
         //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
