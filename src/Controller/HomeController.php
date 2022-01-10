@@ -198,7 +198,6 @@ class HomeController extends AbstractController
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
-            dd('salut');
         $nom = $picture->getFilename();
         unlink($this->getParameter('app.image.directory') . '/' . $nom);
 
@@ -207,7 +206,8 @@ class HomeController extends AbstractController
         $em->remove($picture);
         $em->flush();
 
-        return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
+        return $this->redirectToRoute('home');
+        //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     /**
      * @Route("/toto/{id}", name="main_image")

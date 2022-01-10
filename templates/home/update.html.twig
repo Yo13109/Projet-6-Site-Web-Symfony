@@ -19,7 +19,7 @@
 
 							<div class="">
 								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
-							<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">>
+							<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
 
 
 								<i class="far fa-trash-alt right mb-4"></i>
@@ -34,6 +34,8 @@
 								<a href="{{path('main_image', {'id':picture.id})}}">
 									Devenir Main</a>
 							{% endif %}
+
+							
 						</div>
 
 
