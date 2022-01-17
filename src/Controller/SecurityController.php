@@ -52,8 +52,9 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
+        
         $this->addFlash('se connecter', "Vous vous êtes connecté avec succès!");
-        $this->addFlash('non connecter', "Votre compte n'est pas activé");
+        $this->addFlash('non connecter', "Votre mot de passe est incorrect!");
         return $this->render('security/login.html.twig', []);
     }
 
@@ -62,5 +63,8 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+        $this->addFlash('deconnexion', "Vous êtes déconnecté!");
+        return $this->render('home');
     }
+    
 }

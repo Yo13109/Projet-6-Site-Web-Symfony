@@ -70,6 +70,9 @@ class HomeController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $em)
     {
+
+        
+
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -186,7 +189,12 @@ class HomeController extends AbstractController
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-        
+        $images = $this->get('pictures')->getData();
+            foreach ($images as $image) {
+                $nom = $image->getFilename();
+        unlink($this->getParameter('app.image.directory') . '/' . $nom);
+
+            }
         $em->remove($trick);
         $em->flush();
 
@@ -201,7 +209,7 @@ class HomeController extends AbstractController
 
         
         $nom = $picture->getFilename();
-       // unlink($this->getParameter('app.image.directory') . '/' . $nom);
+        unlink($this->getParameter('app.image.directory') . '/' . $nom);
 
 
         $em->getRepository(Picture::class);
@@ -222,4 +230,5 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
+
 }

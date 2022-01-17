@@ -2,8 +2,13 @@
 
 
 {% block body %}
+{% for message in app.flashes('deconnexion') %}
+		<div class="flash-notice alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
 {% for message in app.flashes('se connecter') %}
-		<div class="flash-notice alert alert-primary">
+		<div class="flash-notice alert alert-success">
 			{{ message }}
 		</div>
 	{% endfor %}
