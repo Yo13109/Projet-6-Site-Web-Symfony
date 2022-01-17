@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $commentary;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="users", cascade = {"remove"})
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="users")
      */
     private $tricks;
 

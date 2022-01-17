@@ -198,6 +198,8 @@ class HomeController extends AbstractController
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
+
+        
         $nom = $picture->getFilename();
        // unlink($this->getParameter('app.image.directory') . '/' . $nom);
 
