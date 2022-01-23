@@ -22,8 +22,8 @@ security:
             provider: app_user_provider
         
             custom_authenticator: App\Security\AppCustomAuthenticator
-            user_checker: App\Security\Block
-            access_denied_handle: App\Security\AcessDeniedHandler
+            user_checker: App\Security\CheckerUser
+          #  access_denied_handler: App\Security\AcessDeniedHandler
 
             logout: 
                 path: app_logout
