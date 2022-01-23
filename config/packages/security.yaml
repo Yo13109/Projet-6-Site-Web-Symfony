@@ -4,8 +4,7 @@ security:
     password_hashers:
         App\Entity\User:
             algorithm: auto
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+   
         
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -22,13 +21,13 @@ security:
             lazy: true
             provider: app_user_provider
         
-            form-login:
-                login_path: security_connexion
-                check_path: security_connexion
+            custom_authenticator: App\Security\AppCustomAuthenticator
+            user_checker: App\Security\Block
+            access_denied_handle: App\Security\AcessDeniedHandler
 
             logout: 
-                path: security_deconnexion
-                target: home
+                path: app_logout
+            #  target: home
             
 
 
