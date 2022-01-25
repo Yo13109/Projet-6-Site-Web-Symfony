@@ -28,8 +28,8 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $this->addFlash('se connecter', "Vous vous êtes connecté avec succès!");
-        $this->addFlash('non connecter', "Votre mot de passe est incorrect!");
+      //  $this->addFlash('se connecter', "Vous vous êtes connecté avec succès!");
+        //$this->addFlash('non connecter', "Votre mot de passe est incorrect!");
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
