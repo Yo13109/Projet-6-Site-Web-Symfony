@@ -4,7 +4,8 @@ security:
     password_hashers:
         App\Entity\User:
             algorithm: auto
-
+   
+        
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -20,13 +21,15 @@ security:
             lazy: true
             provider: app_user_provider
         
-            form-login:
-                login_path: security_connexion
-                check_path: security_connexion
+            custom_authenticator: App\Security\AppCustomAuthenticator
+            user_checker: App\Security\CheckerUser
+          #  access_denied_handler: App\Security\AcessDeniedHandler
 
             logout: 
-                path: security_deconnexion
-                target: home
+                path: app_logout
+            #  target: home
+            
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -36,6 +39,6 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+    #access_control:
+     #   { path: ^/admin, roles: ROLE_ADMIN }
+        

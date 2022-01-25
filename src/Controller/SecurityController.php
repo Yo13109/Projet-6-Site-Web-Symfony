@@ -3,30 +3,50 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationType;
 use App\Services\Mailer;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher, Mailer $mailer)
+    /**
+     * @Route("/login", name="app_login")
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $this->passwordHasher = $passwordHasher;
-        $this->mailer = $mailer;
+         if ($this->getUser()) {
+             return $this->redirectToRoute('home');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $this->addFlash('se connecter', "Vous vous êtes connecté avec succès!");
+        $this->addFlash('non connecter', "Votre mot de passe est incorrect!");
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+     /**
      * @Route("/registration", name="security_registration")
      */
-    public function registration(Request $request, Mailer $mailer, EntityManager $em)
+    public function registration(Request $request, Mailer $mailer, EntityManagerInterface $em)
     {
-        $mailer = $this->mailer;
+        //$mailer = $this->mailer;
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
@@ -40,27 +60,10 @@ class SecurityController extends AbstractController
             $em->flush();
 
             $this->mailer->sendEmail($user->getEmail(), $user->getToken());
-            return $this->redirectToRoute('security_connexion');
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('security/registration.html.twig', [
             'formUser' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/login", name="security_connexion")
-     */
-    public function login()
-    {
-        $this->addFlash('se connecter', "Vous vous êtes connecté avec succès!");
-        $this->addFlash('non connecter', "Votre compte n'est pas activé");
-        return $this->render('security/login.html.twig', []);
-    }
-
-    /**
-     * @Route("/deconnexion", name="security_deconnexion")
-     */
-    public function logout()
-    {
     }
 }
