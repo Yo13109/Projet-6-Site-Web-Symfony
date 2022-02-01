@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Utilisateur non identifié
+{% endblock %}
+{% block body %}
+	<div class='card col-lg-8 offset-lg-1 col-md-12 mt-5'>
+		<h1>Utilisateur non identifié</h1>
+	</div>
+	<p>Vous avez pas la permission de voir cette page.</p>
+
+	<p>Code de l'erreur:
+		{{ status_code }}</p>
+	<p>Message de l'erreur:{{status_text}}
+	</p>
+
+	<img src='Image/chute.jpg' class="card-img-top" alt="">
+{% endblock %}
