@@ -1,28 +1,50 @@
-{% extends "base.html.twig"  %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
 
 {% block body %}
-{% for message in app.flashes('non connecter') %}
-		<div class="flash-notice alert alert-warning">
-			{{ message }}
-		</div>
-	{% endfor %}
-	<div class='card col-lg-8 offset-lg-1 col-md-12 mt-5'>
-		<div class='card-header'>
-			<h3>Connexion</h3>
-		</div>
-		<div class='card-content'>
-			<form action='{{path('security_connexion')}}' method='post'>
-				<div class='form-group mt-4'>
-					<input type='text' placeholder='Votre Email' required name='_username' class='form-control'></input>
-			</div>
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
+		{% if app.user %}
+			<div class="mb-3">
+				Bienvenue
+				{{ app.user.username }}, vous êtes connecté
+			{% endif %}
+			<div class='card col-lg-8 offset-lg-1 col-md-12 mt-5'>
+				<div class='card-header'>
+					<h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+				</div>
+				<div class='card-content'>
+					<div class='form-group mt-4'>
+						<label for="inputEmail">Email</label>
+						<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+					</div>
+					<div class='form-group mt-4'>
+						<label for="inputPassword">Password</label>
+						<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+					</div>
 
-			<div class='form-group mt-4'>
-				<input type='password' placeholder='Votre mot de passe' required name='_password' class='form-control'></input>
-		</div>
-	</div>
+					<input
+					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-	<button type="submit" class="btn btn-success mt-4">Se Connecter</button>
+				{#
+													Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+													 See https://symfony.com/doc/current/security/remember_me.html
+																											
+													 <div class="checkbox mb-3">
+													 <label>
+													<input type="checkbox" name="_remember_me"> Remember me
+									                 </label>
+													</div>
+													 #}
+				</div>
+				<button class="btn btn-success mt-4" type="submit">
+					Se connecter
+				</button>
 
-
-</div></form></div>{% endblock %}
+			</form>
+		{% endblock %}
