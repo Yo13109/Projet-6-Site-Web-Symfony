@@ -1,17 +1,60 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Page non trouvé
+{% block title %}Page non trouvée
 {% endblock %}
 {% block body %}
-	<div class='card col-lg-8 offset-lg-1 col-md-12 mt-5'>
-		<h1>Page non trouvée</h1>
+	<div class='col-lg-8 offset-lg-1 col-md-12 mt-5'>
+		<div class="alert alert-danger" role="alert">
+			<h1>Page non trouvée</h1>
+		</div>
 	</div>
-	<p>La page que vous cherchez n'a pas été trouvée.</p>
+	<div class="container mt-5">
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-10 col-md-offset-1 mt-5 mb-4">
+				<div class='container'>
+					<div class='row'>
+						<img src={{asset('Image/chute.jpg')}} class="rounded float-start col-8" alt="" height="250">
+					</div>
+					<div class="card-body">
+						<ul class="list-inline trick-data">
+							<li class="list-inline-item">
+								<p>La page que vous cherchez n'a pas été trouvée.</p>
 
-	<p>Code de l'erreur:
-		{{ status_code }}</p>
-	<p>Message de l'erreur:
-		{{status_text}}</p>
 
-	<img src='Image/chute.jpg' class="card-img-top" alt="">
+							</li>
+							|
+							<li class="list-inline-item">
+								<p>Code de l'erreur:
+									{{ status_code }}</p>
+							</li>
+							|
+							<li class="list-inline-item">
+								<p>Message de l'erreur:{{status_text}}
+								</p>
+							</li>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='container'>
+		<div class="card-body">
+			<ul class="list-inline trick-data">
+				<li class="list-inline-item">
+					<p>
+						Si vous souhaitez revenir à la page d'accueil
+						<i class="fas fa-arrow-right"></i>
+					</p>
+				</li>
+				|
+				<li class="list-inline-item">
+					<a class="nav-link" href="/">
+						<i class="fas fa-home"></i>Accueil</a>
+
+				</li>
+			</div>
+		</div>
+	</div>
 {% endblock %}
