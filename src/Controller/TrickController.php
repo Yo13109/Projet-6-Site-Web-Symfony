@@ -192,7 +192,7 @@ class TrickController extends AbstractController
         //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     /**
-     * @Route("/toto/{id}", name="main_image")
+     * @Route("/main/{id}", name="main_image")
      */
     public function mainImage(Picture $picture, EntityManagerInterface $em)
     {
@@ -200,5 +200,37 @@ class TrickController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
+    }
+    /**
+     * @Route("/blog/{id}/deleteImageALaUne", name="delete_imagealaune")
+     */
+    public function deleteImageALaUne(Picture $picture, EntityManagerInterface $em)
+    {
+
+
+        $nom = $picture->getFilename();
+        unlink($this->getParameter('app.image.directory') . '/' . $nom);
+
+
+        $em->getRepository(Picture::class);
+        $em->remove($picture);
+        $em->flush();
+
+
+        return $this->redirectToRoute('home');
+        //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
+    }
+    /**
+     * @Route("/blog/{id}/updateImageALaUne", name="update_imagealaune")
+     */
+    public function updateImagealaune(Picture $picture, EntityManagerInterface $em)
+    {
+
+
+        
+
+
+        return $this->redirectToRoute('home');
+        //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
 }

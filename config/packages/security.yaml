@@ -21,13 +21,14 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppCustomAuthenticator
+           # user_checker: App\Security\CheckerUser
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
         
            
-           # user_checker: App\Security\CheckerUser
+        
           #  access_denied_handler: App\Security\AcessDeniedHandler
 
             

@@ -2,16 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="l'email que vous avez indiqué est déjà utilisé !"
+ * 
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -40,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @Assert\Equalto(propertyPath="password", message="Vous n'avez pas tapé le même message !)
+     */
+    private $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -78,6 +89,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentary = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -274,5 +287,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
+    public function getConfirm_password(): string
+    {
+        return $this->confirm_password;
+    }
+
+    public function setConfirm_password(string $confirm_password): self
+    {
+        $this->password = $confirm_password;
+
+        return $this;
+    }
 }

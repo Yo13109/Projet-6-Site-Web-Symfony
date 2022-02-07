@@ -3,7 +3,7 @@
 {% form_theme formComment 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-{% for message in app.flashes('comment') %}
+	{% for message in app.flashes('comment') %}
 		<div class="flash-notice alert alert-success">
 			{{ message }}
 		</div>
@@ -32,28 +32,23 @@
 								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 							{% endif %}
 						{% endif %}
-						{#{% if app.user %}
-												
-																			<div class="col">
-																				<div class="name text-right">
-																					<a href="">
-																						<i class="far fa-edit right" width='250' height='250'></i>
-																					</a>
-																					<a href="">
-																						<i class="far fa-trash-alt right" width='250' height='250'></i>
-																					</a>
-																					<a name="tricks"></a>
-																				</div>
-																			</div>
-																		{% else %}
-												
-																			<div class="col">
-																				<div class="name text-right">
-												
-																					<a name="tricks"></a>
-																				</div>
-																			</div>
-																		{% endif %}#}
+						{% if app.user %}
+							{% for picture in trick.pictures %}
+								<div class="col">
+									<div class="name text-right">
+										<a href="{{path('update_imagealaune', {'id':picture.id})}}">
+											<i class="far fa-edit right" width='250' height='250'></i>
+										</a>
+										<a href="{{path('delete_imagealaune', {'id':picture.id})}}">
+											<i class="far fa-trash-alt right" width='250' height='250'></i>
+										</a>
+										<a name="tricks"></a>
+									</div>
+								</div>
+							{% endfor %}
+							{% else %}
+
+						{% endif %}
 					</div>
 				</div>
 
@@ -216,7 +211,7 @@
 							<i class="fas fa-exclamation-triangle"></i>
 							Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i>
 						</h5>
-						<a class="btn btn-success" href="{{path('security_connexion')}}">Connexion</a>
+						<a class="btn btn-success" href="{{path('app_login')}}">Connexion</a>
 					{% endif %}
 					<section id="commentaires" class='mt-5 mb-4'>
 						{% for comment in comments %}
