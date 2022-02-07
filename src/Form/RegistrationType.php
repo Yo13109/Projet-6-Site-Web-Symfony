@@ -27,7 +27,12 @@ class RegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-           
+            ->add('confirm_password' , PasswordType::class, [
+                'label' => 'Confirmation du Mot de passe',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('avatar' , TextType::class, [
                 'label' => 'Votre avatar',
                 'attr' => [
