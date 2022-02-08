@@ -47,11 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @Assert\Equalto(propertyPath="password", message="Vous n'avez pas tapé le même message !)
-     */
-    private $confirm_password;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -287,15 +283,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getConfirm_password(): string
-    {
-        return $this->confirm_password;
-    }
-
-    public function setConfirm_password(string $confirm_password): self
-    {
-        $this->password = $confirm_password;
-
-        return $this;
-    }
+   
 }
