@@ -16,7 +16,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @UniqueEntity(
  * fields={"email"},
  * message="l'email que vous avez indiqué est déjà utilisé !"
- * 
+ * )
+ * @UniqueEntity(
+ * fields={"userName"},
+ * message="le pseudo que vous avez indiqué est déjà utilisé !"
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -40,7 +43,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
-    /**
+    /*** @Assert\Regex(
+     *     pattern     = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
+     *     htmlPattern = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
+     *     message="Your name cannot contain a number"
+     * )
      * @Assert\NotBlank()
      * @var string The hashed password
      * @ORM\Column(type="string")

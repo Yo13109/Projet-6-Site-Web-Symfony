@@ -50,8 +50,8 @@ class SecurityController extends AbstractController
        $form->handleRequest($request);
 
        if ($form->isSubmitted() && $form->isValid()){
-           $user->setActivated(false);
-           dd($user);
+           $user->setActivated(false)
+                ->setToken('ijfoezfjz');
        }
 
        return $this->render('security/registration.html.twig', [
