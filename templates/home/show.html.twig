@@ -25,6 +25,7 @@
 								{% if picture.main == 1 %}
 									<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
 									{% set isMain = true %}
+								{{ include('_partial/_tricksbuttonupdatedelete.html.twig',{'picture':picture}) }}
 								{% endif %}
 							{% endfor %}
 
@@ -32,23 +33,7 @@
 								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 							{% endif %}
 						{% endif %}
-						{% if app.user %}
-							{% for picture in trick.pictures %}
-								<div class="col">
-									<div class="name text-right">
-										<a href="{{path('update_imagealaune', {'id':picture.id})}}">
-											<i class="far fa-edit right" width='250' height='250'></i>
-										</a>
-										<a href="{{path('delete_imagealaune', {'id':picture.id})}}">
-											<i class="far fa-trash-alt right" width='250' height='250'></i>
-										</a>
-										<a name="tricks"></a>
-									</div>
-								</div>
-							{% endfor %}
-							{% else %}
-
-						{% endif %}
+						
 					</div>
 				</div>
 

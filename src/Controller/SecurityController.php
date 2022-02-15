@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request)
+    public function registration(Request $request, EntityManagerInterface $em)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -51,8 +52,12 @@ class SecurityController extends AbstractController
 
        if ($form->isSubmitted() && $form->isValid()){
            $user->setActivated(false)
-                ->setToken('ijfoezfjz');
+                ->setToken('DLZKOr852');
+
+                dd($user);
        }
+       $em->persist($user);
+       $em->flush();
 
        return $this->render('security/registration.html.twig', [
            'form' => $form->createView()

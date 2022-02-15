@@ -43,10 +43,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
-    /*** @Assert\Regex(
-     *     pattern     = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
-     *     htmlPattern = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
-     *     message="Your name cannot contain a number"
+    /**
+     * @Assert\Regex(
+     * pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
+     *     message="Votre mot de passe doit contenir une majuscule , une minuscule, et au moins 8 caractères "
      * )
      * @Assert\NotBlank()
      * @var string The hashed password
