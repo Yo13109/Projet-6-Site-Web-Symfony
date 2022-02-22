@@ -44,6 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     *  @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "Votre mot de passe doit comporter au moins  {{ limit }} caratères",
+     *      maxMessage = "Votre mot de passe ne peut pas dépasser  {{ limit }} caractères"
+     * )
      * @Assert\Regex(
      * pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
      *     message="Votre mot de passe doit contenir une majuscule , une minuscule, et au moins 8 caractères "
@@ -82,6 +88,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tricks;
 
     /**
+     * @Assert\ExpressionLanguageSyntax
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Votre pseudo doit comporter au moins  {{ limit }} caratères",
+     *      maxMessage = "Votre pseudo ne peut pas dépasser  {{ limit }} caractères"
+     * )
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
