@@ -16,7 +16,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @UniqueEntity(
  * fields={"email"},
  * message="l'email que vous avez indiqué est déjà utilisé !"
- * 
+ * )
+ * @UniqueEntity(
+ * fields={"userName"},
+ * message="le pseudo que vous avez indiqué est déjà utilisé !"
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -41,17 +44,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * @Assert\Regex(
+     * pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
+     *     message="Votre mot de passe doit contenir une majuscule , une minuscule, et au moins 8 caractères "
+     * )
      * @Assert\NotBlank()
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
 
-    /**
-     * @Assert\Equalto(propertyPath="password", message="Vous n'avez pas tapé le même message !)
-     */
-    private $confirm_password;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -287,15 +290,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getConfirm_password(): string
-    {
-        return $this->confirm_password;
-    }
-
-    public function setConfirm_password(string $confirm_password): self
-    {
-        $this->password = $confirm_password;
-
-        return $this;
-    }
+   
 }
