@@ -24,6 +24,12 @@ class Trick
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "le nom de votre figure est trop courte!",
+     *      maxMessage = "Le nom de votre figure est trop longue !")
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;

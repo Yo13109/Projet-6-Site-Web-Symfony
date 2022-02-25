@@ -111,6 +111,16 @@
 									</div>
 								</div>
 							</div>
+							<div class="  col-lg-3 col-md-12">
+								<div class="card mb-4" width='250' height='250'>
+									<div class="card-content ">
+											{% for video in trick.video %}
+												<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+											{% endfor %}
+										{% endif %}
+									</div>
+								</div>
+							</div>
 
 						</div>
 					</div>

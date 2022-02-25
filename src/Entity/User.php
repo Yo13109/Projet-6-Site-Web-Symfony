@@ -50,10 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *      minMessage = "Votre mot de passe doit comporter au moins  {{ limit }} caratères",
      *      maxMessage = "Votre mot de passe ne peut pas dépasser  {{ limit }} caractères"
      * )
-     * @Assert\Regex(
-     * pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
-     *     message="Votre mot de passe doit contenir une majuscule , une minuscule, et au moins 8 caractères "
-     * )
      * @Assert\NotBlank()
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -63,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $avatar;
 
@@ -88,7 +85,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tricks;
 
     /**
-     * @Assert\ExpressionLanguageSyntax
      * @Assert\Length(
      *      min = 2,
      *      max = 255,

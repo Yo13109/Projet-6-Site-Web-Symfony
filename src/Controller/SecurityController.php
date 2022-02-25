@@ -53,10 +53,11 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
             $user->setActivated(false)
-                ->setToken('DLZKOr852');
+                ->setToken($token);
 
-
+            
 
             $email = (new TemplatedEmail())
                 ->from('yoann.corsi@gmail.com')
@@ -67,8 +68,12 @@ class SecurityController extends AbstractController
                     'token' => $user->getToken(),
                     'user' => $user
                 ]);
+            $mailer->send($email);
+
             $em->persist($user);
             $em->flush();
+            $this->addFlash('MailMessage', 'Un email vous a été envoyé');
+            return $this->redirectToRoute('home');
         }
 
 

@@ -19,6 +19,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user = new User();
+        $token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
         $user
             ->setUserName('Admin')
             ->setEmail('yoann.corsi@gmail.com')
@@ -27,7 +28,7 @@ class UserFixtures extends Fixture
                 $user,
                 'Yoann13109'
             ))
-            ->setToken('')
+            ->setToken($token)
             ->setActivated(1);
         $this->addReference('user1', $user);
 
