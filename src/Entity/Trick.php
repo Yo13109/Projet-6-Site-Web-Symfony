@@ -40,6 +40,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 8,
      *      max = 255,
@@ -66,6 +67,12 @@ class Trick
     private $video;
 
     /**
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "Votre commentaire est trop court!",
+     *      maxMessage = "Votre commentaire est trop long !")
+     * 
      * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick")
      */
     private $comments;

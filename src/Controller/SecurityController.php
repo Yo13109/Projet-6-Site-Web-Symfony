@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -18,9 +20,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('home');
-         }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -40,27 +42,38 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $em)
+    public function registration(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
-       $user = new User;
-       $form = $this->createForm(RegistrationType::class, $user);
+        $user = new User;
+        $form = $this->createForm(RegistrationType::class, $user);
 
-       $form->handleRequest($request);
+        $form->handleRequest($request);
 
-       if ($form->isSubmitted() && $form->isValid()){
-           $user->setActivated(false)
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setActivated(false)
                 ->setToken('DLZKOr852');
 
-                dd($user);
-       }
-       $em->persist($user);
-       $em->flush();
 
-       return $this->render('security/registration.html.twig', [
-           'form' => $form->createView()
-       ]);
+
+            $email = (new TemplatedEmail())
+                ->from('yoann.corsi@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Valider votre inscription')
+                ->htmlTemplate('security/email.html.twig')
+                ->context([
+                    'token' => $user->getToken(),
+                    'user' => $user
+                ]);
+            $em->persist($user);
+            $em->flush();
+        }
+
+
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
