@@ -44,6 +44,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z\d]{8,}$/",
+     *     message="Votre mot de passe doit contenir une Majuscule, une minuscule et 8 caratères minimum !"
+     * )
      *  @Assert\Length(
      *      min = 8,
      *      max = 255,

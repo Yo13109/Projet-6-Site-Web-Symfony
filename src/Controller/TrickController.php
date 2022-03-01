@@ -221,18 +221,6 @@ class TrickController extends AbstractController
         //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     
-    /**
-     * @Route("/blog/{id}/compte_activ", name="compte_activ")
-     */
-    public function compteActiv(Trick $trick, EntityManagerInterface $em)
-    {
-        $trick->getUsers()->setActivated(true);
-        $em->flush();
-
-        return $this->redirectToRoute('home', [
-            'trick' => $trick
-            
-        ]);
-    }
+    
 }
  

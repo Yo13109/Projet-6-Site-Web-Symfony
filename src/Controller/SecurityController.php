@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Trick;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -66,7 +67,7 @@ class SecurityController extends AbstractController
                 ->htmlTemplate('security/email.html.twig')
                 ->context([
                     'token' => $user->getToken(),
-                    'user' => $user
+                    'id' => $user->getId()
                 ]);
             $mailer->send($email);
 
@@ -79,6 +80,19 @@ class SecurityController extends AbstractController
 
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/blog/{id}/compte_activ", name="compte_activ")
+     */
+    public function compteActiv(Trick $trick, EntityManagerInterface $em)
+    {
+        $trick->getUsers()->setActivated(true);
+        $em->flush();
+
+        return $this->redirectToRoute('home', [
+            'trick' => $trick
+            
         ]);
     }
 }
