@@ -13,9 +13,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
+
 {
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
     /**
      * @Route("/login", name="app_login")
      */
@@ -43,7 +50,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
+    public function registration(Request $request, EntityManagerInterface $em, MailerInterface $mailer,UserPasswordHasherInterface $passwordHasher)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -54,9 +61,13 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();
             $token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
             $user->setActivated(false)
-                ->setToken($token);
+                ->setToken($token)
+                ->setPassword(($this->passwordHasher->hashPassword(
+                    $user,$password
+                )));
 
             
 
