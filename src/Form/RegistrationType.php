@@ -19,7 +19,8 @@ class RegistrationType extends AbstractType
             ->add('email' , EmailType::class, [
                 'label' => 'Votre Email',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder'=>"Un email vous sera envoyé à cette adresse"
                 ]
             ])
             //->add('password' , PasswordType::class, [

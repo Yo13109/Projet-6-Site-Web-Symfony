@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,10 @@ class SecurityController extends AbstractController
 
 {
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository)
     {
+
+        $this->userRepository = $userRepository;
         $this->passwordHasher = $passwordHasher;
     }
     /**
@@ -94,16 +97,27 @@ class SecurityController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/{id}/compte_activ", name="compte_activ")
+     * @Route("/blog/compte_activ/{token}", name="compte_activ")
      */
-    public function compteActiv(Trick $trick, EntityManagerInterface $em)
+    public function compteActiv(EntityManagerInterface $em,$token)
     {
-        $trick->getUsers()->setActivated(true);
-        $em->flush();
+        $user= $this->userRepository->findOneBy(['token'=>$token]);
+        if($user){
+            $user->setActivated(true);
 
-        return $this->redirectToRoute('home', [
-            'trick' => $trick
-            
-        ]);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('compte confirmé', 'Votre compte a été confirmé');
+            return $this->redirectToRoute('home');
+        }
+        else {
+            $this->addFlash('compte inexistant', "Le compte n'existe pas");
+            return $this->redirectToRoute('home');
+        }
+        
+        
+     
+
+      return $this->redirectToRoute('home');
     }
 }

@@ -89,6 +89,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tricks;
 
     /**
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]+$/",
+     *     message="Votre pseudo doit être valide"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
