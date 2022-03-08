@@ -90,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9\-é]+$/",
+     *     pattern="/^[a-zA-Z0-9\-éàèùê'_ç]+$/",
      *     message="Votre pseudo doit être valide"
      * )
      * @Assert\Length(

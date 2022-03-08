@@ -44,7 +44,9 @@ class TrickController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em)
     {
 
-
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -127,6 +129,9 @@ class TrickController extends AbstractController
      */
     public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
         $repo = $em->getRepository(Trick::class);
         $trick = $repo->findOneBy(['slug' => $slug]);
         $form = $this->createForm(TrickType::class, $trick);
