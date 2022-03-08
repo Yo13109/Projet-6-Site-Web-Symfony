@@ -81,7 +81,7 @@ class SecurityController extends AbstractController
                 ->htmlTemplate('security/email.html.twig')
                 ->context([
                     'token' => $user->getToken(),
-                    'id' => $user->getId()
+                    'id' => $user->getId(),
                 ]);
             $mailer->send($email);
 
@@ -103,7 +103,9 @@ class SecurityController extends AbstractController
     {
         $user= $this->userRepository->findOneBy(['token'=>$token]);
         if($user){
-            $user->setActivated(true);
+            $user->setActivated(true)
+                 ->setToken('');
+
 
             $em->persist($user);
             $em->flush();

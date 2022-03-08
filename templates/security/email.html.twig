@@ -1,8 +1,23 @@
-Salut
+{% extends "base.html.twig" %}
+{% block body %}
+
+	<p>
+		Bonjour
+	</p>
+	<p>Merci d'avoir rejoint le monde du snowboard.</p>
+	<p>
+		Nous aimerions vous confirmer que votre compte a été créé avec succès. Pour accéder au monde du snowboard, cliquez sur le lien ci-dessous.
+	</p>
+	<br>
+	<br>
 
 
+	<div class="
+    col-offset-5 mt-5 mb-4">
+		<a href="{{ url('compte_activ' , {"token":token}) }}">
+			Cliquez ici pour activer votre compte
+		</a>
+	</div>
 
-	<a href="{{ url('compte_activ' , {"token":token}) }}">
-		Cliquez ici pour activer votre compte
-	</a>
 
+{% endblock %}
