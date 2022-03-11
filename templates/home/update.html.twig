@@ -16,41 +16,48 @@
 				<div class='container'>
 					<div class='row'>
 						{% for picture in trick.pictures %}
+							{% if trick.pictures | length == 0 %}
+								Salut
+							{% else %}
 
-							<div class="">
-								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
-							<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
+
+								<div class="">
+									<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
+								<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
 
 
-								<i class="far fa-trash-alt right mb-4"></i>
-								Supprimer la photo
-							</a>
-							{% set isMain = false %}
-							{% if picture.main == 1 %}
-								<i class="fas fa-star"></i>
-								{% set isMain = true %}
+									<i class="far fa-trash-alt right mb-4"></i>
+									Supprimer la photo
+								</a>
+								{% set isMain = false %}
+								{% if picture.main == 1 %}
+									<i class="fas fa-star"></i>
+									{% set isMain = true %}
+								{% endif %}
+								{% if isMain == false  %}
+									<a href="{{path('main_image', {'id':picture.id})}}">
+										Devenir Main</a>
+								{% endif %}
+
+
 							{% endif %}
-							{% if isMain == false  %}
-								<a href="{{path('main_image', {'id':picture.id})}}">
-									Devenir Main</a>
-							{% endif %}
-
-							
-						</div>
-
-
-					{% endfor %}
+						{% endfor %}
+					</div>
 				</div>
+
+				{{ form_row(formUpdateTrick.pictures) }}
+
+
 			</div>
+			{% for video in trick.video %}
+				<li>{{ form_row(formUpdateTrick.video) }}</li>
+			{% endfor %}
+			<br>
 
-			{{ form_row(formUpdateTrick.pictures) }}
-
+			<button type="submit" class="btn btn-success">
+				Enregistrer</button>
+			{{ form_end(formUpdateTrick) }}
 
 		</div>
-
-		<button type="submit" class="btn btn-success">
-			Enregistrer</button>
-		{{ form_end(formUpdateTrick) }}
-
 	</div>
-</div>{% endblock %}
+{% endblock %}

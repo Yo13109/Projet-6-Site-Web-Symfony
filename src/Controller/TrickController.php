@@ -13,6 +13,7 @@ use App\Form\PictureType;
 use App\Service\FileUploader;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,10 @@ class TrickController extends AbstractController
         }
 
         $trick = new Trick();
+        $originalVideo = new ArrayCollection();
+        foreach ($trick->getVideo() as $video) {
+            $originalVideo->add($video);
+        }
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,6 +68,11 @@ class TrickController extends AbstractController
                 $picture->setFilename($fileName)
                     ->setMain('0');
                 $trick->addPicture($picture);
+                foreach ($originalVideo as $video) {
+                    if (false === $trick->getVideo()->contains($video)) {
+                        $video->getTrick()->removeElement($trick);
+                    }
+                }
             }
 
             $user =  $this->getUser();
@@ -134,6 +144,11 @@ class TrickController extends AbstractController
         }
         $repo = $em->getRepository(Trick::class);
         $trick = $repo->findOneBy(['slug' => $slug]);
+        $originalVideo = new ArrayCollection();
+        foreach ($trick->getVideo() as $video) {
+            $originalVideo->add($video);
+        }
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
@@ -148,6 +163,11 @@ class TrickController extends AbstractController
                 $picture->setFilename($fileName)
                     ->setMain(false);
                 $trick->addPicture($picture);
+                foreach ($originalVideo as $video) {
+                    if (false === $trick->getVideo()->contains($video)) {
+                        $video->getTrick()->removeElement($trick);
+                    }
+                }
             }
 
             $trick->setCreateDate(new DateTime())
@@ -167,7 +187,7 @@ class TrickController extends AbstractController
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-        
+
         foreach ($trick->getPictures() as $image) {
             unlink($this->getParameter('app.image.directory') . '/' . $image->getFilename());
         }
@@ -225,7 +245,4 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('home');
         //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
-    
-    
 }
- 
