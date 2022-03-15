@@ -21,12 +21,9 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url
      * @Assert\Regex(
-     *     pattern="/^(https?|ftp|ssh|mailto):\/\/[a-z0-9\/:%_+.,#?!@&=-]+$/",
-     *     message="Veuillez renseigner une Url"
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[youtu]+$/",
+     *     pattern="/^[youtube]*+$/",
      *     message="Votre video doit venir de Youtube"
      * )
      */

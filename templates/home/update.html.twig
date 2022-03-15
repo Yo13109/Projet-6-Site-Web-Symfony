@@ -49,8 +49,8 @@
 
 
 			</div>
-			{% for video in trick.video %}
-				<li>{{ form_row(formUpdateTrick.video) }}</li>
+			{% for video in formUpdateTrick.video %}
+				<li>{{ form_row(video.url) }}</li>
 			{% endfor %}
 			<br>
 

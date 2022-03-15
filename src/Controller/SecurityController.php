@@ -113,7 +113,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('home');
         }
         else {
-            $this->addFlash('compte inexistant', "Le compte n'existe pas");
+            $this->addFlash('compte inexistant', "Votre compte a déjà été confirmé!");
             return $this->redirectToRoute('home');
         }
         
