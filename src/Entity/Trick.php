@@ -79,7 +79,7 @@ class Trick
      *      minMessage = "Votre commentaire est trop court!",
      *      maxMessage = "Votre commentaire est trop long !")
      * 
-     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick",cascade={"persist"})
      */
     private $comments;
 

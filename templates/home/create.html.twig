@@ -11,14 +11,16 @@
 
 				{{ form_row(formTrick.name, {'attr':{'placeholder':"Nom de la figure"}}) }}
 				{{ form_row(formTrick.content,{'attr':{'placeholder':"Contenu de la figure"}}) }}
-				
-                {{ form_row(formTrick.category) }}
+
+				{{ form_row(formTrick.category) }}
+				<div id="video" data-prototype="{{form_row(formTrick.video.vars.prototype)|e('html_attr')}}">
+					{{ form_row(formTrick.video) }}
+					<span></span>
+				</div>
+
 				{{ form_row(formTrick.pictures) }}
-				{{ form_row(formTrick.video) }}
+
 				
-				
-			
-               
 
 			</div>
 
@@ -27,4 +29,42 @@
 			{{ form_end(formTrick) }}
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}{% block javascripts %}
+<script>
+	let collection,
+boutonAjout,
+span;
+window.onload = () => {
+collection = document.querySelector("#video");
+span = collection.querySelector("span");
+boutonAjout = document.createElement("button");
+boutonAjout.className = "ajout-video btn btn secondary";
+boutonAjout.innerText = "Ajouter une video";
+
+let nouveauBouton = span.append(boutonAjout);
+collection.dataset.index = collection.querySelectorAll("input").length;
+boutonAjout.addEventListener("click", function () {
+addButton(collection, nouveauBouton);
+})
+function addButton(collection, nouveauBouton) {
+let prototype = collection.dataset.prototype;
+let index = collection.dataset.index;
+
+prototype = prototype.replace(/__name__/g, index);
+let content = document.createElement("url")
+content.innerHtml = prototype;
+let newForm = content.querySelector("div");
+let boutonSupprimer = document.createElement("buttton");
+boutonSupprimer.type = 'button';
+boutonSupprimer.className = 'btn red';
+boutonSupprimer.id = "-delete-video-" + index;
+boutonSupprimer.innerText = "Supprimer cette video"
+newForm.append(boutonSupprimer);
+
+collection.dataset.index ++;
+let boutonAjout = collection.querySelector("-ajout-video-");
+span.insertBefore(newForm, boutonAjout);
+
+}
+}
+</script>{% endblock %}
