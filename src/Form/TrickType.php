@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TrickType extends AbstractType
 {
@@ -38,7 +39,11 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'by_reference' => false,
                 'allow_delete' => true,
-            ]);;
+            ])
+            ->add('Ajouter', SubmitType::class);
+            $builder->get('video')
+            ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
