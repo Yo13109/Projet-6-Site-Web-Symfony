@@ -1,0 +1,27 @@
+<div class="col-lg-8 offset-lg-1 col-md-12">
+		<div class="card  mt-5">
+			<div class="card-header">
+				<h3>Creer une figure</h3>
+			</div>
+			<div class="card-content mb-5">
+				{{ form_start(form) }}
+
+				{{ form_row(form.name, {'attr':{'placeholder':"Nom de la figure"}}) }}
+				{{ form_row(form.content,{'attr':{'placeholder':"Contenu de la figure"}}) }}
+
+				{{ form_row(form.category) }}
+				<div id="video" data-prototype="{{form_row(form.video.vars.prototype)|e('html_attr')}}">
+					{{ form_row(form.video) }}
+					<span></span>
+				</div>
+
+				{{ form_row(form.pictures) }}
+
+
+			</div>
+
+			<button type="submit" class="btn btn-success">
+				Ajouter la figure</button>
+			{{ form_end(form) }}
+		</div>
+	</div>

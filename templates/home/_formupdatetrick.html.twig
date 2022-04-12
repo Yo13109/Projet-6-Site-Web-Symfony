@@ -1,18 +1,15 @@
-{% extends "base.html.twig"  %}
-{% form_theme formUpdateTrick 'bootstrap_4_layout.html.twig' %}
-{% block body %}
-{#	<div class="col-lg-8 offset-lg-1 col-md-12">
+<div class="col-lg-8 offset-lg-1 col-md-12">
 		<div class="card  mt-5">
 			<div class="card-header">
 				<h3>Modifier un article</h3>
 			</div>
 			<div class="card-content mb-5">
-				{{ form_start(formUpdateTrick) }}
+				{{ form_start(form) }}
 
-				{{ form_row(formUpdateTrick.name)}}
+				{{ form_row(form.name)}}
 
-				{{ form_row(formUpdateTrick.content) }}
-				{{ form_row(formUpdateTrick.category) }}
+				{{ form_row(form.content) }}
+				{{ form_row(form.category) }}
 				<div class='container'>
 					<div class='row'>
 						{% for picture in trick.pictures %}
@@ -45,30 +42,27 @@
 					</div>
 				</div>
 
-				{{ form_row(formUpdateTrick.pictures) }}
+				{{ form_row(form.pictures) }}
 
 
 			</div>
-			{% for video in formUpdateTrick.video %}
+			{% for video in form.video %}
 			<li>{{ form_row(video.url) }}</li>
-		{# <button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
+		{#} <button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
 			<ul id="video"
-		 data-index="{{ formUpdateTrick.video|length > 0 ? formUpdateTrick.video|last.vars.url + 1 : 0 }}
-		  data-prototype="{{form_row(formUpdateTrick.video.vars.prototype)|e('html_attr')}}"
+		 data-index="{{ form.video|length > 0 ? form.video|last.vars.url + 1 : 0 }}
+		  data-prototype="{{form_row(form.video.vars.prototype)|e('html_attr')}}"
 		  
 		  >
 				
 				<span></span>
-				</div>
+				</div>#}
 			{% endfor %}
 			
 			<br>
 
 			 <button class="btn">{{ button_label|default('Enregistrer') }}</button>
-			{{ form_end(formUpdateTrick) }}
+			{{ form_end(form) }}
 
 		</div>
-	</div>#}
-
-	{{include('home/_formupdatetrick.html.twig',{form:formUpdateTrick})}};
-{% endblock %}
+	</div>

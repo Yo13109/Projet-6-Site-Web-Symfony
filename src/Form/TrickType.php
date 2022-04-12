@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class TrickType extends AbstractType
 {
@@ -40,9 +42,13 @@ class TrickType extends AbstractType
                 'by_reference' => false,
                 'allow_delete' => true,
             ])
-            ->add('Ajouter', SubmitType::class);
-            $builder->get('video')
+
             ;
+                $builder->get('video')->addEventListener(FormEvents::POST_SUBMIT,
+                
+                function(formEvent $event){
+                    $video = $event->getForm();
+                });
 
     }
 

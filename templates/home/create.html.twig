@@ -1,7 +1,7 @@
 {% extends "base.html.twig"  %}
 {% form_theme formTrick 'bootstrap_4_layout.html.twig' %}
 {% block body %}
-	<div class="col-lg-8 offset-lg-1 col-md-12">
+{#	<div class="col-lg-8 offset-lg-1 col-md-12">
 		<div class="card  mt-5">
 			<div class="card-header">
 				<h3>Creer une figure</h3>
@@ -27,12 +27,8 @@
 				Ajouter la figure</button>
 			{{ form_end(formTrick) }}
 		</div>
-	</div>
-</div>
-{% endblock %}
+	</div>#}
 
+	{{include('home/_formtrick.html.twig',{form:formTrick})}}
 
-
-{% block javascripts %}
-<script src={{asset('js/trickvideocollection.js')}} crossorigin="anonymous"></script>
 {% endblock %}

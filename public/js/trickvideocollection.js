@@ -1,38 +1,50 @@
-console.log('salut');
-let collection,
-    boutonAjout,
-    span;
-window.onload = () => {
-    collection = document.querySelector("#video");
-    span = collection.querySelector("span");
-    boutonAjout = document.createElement("button");
-    boutonAjout.className = "ajout-video btn btn secondary";
-    boutonAjout.innerText = "Ajouter une video";
+const addVideoFormDeleteLink = (item) => {
+    const removeFormButton = document.createElement('button');
+    removeFormButton.innerText = 'Effacer cette video';
 
-    let nouveauBouton = span.append(boutonAjout);
-    collection.dataset.index = collection.querySelectorAll("input").length;
-    boutonAjout.addEventListener("click", function () {
-        console.log('click bouton');
-        addButton(collection, nouveauBouton);
-    })
-    function addButton(collection, nouveauBouton) {
-        let prototype = collection.dataset.prototype;
-        let index = collection.dataset.index;
+    item.append(removeFormButton);
 
-        prototype = prototype.replace(/__name__/g, index);
-        let content = document.createElement("url")
-        content.innerHtml = prototype;
-        let newForm = content.querySelector("div");
-        let boutonSupprimer = document.createElement("buttton");
-        boutonSupprimer.type = 'button';
-        boutonSupprimer.className = 'btn red';
-        boutonSupprimer.id = "-delete-video-" + index;
-        boutonSupprimer.innerText = "Supprimer cette video"
-        newForm.append(boutonSupprimer);
+    removeFormButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        // remove the li for the tag form
+        item.remove();
+    });
+}
 
-        collection.dataset.index++;
-        let boutonAjout = collection.querySelector("-ajout-video-");
-        span.insertBefore(newForm, boutonAjout);
+const addFormToCollection = (e) => {
+    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-         }
-    }
+    const item = document.createElement('li');
+
+    item.innerHTML = collectionHolder
+        .dataset
+        .prototype
+        .replace(
+            /__name__/g,
+            collectionHolder.dataset.index
+        );
+
+    collectionHolder.appendChild(item);
+
+    collectionHolder.dataset.index++;
+
+    // add a delete link to the new form
+    addVideoFormDeleteLink(item);
+};
+
+const collectionHelper = () => {
+    document
+        .querySelectorAll('.add_item_link')
+        .forEach(btn => {
+            btn.addEventListener("click", addFormToCollection)
+    });
+    document
+        .querySelectorAll('ul.video li')
+        .forEach((video) => {
+            addVideoFormDeleteLink(video)
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    collectionHelper();
+});
