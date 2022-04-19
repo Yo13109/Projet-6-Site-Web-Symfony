@@ -40,7 +40,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/new", name="create_figure")
+     * @Route("/trick/new", name="create_figure")
      */
     public function create(Request $request, EntityManagerInterface $em)
     {
@@ -57,6 +57,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $images = $form->get('pictures')->getData();
             foreach ($images as $image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
@@ -96,7 +97,7 @@ class TrickController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/{slug}", name="show_figure")
+     * @Route("/trick/{slug}", name="show_figure")
      */
 
 
@@ -135,7 +136,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/update/{slug}", name="update_figure")
+     * @Route("/trick/update/{slug}", name="update_figure")
      */
     public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
@@ -183,7 +184,7 @@ class TrickController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/{slug}/delete", name="delete_figure")
+     * @Route("/trick/{slug}/delete", name="delete_figure")
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
@@ -198,7 +199,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}/deleteImage", name="delete_image")
+     * @Route("/trick/{id}/deleteImage", name="delete_image")
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
@@ -227,7 +228,7 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     /**
-     * @Route("/blog/{id}/deleteImageALaUne", name="delete_imagealaune")
+     * @Route("/trick/{id}/deleteImageALaUne", name="delete_imagealaune")
      */
     public function deleteImageALaUne(Picture $picture, EntityManagerInterface $em)
     {

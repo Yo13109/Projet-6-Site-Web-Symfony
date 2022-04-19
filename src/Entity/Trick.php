@@ -68,7 +68,7 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick",cascade={"persist"},orphanRemoval=true)
      */
     private $video;
 
