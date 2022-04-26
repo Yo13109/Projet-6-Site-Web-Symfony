@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Form\RegistrationType;
+use App\Form\ForgotPasswordType;
 use App\Repository\UserRepository;
+use Symfony\Component\DomCrawler\Form;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +55,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $em, MailerInterface $mailer,UserPasswordHasherInterface $passwordHasher)
+    public function registration(Request $request, EntityManagerInterface $em, MailerInterface $mailer, UserPasswordHasherInterface $passwordHasher)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -69,10 +71,11 @@ class SecurityController extends AbstractController
             $user->setActivated(false)
                 ->setToken($token)
                 ->setPassword(($this->passwordHasher->hashPassword(
-                    $user,$password
+                    $user,
+                    $password
                 )));
 
-            
+
 
             $email = (new TemplatedEmail())
                 ->from('yoann.corsi@gmail.com')
@@ -97,29 +100,95 @@ class SecurityController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/compte_activ/{token}", name="compte_activ")
+     * @Route("/trick/compte_activ/{token}", name="compte_activ")
      */
-    public function compteActiv(EntityManagerInterface $em,$token)
+    public function compteActiv(EntityManagerInterface $em, $token)
     {
-        $user= $this->userRepository->findOneBy(['token'=>$token]);
-        if($user){
+        $user =  $this->userRepository->findOneBy(['token' => $token]);
+        if ($user) {
             $user->setActivated(true)
-                 ->setToken('');
+                ->setToken('');
 
 
             $em->persist($user);
             $em->flush();
             $this->addFlash('compte confirmé', 'Votre compte a été confirmé');
             return $this->redirectToRoute('home');
-        }
-        else {
+        } else {
             $this->addFlash('compte inexistant', "Votre compte a déjà été confirmé!");
             return $this->redirectToRoute('home');
         }
-        
-        
-     
 
-      return $this->redirectToRoute('home');
+
+
+
+        return $this->redirectToRoute('home');
+    }
+    /**
+     * @Route("/forgotPassword", name="forgot_password")
+     */
+    public function ForgotPassword(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
+    {
+        $form = $this->createForm(ForgotPasswordType::class);
+        
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
+            $user =  $this->userRepository->findOneBy([
+                'email'=>$email,
+                'activated'=> 1
+            ]);
+            dd($user, $email);
+            $resetPasswordToken = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
+            $user->setToken($resetPasswordToken);
+
+            $email = (new TemplatedEmail())
+                ->from('yoann.corsi@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Regenerez votre mot de passe')
+                ->htmlTemplate('security/forgot-email.html.twig')
+                ->context([
+                    'resetPasswordToken' => $user->getResetPasswordToken(),
+                    'id' => $user->getId(),
+                ]);
+            $mailer->send($email);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('MailMessage', 'Un email vous a été envoyé');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('security/forgotPassword.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+    }
+    /**
+     * @Route("/resetPassword/{resetForgotToken}", name="reset_password")
+     */
+    public function resetPassword(Request $request, EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher, $resetPasswordToken)
+    {
+        $user = $this->userRepository->findOneBy(['resetPasswordToken' => $resetPasswordToken]);
+        if ($user) {
+            $user->setActivated(true)
+                ->setResetPasswordToken('');
+
+
+        $form = $this->createForm(ResetPasswordType::class, $user);
+    
+        } else {
+            $this->addFlash('Stop !', "Votre mot de passe a déjà été regénéré !");
+            return $this->redirectToRoute('home');
+        }
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();
+            $user = $form->get('userName')->getData();
+            $user->setPassword(($this->passwordHasher->hashPassword(
+                $user,
+                $password
+            )));
+
+        }
     }
 }
