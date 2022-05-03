@@ -149,7 +149,7 @@ class SecurityController extends AbstractController
             }
             
             $resetPasswordToken = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
-            $user->setToken($resetPasswordToken);
+            $user->setResetPasswordToken($resetPasswordToken);
 
             $email = (new TemplatedEmail())
                 ->from('yoann.corsi@gmail.com')
@@ -172,9 +172,9 @@ class SecurityController extends AbstractController
 
     }
     /**
-     * @Route("/resetPassword", name="reset_password")
+     * @Route("/resetPassword/{resetPasswordToken}", name="reset_password")
      */
-    public function resetPassword(Request $request, EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher, $resetPasswordToken)
+    public function resetPassword(Request $request, EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher, string $resetPasswordToken)
     {
         $user = $this->userRepository->findOneBy(['resetPasswordToken' => $resetPasswordToken]);
         if ($user) {
@@ -196,6 +196,8 @@ class SecurityController extends AbstractController
                 $user,
                 $password
             )));
+            $em->persist($password);
+            $em->flush();
 
         }
         return $this->render('security/resetPassword.html.twig', [

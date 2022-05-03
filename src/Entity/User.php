@@ -241,7 +241,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setResetPasswordToken(string $resetPasswordToken): self
     {
-        $this->token = $resetPasswordToken;
+        $this->resetPasswordToken = $resetPasswordToken;
 
         return $this;
     }

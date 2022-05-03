@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ResetPasswordType extends AbstractType
 {
@@ -23,7 +25,13 @@ class ResetPasswordType extends AbstractType
                 'invalid_message' => 'les mots de passe doivent être identiques !',
                 'attr' => [
                     'class' => 'form-control',
-                    'autocomplete' => 'new-password'
+                    'autocomplete' => 'new-password',
+                    'constraint' =>[
+                        new NotBlank(),
+                        new Regex(),
+                        new Length(),
+                    ]
+                    
 
                 ],
                 'required' => true,
