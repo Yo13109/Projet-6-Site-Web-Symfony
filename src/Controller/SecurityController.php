@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Form\RegistrationType;
+use App\Form\ResetPasswordType;
 use App\Form\ForgotPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Component\DomCrawler\Form;
@@ -139,7 +140,14 @@ class SecurityController extends AbstractController
                 'email'=>$email,
                 'activated'=> 1
             ]);
-            dd($user, $email);
+           
+            if ($user == null) {
+                $this->addFlash('ForgotMessageErreur', "Votre adresse mail ne correspond à aucun compte");
+                return $this->redirectToRoute('home');
+               
+            
+            }
+            
             $resetPasswordToken = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
             $user->setToken($resetPasswordToken);
 
@@ -155,7 +163,7 @@ class SecurityController extends AbstractController
             $mailer->send($email);
             $em->persist($user);
             $em->flush();
-            $this->addFlash('MailMessage', 'Un email vous a été envoyé');
+            $this->addFlash('ForgotMessage', 'Un email vous a été envoyé');
             return $this->redirectToRoute('home');
         }
         return $this->render('security/forgotPassword.html.twig', [
@@ -164,7 +172,7 @@ class SecurityController extends AbstractController
 
     }
     /**
-     * @Route("/resetPassword/{resetForgotToken}", name="reset_password")
+     * @Route("/resetPassword", name="reset_password")
      */
     public function resetPassword(Request $request, EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher, $resetPasswordToken)
     {
