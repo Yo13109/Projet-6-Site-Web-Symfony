@@ -182,7 +182,7 @@ class SecurityController extends AbstractController
                 ->setResetPasswordToken('');
 
 
-        $form = $this->createForm(ResetPasswordType::class, $user);
+        $form = $this->createForm(ResetPasswordType::class);
     
         } else {
             $this->addFlash('Stop !', "Votre mot de passe a déjà été regénéré !");
@@ -198,5 +198,9 @@ class SecurityController extends AbstractController
             )));
 
         }
+        return $this->render('security/resetPassword.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
+  
 }
