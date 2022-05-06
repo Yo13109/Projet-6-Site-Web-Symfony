@@ -26,10 +26,14 @@ class ResetPasswordType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'autocomplete' => 'new-password',
-                    'constraint' =>[
+                    'constraints' =>[
                         new NotBlank(),
-                        new Regex(),
-                        new Length(),
+                        new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z\d]{8,}$/',"Votre mot de passe doit contenir une Majuscule, une minuscule et 8 caratères minimum !"),
+                        new Length([
+                            'min'=> 8,
+                            'minMessage'=>"Votre mot de passe doit comporter au moins  8 caratères",
+                            'max'=> 255,
+                        ])
                     ]
                     
 
