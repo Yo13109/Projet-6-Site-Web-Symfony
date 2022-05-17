@@ -131,23 +131,21 @@ class SecurityController extends AbstractController
     public function ForgotPassword(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
     {
         $form = $this->createForm(ForgotPasswordType::class);
-        
+
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
             $user =  $this->userRepository->findOneBy([
-                'email'=>$email,
-                'activated'=> 1
+                'email' => $email,
+                'activated' => 1
             ]);
-           
+
             if ($user == null) {
                 $this->addFlash('ForgotMessageErreur', "Votre adresse mail ne correspond à aucun compte");
                 return $this->redirectToRoute('home');
-               
-            
             }
-            
+
             $resetPasswordToken = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
             $user->setResetPasswordToken($resetPasswordToken);
 
@@ -169,39 +167,34 @@ class SecurityController extends AbstractController
         return $this->render('security/forgotPassword.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
     /**
      * @Route("/resetPassword/{resetPasswordToken}", name="reset_password")
      */
-    public function resetPassword(Request $request, EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher, string $resetPasswordToken)
+    public function resetPassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, string $resetPasswordToken)
     {
         $user = $this->userRepository->findOneBy(['resetPasswordToken' => $resetPasswordToken]);
-        if ($user) {
-            $user->setActivated(true)
-                ->setResetPasswordToken('');
-
-
-        $form = $this->createForm(ResetPasswordType::class);
-    
-        } else {
+        if ($user === null) {
             $this->addFlash('Stop !', "Votre mot de passe a déjà été regénéré !");
             return $this->redirectToRoute('home');
         }
+           
+            $form = $this->createForm(ResetPasswordType::class);
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->get('password')->getData();
-            $user->setPassword(($this->passwordHasher->hashPassword(
+            $user
+                ->setResetPasswordToken(null)
+                ->setPassword(($this->passwordHasher->hashPassword(
                 $user,
                 $password
             )));
-            $em->persist($user);
+            
             $em->flush();
-
         }
         return $this->render('security/resetPassword.html.twig', [
             'form' => $form->createView()
         ]);
     }
-  
 }

@@ -68,14 +68,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $token;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $resetPasswordToken;
 
@@ -227,7 +225,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->token;
     }
-    public function setToken(string $token): self
+    public function setToken(?string $token): self
     {
         $this->token = $token;
 
@@ -239,7 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->resetPasswordToken;
     }
 
-    public function setResetPasswordToken(string $resetPasswordToken): self
+    public function setResetPasswordToken(?string $resetPasswordToken): self
     {
         $this->resetPasswordToken = $resetPasswordToken;
 
