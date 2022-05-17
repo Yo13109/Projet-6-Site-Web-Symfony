@@ -192,6 +192,10 @@ class SecurityController extends AbstractController
             )));
             
             $em->flush();
+            $this->addFlash('MDPModifié', "Votre mot de passe a été modifié !");
+            return $this->redirectToRoute('home');
+
+
         }
         return $this->render('security/resetPassword.html.twig', [
             'form' => $form->createView()
