@@ -20,7 +20,7 @@ const addFormToCollection = (e) => {
         .dataset
         .prototype
         .replace(
-            /__url__/g,
+            /__name__/g,
             collectionHolder.dataset.index
         );
 

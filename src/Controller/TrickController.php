@@ -145,10 +145,10 @@ class TrickController extends AbstractController
         }
         $repo = $em->getRepository(Trick::class);
         $trick = $repo->findOneBy(['slug' => $slug]);
-        $originalVideo = new ArrayCollection();
-        foreach ($trick->getVideo() as $video) {
-            $originalVideo->add($video);
-        }
+       // $originalVideo = new ArrayCollection();
+       // foreach ($trick->getVideo() as $video) {
+       //     $originalVideo->add($video);
+       // }
 
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -164,11 +164,11 @@ class TrickController extends AbstractController
                 $picture->setFilename($fileName)
                     ->setMain(false);
                 $trick->addPicture($picture);
-                foreach ($originalVideo as $video) {
-                    if (false === $trick->getVideo()->contains($video)) {
-                        $video->getTrick()->removeElement($trick);
-                    }
-                }
+              //  foreach ($originalVideo as $video) {
+              //      if (false === $trick->getVideo()->contains($video)) {
+               //         $video->getTrick()->removeElement($trick);
+               //     }
+              //  }
             }
 
             $trick->setCreateDate(new DateTime())

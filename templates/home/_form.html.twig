@@ -1,0 +1,15 @@
+{{form_start(form)}}
+{{form_row(form.name)}}
+{{form_row(form.content)}}
+{{form_row(form.category)}}
+{{form_row(form.pictures)}}
+<button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
+<ul class="video"  data-prototype="{{form_widget(form.video.vars.prototype)|e('html_attr')}}">
+	{% for video in form.video %}
+		<li>{{ form_row(video) }}</li>
+	{% endfor %}
+
+</ul>
+<button class="btn">{{ button_label|default('Ajouter la figure') }}</button>
+{#data-index="{{ form.video|length > 0 ? form.video|last.vars.name + 1 : 0 }}"#}
+{{form_end(form)}}

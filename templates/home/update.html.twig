@@ -1,74 +1,75 @@
 {% extends "base.html.twig"  %}
 {% form_theme formUpdateTrick 'bootstrap_4_layout.html.twig' %}
 {% block body %}
-{#	<div class="col-lg-8 offset-lg-1 col-md-12">
+	<div class="col-lg-8 offset-lg-1 col-md-12">
 		<div class="card  mt-5">
 			<div class="card-header">
 				<h3>Modifier un article</h3>
 			</div>
-			<div class="card-content mb-5">
-				{{ form_start(formUpdateTrick) }}
+			<div
+				class="card-content mb-5">
+				{#}	{{ form_start(formUpdateTrick) }}
+									
+													{{ form_row(formUpdateTrick.name)}}
+									
+													{{ form_row(formUpdateTrick.content) }}
+													{{ form_row(formUpdateTrick.category) }}
+													<div class='container'>
+														<div class='row'>
+															{% for picture in trick.pictures %}
+																{% if trick.pictures | length == 0 %}
+																	Salut
+																{% else %}
+									
+									
+																	<div class="">
+																		<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
+																	<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
+									
+									
+																		<i class="far fa-trash-alt right mb-4"></i>
+																		Supprimer la photo
+																	</a>
+																	{% set isMain = false %}
+																	{% if picture.main == 1 %}
+																		<i class="fas fa-star"></i>
+																		{% set isMain = true %}
+																	{% endif %}
+																	{% if isMain == false  %}
+																		<a href="{{path('main_image', {'id':picture.id})}}">
+																			Devenir Main</a>
+																	{% endif %}
+									
+									
+																{% endif %}
+															{% endfor %}
+														</div>
+													</div>
+									
+													{{ form_row(formUpdateTrick.pictures) }}#}
 
-				{{ form_row(formUpdateTrick.name)}}
-
-				{{ form_row(formUpdateTrick.content) }}
-				{{ form_row(formUpdateTrick.category) }}
-				<div class='container'>
-					<div class='row'>
-						{% for picture in trick.pictures %}
-							{% if trick.pictures | length == 0 %}
-								Salut
-							{% else %}
-
-
-								<div class="">
-									<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
-								<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
-
-
-									<i class="far fa-trash-alt right mb-4"></i>
-									Supprimer la photo
-								</a>
-								{% set isMain = false %}
-								{% if picture.main == 1 %}
-									<i class="fas fa-star"></i>
-									{% set isMain = true %}
-								{% endif %}
-								{% if isMain == false  %}
-									<a href="{{path('main_image', {'id':picture.id})}}">
-										Devenir Main</a>
-								{% endif %}
-
-
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-
-				{{ form_row(formUpdateTrick.pictures) }}
-
-
+				{{include('home/_form.html.twig',{form:formUpdateTrick,'button_label':'Mettre à jour'})}};
 			</div>
-			{% for video in formUpdateTrick.video %}
-			<li>{{ form_row(video.url) }}</li>
-		<button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
-			<ul id="video"
-		 data-index="{{ formUpdateTrick.video|length > 0 ? formUpdateTrick.video|last.vars.url + 1 : 0 }}
-		  data-prototype="{{form_row(formUpdateTrick.video.vars.prototype)|e('html_attr')}}"
-		  
-		  >
-				
-				<span></span>
-				</div>
-			{% endfor %}
-			
-			<br>
-
-			 <button class="btn">{{ button_label|default('Enregistrer') }}</button>
-			{{ form_end(formUpdateTrick) }}
-
+			{#}	{% for video in formUpdateTrick.video %}
+									<li>{{ form_row(video.url) }}</li>
+								<button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
+									<ul id="video"
+								 data-index="{{ formUpdateTrick.video|length > 0 ? formUpdateTrick.video|last.vars.url + 1 : 0 }}
+								  data-prototype="{{form_row(formUpdateTrick.video.vars.prototype)|e('html_attr')}}"
+								  
+								  >
+										
+										<span></span>
+										</div>
+									{% endfor %}
+									
+									<br>
+						
+									 <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+									{{ form_end(formUpdateTrick) }}
+						
+								</div>#}
 		</div>
-	</div>#}
 
-	{{include('home/_formupdatetrick.html.twig',{form:formUpdateTrick})}};
-{% endblock %}
+
+	{% endblock %}
