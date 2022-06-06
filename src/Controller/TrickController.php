@@ -215,6 +215,12 @@ class TrickController extends AbstractController
      */
     public function mainImage(Picture $picture, EntityManagerInterface $em)
     {
+        $pictureRepository = $em->getRepository(Picture::class);
+        $pictureAll = $pictureRepository->findBy(['tricks'=> $picture->getTricks()]);
+        foreach ($pictureAll as $pictureOther) {
+            $pictureOther->setMain(false);
+            $em->persist($pictureOther);
+        }
         $picture->setMain(true);
         $em->flush();
 

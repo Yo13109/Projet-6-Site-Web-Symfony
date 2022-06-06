@@ -6,7 +6,7 @@
 	<div class='row'>
 		{% for picture in trick.pictures %}
 			{% if trick.pictures | length == 0 %}
-				Salut
+				
 			{% else %}
 
 
@@ -36,7 +36,7 @@
 
 
 {{form_row(form.pictures)}}
-<button type="button" class="add_item_link" data-collection-holder-class="video">Ajouter une video</button>
+<button type="button" class="add_item_link mt-4 mb-4" data-collection-holder-class="video">Ajouter une video</button>
 <ul class="video" data-prototype="{{form_widget(form.video.vars.prototype)|e('html_attr')}}">
 	{% for video in form.video %}
 		<li>{{ form_row(video) }}</li>
