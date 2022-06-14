@@ -2,57 +2,7 @@
 
 
 {% block body %}
-{% for message in app.flashes('MDPModifié') %}
-		<div class="flash-notice alert alert-warning">
-			{{ message }}
-		</div>
-		
-	{% endfor %}
-{% for message in app.flashes('Stop !') %}
-		<div class="flash-notice alert alert-warning">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('ForgotMessageErreur') %}
-		<div class="flash-notice alert alert-warning">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('ForgotMessage') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('compte confirmé') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('compte inexistant') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('MailMessage') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('deconnexion') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% for message in app.flashes('se connecter') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-	{% for message in app.flashes('message') %}
-		<div class="flash-notice alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
+
 	<div class='home'>
 		<div class='container'>
 			<span class='slogan'>
