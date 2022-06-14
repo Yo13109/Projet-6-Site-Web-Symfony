@@ -3,7 +3,7 @@
 {% form_theme formComment 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-	{% for message in app.flashes('comment') %}
+	{% for message in app.flashes('success') %}
 		<div class="flash-notice alert alert-success">
 			{{ message }}
 		</div>
@@ -25,7 +25,7 @@
 								{% if picture.main == 1 %}
 									<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
 									{% set isMain = true %}
-								{{ include('_partial/_tricksbuttonupdatedelete.html.twig',{'picture':picture}) }}
+									{{ include('_partial/_tricksbuttonupdatedelete.html.twig',{'picture':picture}) }}
 								{% endif %}
 							{% endfor %}
 
@@ -33,7 +33,7 @@
 								<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 							{% endif %}
 						{% endif %}
-						
+
 					</div>
 				</div>
 
@@ -114,135 +114,146 @@
 							<div class="  col-lg-3 col-md-12">
 								<div class="card mb-4" width='250' height='250'>
 									<div class="card-content ">
-											{% for video in trick.video %}
-												<iframe src={{asset(video.url)}} class="card-img-top" alt=""></iframe>
-											{% endfor %}
-									
+										{% for video in trick.video %}
+											<iframe src={{asset(video.url)}} class="card-img-top" alt=""></iframe>
+										{% endfor %}
+
 									</div>
 								</div>
 							</div>
 
 						</div>
 					</div>
+				</div>
 
-					<div class='mobile '>
-						<p>
-							<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-								Voir Medias
-							</button>
-						</p>
-						<div class="collapse" id="collapseExample">
-							<div class="card card-body">
+				<div class='mobile d-block d-lg-none'>
+					<p>
+						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+							Voir Medias
+						</button>
+					</p>
+					<div class="collapse" id="collapseExample">
+						<div class="card card-body">
 
-								<div class="container">
-									<div class="row mt-4 mb-4">
-										<div class="  col-lg-3 col-md-12">
-											<div class="card mb-4" width='250' height='250'>
-												<div class="card-content ">
+							<div class="container">
+								<div class="row mt-4 mb-4">
+									<div class="  col-lg-3 col-md-12">
+										<div class="card mb-4" width='250' height='250'>
+											<div class="card-content ">
 
-													{% if trick.pictures | length == 0 %}
-														<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
+												{% if trick.pictures | length == 0 %}
+													<img src={{asset('asset/lion.jpg')}} class="card-img-top" alt="">
 
-													{% elseif trick.pictures | length == 1 %}
-														<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
+												{% elseif trick.pictures | length == 1 %}
+													<img src={{asset('Image/' ~ trick.pictures | first.filename)}} class="card-img-top" alt="">
 
-													{% elseif trick.pictures | length > 1 %}
-														{% for picture in trick.pictures %}
-															<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
-														{% endfor %}
-													{% endif %}
+												{% elseif trick.pictures | length > 1 %}
+													{% for picture in trick.pictures %}
+														<img src={{asset('Image/' ~ picture.filename)}} class="card-img-top" alt="">
+													{% endfor %}
+												{% endif %}
 
-												</div>
 											</div>
 										</div>
+									</div>
+									<div class="  col-lg-3 col-md-12">
+								<div class="card mb-4" width='250' height='250'>
+									<div class="card-content ">
+										{% for video in trick.video %}
+											<iframe src={{asset(video.url)}} class="card-img-top" alt=""></iframe>
+										{% endfor %}
 
 									</div>
-
 								</div>
 							</div>
-							<hr>
-						</div>
-						<h5 class="card-title">Description</h5>
-						<p class="card-text text-justify">{{trick.content}}
-						</p>
 
-						<div class="col-md-12 px-0 mb-30">
-							<div class="comments text-center p-3"></div>
-						</div>
-
-						<span class="comments-anchor" id="comments-block"></span>
-						<div class="col-md-12 pl-0 pr-0">
-							<div class="comments text-left padDiv mb-30">
-								<div class="entry-comments">
-									<ul class="entry-comments-list list-unstyled"></ul>
 								</div>
+
 							</div>
 						</div>
+						<hr>
+					</div>
+					<h5 class="card-title">Description</h5>
+					<p class="card-text text-justify">{{trick.content}}
+					</p>
 
+					<div class="col-md-12 px-0 mb-30">
+						<div class="comments text-center p-3"></div>
 					</div>
 
-
-					{% if app.user %}
-						<div class="col-lg-6 offset-lg-3 col-md-12">
-							<div class="card  mt-5">
-								<div class="card-header">
-									<h3>
-										Ajout d'un commentaire
-									</h3>
-								</div>
-								<div class="card-content mb-5">
-									{{ form_start(formComment) }}
-
-									{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
-									<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
-									{{ form_end(formComment) }}
-								</div>
-
-
+					<span class="comments-anchor" id="comments-block"></span>
+					<div class="col-md-12 pl-0 pr-0">
+						<div class="comments text-left padDiv mb-30">
+							<div class="entry-comments">
+								<ul class="entry-comments-list list-unstyled"></ul>
 							</div>
 						</div>
-					{% else %}
-						<h5>
-							<i class="fas fa-exclamation-triangle"></i>
-							Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i>
-						</h5>
-						<a class="btn btn-success" href="{{path('app_login')}}">Connexion</a>
-					{% endif %}
-					<section id="commentaires" class='mt-5 mb-4'>
-						{% for comment in comments %}
+					</div>
 
-
-							<div class="comment">
-								<div class="row">
-									<div class="col-3 mt-5">
-										{{comment.user.userName}}
-										<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
-
-									<div class="col mt-5">{{comment.content}}
-									</div>
-
-									<div class='col-3 mt-5'>
-										<small>{{comment.date | date('d/m/y', "Europe/Paris")}}
-											à
-											{{comment.date | date('H:i')}}</small>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					</section>
-					{% if totalComment > limit %}
-						<div class='container col-3 offset-lg-5'>
-							<div class="row">
-								<div class='sun'>
-									<a href="{{path('show_figure', {'page':pagesuivante, 'slug':trick.slug})}}" class="btn btn-primary">
-										<i class="far fa-comment-dots"></i>
-									</a>
-
-								</div>
-							</div>
-						</div>
-						{% else %}
-					{% endif %}
 				</div>
+
+
+				{% if app.user %}
+					<div class="col-lg-6 offset-lg-3 col-md-12">
+						<div class="card  mt-5">
+							<div class="card-header">
+								<h3>
+									Ajout d'un commentaire
+								</h3>
+							</div>
+							<div class="card-content mb-5">
+								{{ form_start(formComment) }}
+
+								{{ form_row(formComment.content,{'attr':{'placeholder':"Ecrire un commentaire..."}}) }}
+								<button type="submit" class="btn btn-success">Ajouter un commentaire</button>
+								{{ form_end(formComment) }}
+							</div>
+
+
+						</div>
+					</div>
+				{% else %}
+					<h5>
+						<i class="fas fa-exclamation-triangle"></i>
+						Vous ne pouvez pas commenter si vous n'êtes pas connecté!<i class="fas fa-exclamation-triangle"></i>
+					</h5>
+					<a class="btn btn-success" href="{{path('app_login')}}">Connexion</a>
+				{% endif %}
+				<section id="commentaires" class='mt-5 mb-4'>
+					{% for comment in comments %}
+
+
+						<div class="comment">
+							<div class="row">
+								<div class="col-3 mt-5">
+									{{comment.user.userName}}
+									<img src={{asset('Image/' ~ comment.user.avatar)}} class="" alt="" width="50" height="50"></div>
+
+								<div class="col mt-5">{{comment.content}}
+								</div>
+
+								<div class='col-3 mt-5'>
+									<small>{{comment.date | date('d/m/y', "Europe/Paris")}}
+										à
+										{{comment.date | date('H:i')}}</small>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</section>
+				{% if totalComment > limit %}
+					<div class='container col-3 offset-lg-5'>
+						<div class="row">
+							<div class='sun'>
+								<a href="{{path('show_figure', {'page':pagesuivante, 'slug':trick.slug})}}" class="btn btn-primary">
+									<i class="far fa-comment-dots"></i>
+								</a>
+
+							</div>
+						</div>
+					</div>
+					{% else %}
+				{% endif %}
 			</div>
-		{% endblock %}
+		</div>
+	{% endblock %}
