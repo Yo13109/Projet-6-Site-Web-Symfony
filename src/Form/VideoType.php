@@ -18,7 +18,7 @@ class VideoType extends AbstractType
         $builder
             ->add('url',UrlType::class,[
                 'constraints'=>[
-                    new Regex('/(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?/',"Votre vidéo doit venir de Youtube !"),
+                    new Regex('/(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?/',"Votre vidéo doit être au format Youtube ! (exemple: https://www.youtube.com/embed/HyDHAPpNWpU )"),
                     new Url()
                 ]
             ]

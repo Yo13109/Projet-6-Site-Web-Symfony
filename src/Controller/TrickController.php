@@ -87,7 +87,7 @@ class TrickController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            $this->addFlash('message', "la figure  {$trick->getName()} a été créée avec succès! ");
+            $this->addFlash('success', "la figure  {$trick->getName()} a été créée avec succès! ");
 
             return $this->redirectToRoute('home');
         }

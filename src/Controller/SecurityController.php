@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
 
             $em->persist($user);
             $em->flush();
-            $this->addFlash('MailMessage', 'Un email vous a été envoyé');
+            $this->addFlash('success', 'Un email vous a été envoyé');
             return $this->redirectToRoute('home');
         }
 
@@ -113,10 +113,10 @@ class SecurityController extends AbstractController
 
             $em->persist($user);
             $em->flush();
-            $this->addFlash('compte confirmé', 'Votre compte a été confirmé');
+            $this->addFlash('success', 'Votre compte a été confirmé');
             return $this->redirectToRoute('home');
         } else {
-            $this->addFlash('compte inexistant', "Votre compte a déjà été confirmé!");
+            $this->addFlash('error', "Votre compte a déjà été confirmé!");
             return $this->redirectToRoute('home');
         }
 
@@ -142,7 +142,7 @@ class SecurityController extends AbstractController
             ]);
 
             if ($user == null) {
-                $this->addFlash('ForgotMessageErreur', "Votre adresse mail ne correspond à aucun compte");
+                $this->addFlash('erreur', "Votre adresse mail ne correspond à aucun compte");
                 return $this->redirectToRoute('home');
             }
 
@@ -161,7 +161,7 @@ class SecurityController extends AbstractController
             $mailer->send($email);
             $em->persist($user);
             $em->flush();
-            $this->addFlash('ForgotMessage', 'Un email vous a été envoyé');
+            $this->addFlash('success', 'Un email vous a été envoyé');
             return $this->redirectToRoute('home');
         }
         return $this->render('security/forgotPassword.html.twig', [
@@ -175,7 +175,7 @@ class SecurityController extends AbstractController
     {
         $user = $this->userRepository->findOneBy(['resetPasswordToken' => $resetPasswordToken]);
         if ($user === null) {
-            $this->addFlash('Stop !', "Votre mot de passe a déjà été regénéré !");
+            $this->addFlash('error', "Votre mot de passe a déjà été regénéré !");
             return $this->redirectToRoute('home');
         }
            
@@ -192,7 +192,7 @@ class SecurityController extends AbstractController
             )));
             
             $em->flush();
-            $this->addFlash('MDPModifié', "Votre mot de passe a été modifié !");
+            $this->addFlash('success', "Votre mot de passe a été modifié !");
             return $this->redirectToRoute('home');
 
 
