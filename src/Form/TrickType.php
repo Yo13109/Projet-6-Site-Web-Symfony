@@ -44,11 +44,7 @@ class TrickType extends AbstractType
             ])
 
             ;
-                $builder->get('video')->addEventListener(FormEvents::POST_SUBMIT,
-                
-                function(formEvent $event){
-                    $video = $event->getForm();
-                });
+               
 
     }
 
