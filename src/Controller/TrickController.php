@@ -13,6 +13,7 @@ use App\Form\PictureType;
 use App\Service\FileUploader;
 use App\Repository\TrickRepository;
 use App\Repository\CommentaryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,17 +40,24 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/new", name="create_figure")
+     * @Route("/trick/new", name="create_figure")
      */
     public function create(Request $request, EntityManagerInterface $em)
     {
 
-
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         $trick = new Trick();
+        $originalVideo = new ArrayCollection();
+        foreach ($trick->getVideo() as $video) {
+            $originalVideo->add($video);
+        }
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $images = $form->get('pictures')->getData();
             foreach ($images as $image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
@@ -61,6 +69,11 @@ class TrickController extends AbstractController
                 $picture->setFilename($fileName)
                     ->setMain('0');
                 $trick->addPicture($picture);
+                foreach ($originalVideo as $video) {
+                    if (false === $trick->getVideo()->contains($video)) {
+                        $video->getTrick()->removeElement($trick);
+                    }
+                }
             }
 
             $user =  $this->getUser();
@@ -74,7 +87,7 @@ class TrickController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            $this->addFlash('message', "la figure  {$trick->getName()} a été créée avec succès! ");
+            $this->addFlash('success', "la figure  {$trick->getName()} a été créée avec succès! ");
 
             return $this->redirectToRoute('home');
         }
@@ -84,7 +97,7 @@ class TrickController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/{slug}", name="show_figure")
+     * @Route("/trick/{slug}", name="show_figure")
      */
 
 
@@ -123,12 +136,17 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/update/{slug}", name="update_figure")
+     * @Route("/trick/update/{slug}", name="update_figure")
      */
     public function update(Request $request, EntityManagerInterface $em, string $slug)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
         $repo = $em->getRepository(Trick::class);
         $trick = $repo->findOneBy(['slug' => $slug]);
+       
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
@@ -143,6 +161,7 @@ class TrickController extends AbstractController
                 $picture->setFilename($fileName)
                     ->setMain(false);
                 $trick->addPicture($picture);
+              
             }
 
             $trick->setCreateDate(new DateTime())
@@ -158,11 +177,11 @@ class TrickController extends AbstractController
         ]);
     }
     /**
-     * @Route("/blog/{slug}/delete", name="delete_figure")
+     * @Route("/trick/{slug}/delete", name="delete_figure")
      */
     public function delete(Trick $trick, EntityManagerInterface $em): RedirectResponse
     {
-        
+
         foreach ($trick->getPictures() as $image) {
             unlink($this->getParameter('app.image.directory') . '/' . $image->getFilename());
         }
@@ -173,7 +192,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}/deleteImage", name="delete_image")
+     * @Route("/trick/{id}/deleteImage", name="delete_image")
      */
     public function deleteImage(Picture $picture, EntityManagerInterface $em)
     {
@@ -196,13 +215,19 @@ class TrickController extends AbstractController
      */
     public function mainImage(Picture $picture, EntityManagerInterface $em)
     {
+        $pictureRepository = $em->getRepository(Picture::class);
+        $pictureAll = $pictureRepository->findBy(['tricks'=> $picture->getTricks()]);
+        foreach ($pictureAll as $pictureOther) {
+            $pictureOther->setMain(false);
+            $em->persist($pictureOther);
+        }
         $picture->setMain(true);
         $em->flush();
 
         return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
     }
     /**
-     * @Route("/blog/{id}/deleteImageALaUne", name="delete_imagealaune")
+     * @Route("/trick/{id}/deleteImageALaUne", name="delete_imagealaune")
      */
     public function deleteImageALaUne(Picture $picture, EntityManagerInterface $em)
     {
@@ -215,19 +240,6 @@ class TrickController extends AbstractController
         $em->getRepository(Picture::class);
         $em->remove($picture);
         $em->flush();
-
-
-        return $this->redirectToRoute('home');
-        //return $this->redirectToRoute('update_figure', ['slug' => $picture->getTricks()->getSlug()]);
-    }
-    /**
-     * @Route("/blog/{id}/updateImageALaUne", name="update_imagealaune")
-     */
-    public function updateImagealaune(Picture $picture, EntityManagerInterface $em)
-    {
-
-
-        
 
 
         return $this->redirectToRoute('home');

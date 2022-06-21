@@ -1,17 +1,12 @@
 {% extends "base.html.twig"  %}
 
 {% block body %}
-{% for message in app.flashes('non connecter') %}
-		<div class="flash-notice alert alert-warning">
-			{{ message }}
-		</div>
-	{% endfor %}
 	<div class='card col-lg-8 offset-lg-1 col-md-12 mt-5'>
 		<div class='card-header'>
 			<h3>Connexion</h3>
 		</div>
 		<div class='card-content'>
-			<form  method='post'>
+			<form method='post'>
 				<div class='form-group mt-4'>
 					<input type='text' placeholder='Votre Email' required name='_username' class='form-control'></input>
 			</div>
@@ -21,6 +16,8 @@
 				<input type='password' placeholder='Votre mot de passe' required name='_password' class='form-control'></input>
 		</div>
 	</div>
+Salut
+
 
 	<button type="submit" class="btn btn-success mt-4">Se Connecter</button>
 

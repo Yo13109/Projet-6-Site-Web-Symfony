@@ -45,8 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\Regex(
-     * pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", 
-     *     message="Votre mot de passe doit contenir une majuscule , une minuscule, et au moins 8 caractères "
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z\d]{8,}$/",
+     *     message="Votre mot de passe doit contenir une Majuscule, une minuscule et 8 caractères minimum !"
+     * )
+     *  @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "Votre mot de passe doit comporter au moins  {{ limit }} caratères",
+     *      maxMessage = "Votre mot de passe ne peut pas dépasser  {{ limit }} caractères"
      * )
      * @Assert\NotBlank()
      * @var string The hashed password
@@ -57,14 +63,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    private $resetPasswordToken;
 
     /**
      * @ORM\Column(type="boolean")
@@ -82,6 +93,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tricks;
 
     /**
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9\-éàèùê'_ç]+$/",
+     *     message="Votre pseudo doit être valide"
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Votre pseudo doit comporter au moins  {{ limit }} caratères",
+     *      maxMessage = "Votre pseudo ne peut pas dépasser  {{ limit }} caractères"
+     * )
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
@@ -204,13 +225,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->token;
     }
-
-    public function setToken(string $token): self
+    public function setToken(?string $token): self
     {
         $this->token = $token;
 
         return $this;
     }
+
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function setResetPasswordToken(?string $resetPasswordToken): self
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+
+        return $this;
+    }
+   
+
+    
 
     public function getActivated(): ?bool
     {

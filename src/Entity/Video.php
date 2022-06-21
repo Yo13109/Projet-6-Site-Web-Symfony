@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VideoRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Regex;
 
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
@@ -19,6 +21,11 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url
+     * @Assert\Regex(
+     *     pattern="/^[youtube]*+$/",
+     *     message="Votre video doit venir de Youtube"
+     * )
      */
     private $url;
 

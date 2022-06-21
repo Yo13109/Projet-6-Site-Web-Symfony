@@ -25,6 +25,7 @@ class Commentary
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 4,
      *      max = 255,
@@ -35,6 +36,7 @@ class Commentary
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentary")
+     * @Assert\NotBlank()
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

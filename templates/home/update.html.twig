@@ -6,51 +6,52 @@
 			<div class="card-header">
 				<h3>Modifier un article</h3>
 			</div>
-			<div class="card-content mb-5">
-				{{ form_start(formUpdateTrick) }}
+			<div
+				class="card-content mb-5">
+				{#}	{{ form_start(formUpdateTrick) }}
+									
+													{{ form_row(formUpdateTrick.name)}}
+									
+													{{ form_row(formUpdateTrick.content) }}
+													{{ form_row(formUpdateTrick.category) }}
+													<div class='container'>
+														<div class='row'>
+															{% for picture in trick.pictures %}
+																{% if trick.pictures | length == 0 %}
+																	Salut
+																{% else %}
+									
+									
+																	<div class="">
+																		<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
+																	<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
+									
+									
+																		<i class="far fa-trash-alt right mb-4"></i>
+																		Supprimer la photo
+																	</a>
+																	{% set isMain = false %}
+																	{% if picture.main == 1 %}
+																		<i class="fas fa-star"></i>
+																		{% set isMain = true %}
+																	{% endif %}
+																	{% if isMain == false  %}
+																		<a href="{{path('main_image', {'id':picture.id})}}">
+																			Devenir Main</a>
+																	{% endif %}
+									
+									
+																{% endif %}
+															{% endfor %}
+														</div>
+													</div>
+									
+													{{ form_row(formUpdateTrick.pictures) }}#}
 
-				{{ form_row(formUpdateTrick.name)}}
-
-				{{ form_row(formUpdateTrick.content) }}
-				{{ form_row(formUpdateTrick.category) }}
-				<div class='container'>
-					<div class='row'>
-						{% for picture in trick.pictures %}
-
-							<div class="">
-								<img src={{asset('Image/' ~ picture.filename)}} class="mt-4 mb-4" alt="" height="150" px width="150" px></img>
-							<a href="{{path('delete_image', {'id':picture.id})}}" type="submit" class="btn btn-secondary">
-
-
-								<i class="far fa-trash-alt right mb-4"></i>
-								Supprimer la photo
-							</a>
-							{% set isMain = false %}
-							{% if picture.main == 1 %}
-								<i class="fas fa-star"></i>
-								{% set isMain = true %}
-							{% endif %}
-							{% if isMain == false  %}
-								<a href="{{path('main_image', {'id':picture.id})}}">
-									Devenir Main</a>
-							{% endif %}
-
-							
-						</div>
-
-
-					{% endfor %}
-				</div>
+				{{include('home/_formupdatetrick.html.twig',{form:formUpdateTrick,'button_label':'Mettre à jour'})}}
 			</div>
-
-			{{ form_row(formUpdateTrick.pictures) }}
-
-
+		
 		</div>
 
-		<button type="submit" class="btn btn-success">
-			Enregistrer</button>
-		{{ form_end(formUpdateTrick) }}
 
-	</div>
-</div>{% endblock %}
+	{% endblock %}

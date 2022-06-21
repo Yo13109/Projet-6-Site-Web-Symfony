@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+	<p>
+		Bonjour
+	</p>
+	<p>Pour génerer un nouveau mot de passe, cliquez sur le lien ci-dessous</p>
+	<br>
+	<br>
+
+
+	<div class="
+    col-offset-5 mt-5 mb-4">
+		<a href="{{ url('reset_password', {resetPasswordToken:resetPasswordToken}) }}">
+			Cliquez ici pour generer un nouveau mot de passe
+		</a>
+	</div>
+
+
+{% endblock %}

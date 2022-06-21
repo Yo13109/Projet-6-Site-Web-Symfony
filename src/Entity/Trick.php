@@ -24,6 +24,12 @@ class Trick
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 255,
+     *      minMessage = "le nom de votre figure est trop courte!",
+     *      maxMessage = "Le nom de votre figure est trop longue !")
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
@@ -40,6 +46,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 8,
      *      max = 255,
@@ -61,12 +68,12 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick",cascade={"persist"},orphanRemoval=true)
      */
     private $video;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="trick",cascade={"persist"})
      */
     private $comments;
 
