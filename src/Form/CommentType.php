@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CommentType extends AbstractType
@@ -16,7 +17,10 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $option)
     {
         $builder
-            ->add('content', TextareaType::class);
+            ->add('content', TextareaType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Ajouter votre commentaire !'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

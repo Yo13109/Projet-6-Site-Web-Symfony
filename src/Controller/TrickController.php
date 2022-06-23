@@ -114,6 +114,7 @@ class TrickController extends AbstractController
         $comment = new Commentary();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $comment
