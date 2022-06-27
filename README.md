@@ -1,11 +1,11 @@
 # Projet-6-Site-Web-Symfony
 # [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e5c6f67390da4db99cccb5f9a1ee3d9b)](https://www.codacy.com/gh/Yo13109/Projet-6-Site-Web-Symfony/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Yo13109/Projet-6-Site-Web-Symfony&amp;utm_campaign=Badge_Grade)
 
-# Instalation de l'application
+# Installation de l'application
 
 
 # 1.git clone https://github.com/Yo13109/Projet-6-Site-Web-Symfony.git
- 2. composer install
+ # 2. composer install
  3. configurer la connexion BDD sur le fichier .env fichier
  4. demarrer le serveur Php +  le dossier wamp 
  5. command -> symfony serve
@@ -21,4 +21,4 @@
 
 
 
-# Configuration de l'application
+ Configuration de l'application
