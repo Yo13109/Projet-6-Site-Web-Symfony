@@ -36,7 +36,6 @@ class Commentary
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentary")
-     * @Assert\NotBlank()
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

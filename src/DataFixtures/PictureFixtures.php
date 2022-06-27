@@ -34,11 +34,11 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
                 'tricks' => 5
             ],
             6 => [
-                'filename' => 'backsideAir.jpg',
+                'filename' => 'toto.jpg',
                 'tricks' => 6
             ],
             7 => [
-                'filename' => 'Boardslide.jpeg',
+                'filename' => 'Boardslide.jpg',
                 'tricks' => 7
             ],
             8 =>  [
