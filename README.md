@@ -4,8 +4,8 @@
 # Installation de l'application
 
 
-# 1.git clone https://github.com/Yo13109/Projet-6-Site-Web-Symfony.git
- # 2. composer install
+ 1.git clone https://github.com/Yo13109/Projet-6-Site-Web-Symfony.git
+ 2. composer install
  3. configurer la connexion BDD sur le fichier .env fichier
  4. demarrer le serveur Php +  le dossier wamp 
  5. command -> symfony serve
